@@ -44,6 +44,31 @@ namespace PorterAndMoon.Controllers
             return productsList;
         }
 
+        [HttpGet("{id}")]
+        public Products GetSingleProduct(int id)
+        {
+            using (var connection = new SqlConnection("Server = localhost; Database = PorterAndMoon; Trusted_Connection = True;"))
+            {
+                connection.Open();
+                var getProductCommand = connection.CreateCommand();
+                getProductCommand.CommandText = "Select * From Product Where Id = @Id";
+                getProductCommand.Parameters.AddWithValue("Id", id);
+                var reader = getProductCommand.ExecuteReader();
+                if (reader.Read())
+                {
+                    var type = (int)reader["Type"];
+                    var description = reader["Description"].ToString();
+                    var quantity = (decimal)reader["Quantity"];
+                    var sellerId = (int)reader["SellerId"];
+                    var price = (decimal)reader["Price"];
+                    var title = reader["Title"].ToString();
+                    var product = new Products(type, description, quantity, sellerId, price, title);
+                    return product;
+                }
+                throw new Exception("Can't find that product");
+            }
+        }
+
         [HttpPost]
         public Products AddNewProduct(Products newProduct)
         {
