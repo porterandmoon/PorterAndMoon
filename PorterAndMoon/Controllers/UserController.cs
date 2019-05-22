@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PorterAndMoon.Data;
+using PorterAndMoon.Models;
 
 namespace PorterAndMoon.Controllers
 {
@@ -38,10 +39,12 @@ namespace PorterAndMoon.Controllers
             return Ok(users);
         }
 
-        [HttpPost("{id}")]
-        public ActionResult RegisterUser(int id)
+        [HttpPost]
+        public ActionResult RegisterUser(RegisterCustomer newCustomer)
         {
-            throw new NotImplementedException();
+            var registrationInfo = _repository.RegisterCustomer(newCustomer);
+
+            return Created($"/api/user/{registrationInfo.Id}", registrationInfo);
         }
 
 

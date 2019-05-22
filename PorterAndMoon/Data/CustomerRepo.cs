@@ -53,5 +53,57 @@ namespace PorterAndMoon.Data
             }
                 throw new Exception("Something went wrong getting the users");
         }
+
+        public SingleCustomer RegisterCustomer(RegisterCustomer newCustomer)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var doesUNameExist = CheckIfUsernameExists(db, newCustomer.UserName);
+                
+                if(!doesUNameExist)
+                {
+                    var insertQuery = @"INSERT Into Customer (Username, FirstName, LastName, CreationDate)
+                                        OUTPUT Inserted.*
+                                        VALUES (@username, @firstname, @lastname, @creationDate)";
+                    var parameters = new
+                    {
+                        username = newCustomer.UserName,
+                        firstname = newCustomer.FirstName,
+                        lastname = newCustomer.LastName,
+                        creationDate = DateTime.Now
+                    };
+
+                    var createdUser = db.QuerySingle<SingleCustomer>(insertQuery, parameters);
+                }
+                else
+                {
+                    throw new Exception("This username already exists");
+                }
+            }
+            throw new Exception("We could not register you as a user");
+        }
+
+        public bool CheckIfUsernameExists(string username)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+
+                var selectQuery = @"SELECT Username
+                                FROM Customer
+                                Where Username = @username";
+                var parameters = new { username = username };
+
+                var usernameMatch = db.Query<string>(selectQuery, parameters);
+
+                if (usernameMatch.Count() < 1)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
     }
 }
