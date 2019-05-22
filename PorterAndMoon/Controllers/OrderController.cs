@@ -34,12 +34,20 @@ namespace PorterAndMoon.Controllers
             return Accepted(order);
         }
 
-        [HttpDelete("{Id}")]
-        public ActionResult DeleteOrder(int Id)
-        {
-            var order = _connections.RemoveOrder(Id);
-            return Accepted(order);
-        }
+        //[HttpDelete("{Id}")]
+        //public ActionResult DeleteOrder(int Id)
+        //{
+        //    var order = _connections.RemoveOrder(Id);
+        //    return Accepted(order);
+        //}
+
+
+        /*
+        Pass the order into the body
+        IsCompleted - bool,
+        PaymentId - int,
+        CustomerId - int
+        */
 
         [HttpPost]
         public ActionResult PostOrder(Order newOrder)
