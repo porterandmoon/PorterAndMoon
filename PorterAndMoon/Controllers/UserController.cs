@@ -29,10 +29,13 @@ namespace PorterAndMoon.Controllers
             return Ok(user);
         }
 
+        // === Get all Customers ===
         [HttpGet]
         public ActionResult GetAllUsers()
         {
-            throw new NotImplementedException();
+            var users = _repository.GetAllUsers();
+
+            return Ok(users);
         }
 
         [HttpPost("{id}")]

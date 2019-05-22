@@ -36,5 +36,22 @@ namespace PorterAndMoon.Data
             }
             throw new Exception("We could not retreive that User from the database");
         }
+
+        public List<CustomerLite> GetAllUsers()
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                string selectQuery = @"SELECT *
+                                       FROM Customer";
+
+                var users = db.Query<CustomerLite>(selectQuery).ToList();
+
+                if(users != null)
+                {
+                    return users;
+                }
+            }
+                throw new Exception("Something went wrong getting the users");
+        }
     }
 }
