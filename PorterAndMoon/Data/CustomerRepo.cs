@@ -14,6 +14,7 @@ namespace PorterAndMoon.Data
         readonly string _connectionString;
         public CustomerRepo(IOptions<DbConfiguration> dbConfig)
         {
+            // builds ConnectionString from appsettings.json
             _connectionString = dbConfig.Value.ConnectionString;
         }
 
@@ -24,12 +25,11 @@ namespace PorterAndMoon.Data
                 string selectQuery = @"SELECT *
                                        FROM Customer
                                        WHERE Id = @id";
-
                 var parameters = new { id = id };
 
                 var user = db.QuerySingleOrDefault<SingleCustomer>(selectQuery, parameters);
 
-                if(user != null)
+                if (user != null)
                 {
                     return user;
                 }

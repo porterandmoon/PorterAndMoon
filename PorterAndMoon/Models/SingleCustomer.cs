@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace PorterAndMoon.Models
 {
+    // All Collumns
     public class SingleCustomer
     {
         public int Id { get; }
