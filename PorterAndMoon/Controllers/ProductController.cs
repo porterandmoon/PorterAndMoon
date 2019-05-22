@@ -77,5 +77,32 @@ namespace PorterAndMoon.Controllers
                 throw new Exception("Not a valid product");
             }
         }
+
+        [HttpDelete("{id}")]
+        public Products DeleteProduct(int id)
+        {
+            using (var connection = new SqlConnection("Server = localhost; Database = PorterAndMoon; Trusted_Connection = True;"))
+            {
+                connection.Open();
+                var deleteProductCommand = connection.CreateCommand();
+                deleteProductCommand.CommandText = "Delete From Product Output Deleted.* Where Id = @id";
+                deleteProductCommand.Parameters.AddWithValue("id", id);
+                var reader = deleteProductCommand.ExecuteReader();
+                if (reader.Read())
+                {
+                    var type = (int)reader["Type"];
+                    var description = reader["Description"].ToString();
+                    var quantity = (decimal)reader["Quantity"];
+                    var sellerId = (int)reader["SellerId"];
+                    var price = (decimal)reader["Price"];
+                    var title = reader["Title"].ToString();
+                    var product = new Products(type, description, quantity, sellerId, price, title);
+
+                    connection.Close();
+                    return product;
+                }
+                throw new Exception("Can't find product to delete");
+            }
+        }
     }
 }
