@@ -43,5 +43,39 @@ namespace PorterAndMoon.Controllers
 
             return productsList;
         }
+
+        [HttpPost]
+        public Products AddNewProduct(Products newProduct)
+        {
+            using (var connection = new SqlConnection("Server = localhost; Database = PorterAndMoon; Trusted_Connection = True;"))
+            {
+                connection.Open();
+                var addProductCommand = connection.CreateCommand();
+                addProductCommand.CommandText = @"Insert into Product(Type, Description, Quantity, SellerId, Price, Title)
+                                        Output inserted.* 
+                                        Values(@Type, @Description, @Quantity, @SellerId, @Price, @Title)";
+                addProductCommand.Parameters.AddWithValue("Type", newProduct.Type);
+                addProductCommand.Parameters.AddWithValue("Description", newProduct.Description);
+                addProductCommand.Parameters.AddWithValue("Quantity", newProduct.Quantity);
+                addProductCommand.Parameters.AddWithValue("SellerId", newProduct.SellerId);
+                addProductCommand.Parameters.AddWithValue("Price", newProduct.Price);
+                addProductCommand.Parameters.AddWithValue("Title", newProduct.Title);
+
+                var reader = addProductCommand.ExecuteReader();
+                if (reader.Read())
+                {
+                    var addType = (int)reader["Type"];
+                    var addDescription = reader["Description"].ToString();
+                    var addQuantity = (decimal)reader["Quantity"];
+                    var addSellerId = (int)reader["SellerId"];
+                    var addPrice = (decimal)reader["Price"];
+                    var addTitle = reader["Title"].ToString();
+
+                    var addedProduct = new Products(addType, addDescription, addQuantity, addSellerId, addPrice, addTitle);
+                    return addedProduct;
+                }
+                throw new Exception("Not a valid product");
+            }
+        }
     }
 }
