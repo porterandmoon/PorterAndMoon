@@ -29,6 +29,7 @@ namespace PorterAndMoon
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.Configure<DbConfiguration>(Configuration);
             services.AddTransient<OrderConnections>();
+            services.AddTransient<PaymentConnections>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
