@@ -62,10 +62,15 @@ namespace PorterAndMoon.Controllers
             }
         }
 
+
+        /* === Remove First and Last name
+         * pass the customer's ID to remove personal info from the account */
         [HttpDelete("{id}")]
         public ActionResult PseudoDeleteUser(int id)
         {
-            throw new NotImplementedException();
+            var deletedInfo = _repository.PseudoDeleteUser(id);
+
+            return Ok(deletedInfo);
         }
     }
 }

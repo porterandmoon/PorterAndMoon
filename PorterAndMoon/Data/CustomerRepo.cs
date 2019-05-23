@@ -101,5 +101,19 @@ namespace PorterAndMoon.Data
                 }
             }
         }
+
+        public CustomerUNameAndId PseudoDeleteUser(int id)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var selectQuery = @"UPDATE Customer
+                                    SET FirstName = '', LastName = ''
+                                    OUTPUT inserted.Id, inserted.Username
+                                    Where Id = @Id";
+                var parameters = new { Id = id };
+
+                return db.QuerySingleOrDefault<CustomerUNameAndId>(selectQuery, parameters);
+            }
+        }
     }
 }
