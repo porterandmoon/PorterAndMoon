@@ -28,7 +28,7 @@ namespace PorterAndMoon.Connections
                                        WHERE Id = @id";
                 var parameters = new { id = id };
 
-                var user = db.QuerySingleOrDefault<ISingleCustomer>(selectQuery, parameters);
+                var user = db.QuerySingleOrDefault<SingleCustomer>(selectQuery, parameters);
 
                 if (user != null)
                 {
@@ -72,7 +72,7 @@ namespace PorterAndMoon.Connections
                         creationDate = DateTime.Now
                     };
 
-                    var createdUser = db.QuerySingle<ISingleCustomer>(insertQuery, parameters);
+                    var createdUser = db.QuerySingle<SingleCustomer>(insertQuery, parameters);
 
                     return createdUser;
             }
@@ -114,6 +114,7 @@ namespace PorterAndMoon.Connections
 
                 return db.QuerySingleOrDefault<CustomerUNameAndId>(selectQuery, parameters);
             }
+            throw new Exception("The selected user data could not be erased");
         }
     }
 }
