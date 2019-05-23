@@ -30,9 +30,6 @@ namespace PorterAndMoon
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.Configure<DbConfiguration>(Configuration);
             services.AddTransient<OrderConnections>();
-
-            services.Configure<DbConfiguration>(Configuration);
-
             services.AddTransient<CustomerRepo>();
 
             // In production, the React files will be served from this directory
@@ -76,10 +73,5 @@ namespace PorterAndMoon
                 }
             });
         }
-    }
-
-    public class DbConfiguration
-    {
-        public string ConnectionString { get; set; }
     }
 }

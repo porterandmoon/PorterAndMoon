@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using System.Data.SqlClient;
 using PorterAndMoon.Models;
+using PorterAndMoon.Interface;
 
 namespace PorterAndMoon.Data
 {
@@ -54,11 +55,11 @@ namespace PorterAndMoon.Data
                 throw new Exception("Something went wrong getting the users");
         }
 
-        public SingleCustomer RegisterCustomer(RegisterCustomer newCustomer)
+        public ISingleCustomer RegisterCustomer(RegisterCustomer newCustomer)
         {
             using (var db = new SqlConnection(_connectionString))
             {
-                var doesUNameExist = CheckIfUsernameExists(db, newCustomer.UserName);
+                var doesUNameExist = CheckIfUsernameExists(newCustomer.UserName);
                 
                 if(!doesUNameExist)
                 {
@@ -74,10 +75,12 @@ namespace PorterAndMoon.Data
                     };
 
                     var createdUser = db.QuerySingle<SingleCustomer>(insertQuery, parameters);
+
+                    return createdUser;
                 }
                 else
                 {
-                    throw new Exception("This username already exists");
+                    throw new Exception();  //ISingleCustomer{ Id = null, UserName = null, FirstName = null, LastName = null, CreationDate = null }
                 }
             }
             throw new Exception("We could not register you as a user");
