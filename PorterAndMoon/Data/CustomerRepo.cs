@@ -19,7 +19,7 @@ namespace PorterAndMoon.Data
             _connectionString = dbConfig.Value.ConnectionString;
         }
 
-        public SingleCustomer GetUser(int id)
+        public ISingleCustomer GetUser(int id)
         {
             using (var db = new SqlConnection(_connectionString))
             {
@@ -28,7 +28,7 @@ namespace PorterAndMoon.Data
                                        WHERE Id = @id";
                 var parameters = new { id = id };
 
-                var user = db.QuerySingleOrDefault<SingleCustomer>(selectQuery, parameters);
+                var user = db.QuerySingleOrDefault<ISingleCustomer>(selectQuery, parameters);
 
                 if (user != null)
                 {
@@ -72,7 +72,7 @@ namespace PorterAndMoon.Data
                         creationDate = DateTime.Now
                     };
 
-                    var createdUser = db.QuerySingle<SingleCustomer>(insertQuery, parameters);
+                    var createdUser = db.QuerySingle<ISingleCustomer>(insertQuery, parameters);
 
                     return createdUser;
             }

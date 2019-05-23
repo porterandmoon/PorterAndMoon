@@ -39,6 +39,12 @@ namespace PorterAndMoon.Controllers
             return Ok(users);
         }
 
+        /* === Register a new user ===
+         * Must pass: 
+         *   * "UserName" - string
+         *   * "FirstName" - string
+         *   * "LastName" - string
+         */
         [HttpPost]
         public ActionResult RegisterUser(RegisterCustomer newCustomer)
         {
@@ -54,13 +60,6 @@ namespace PorterAndMoon.Controllers
             {
                 return Conflict("This Username already exists");
             }
-        }
-
-
-        [HttpPatch("{id}")]
-        public ActionResult UpdateUser(int id)
-        {
-            throw new NotImplementedException();
         }
 
         [HttpDelete("{id}")]
