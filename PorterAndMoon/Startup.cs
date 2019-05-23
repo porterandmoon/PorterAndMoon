@@ -5,10 +5,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+<<<<<<< HEAD
 using PorterAndMoon.Data;
+=======
+using PorterAndMoon.Connections;
+>>>>>>> master
 
 namespace PorterAndMoon
 {
+    public class DbConfiguration
+    {
+        public string ConnectionString { get; set; }
+    }
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -22,6 +31,8 @@ namespace PorterAndMoon
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.Configure<DbConfiguration>(Configuration);
+            services.AddTransient<OrderConnections>();
 
             services.Configure<DbConfiguration>(Configuration);
 
