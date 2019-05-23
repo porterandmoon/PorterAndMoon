@@ -56,10 +56,11 @@ namespace PorterAndMoon.Controllers
             return Accepted(order);
         }
 
-        [HttpPut]
-        public ActionResult EditOrder()
+        [HttpPut("paid/{Id}")]
+        public ActionResult FinalizeOrder(int Id)
         {
-            return Accepted("Not yet implemented.");
+            var order = _connections.CompleteOrder(Id);
+            return Accepted(order);
         }
     }
 }
