@@ -79,5 +79,22 @@ namespace PorterAndMoon.Connections
         //        throw new Exception("Uhh uhh uhhh, didn't say the magic word.");
         //    }
         //}
+
+        public Order CompleteOrder(int id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var queryString = @"Update [Order]
+                                    Set IsCompleted = 1
+                                    Output inserted.*
+                                    Where Id = @Id";
+                var order = connection.QueryFirstOrDefault<Order>(queryString, new { id });
+                if (order != null)
+                {
+                    return order;
+                }
+                throw new Exception("Uhh uhh uhhh, didn't say the magic word.");
+            }
+        }
     }
 }
