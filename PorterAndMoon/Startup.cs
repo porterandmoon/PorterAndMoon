@@ -5,9 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PorterAndMoon.Connections;
 
 namespace PorterAndMoon
 {
+    public class DbConfiguration
+    {
+        public string ConnectionString { get; set; }
+    }
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -21,6 +27,8 @@ namespace PorterAndMoon
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.Configure<DbConfiguration>(Configuration);
+            services.AddTransient<OrderConnections>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
