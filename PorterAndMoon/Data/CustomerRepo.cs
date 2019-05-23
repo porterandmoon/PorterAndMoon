@@ -61,8 +61,6 @@ namespace PorterAndMoon.Data
             {
                 var doesUNameExist = CheckIfUsernameExists(newCustomer.UserName);
                 
-                if(!doesUNameExist)
-                {
                     var insertQuery = @"INSERT Into Customer (Username, FirstName, LastName, CreationDate)
                                         OUTPUT Inserted.*
                                         VALUES (@username, @firstname, @lastname, @creationDate)";
@@ -77,11 +75,6 @@ namespace PorterAndMoon.Data
                     var createdUser = db.QuerySingle<SingleCustomer>(insertQuery, parameters);
 
                     return createdUser;
-                }
-                else
-                {
-                    throw new Exception();  //ISingleCustomer{ Id = null, UserName = null, FirstName = null, LastName = null, CreationDate = null }
-                }
             }
             throw new Exception("We could not register you as a user");
         }

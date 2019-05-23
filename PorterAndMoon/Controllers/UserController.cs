@@ -42,9 +42,18 @@ namespace PorterAndMoon.Controllers
         [HttpPost]
         public ActionResult RegisterUser(RegisterCustomer newCustomer)
         {
-            var registrationInfo = _repository.RegisterCustomer(newCustomer);
+            bool UsernameExists = _repository.CheckIfUsernameExists(newCustomer.UserName);
 
-            return Created($"/api/user/{registrationInfo.Id}", registrationInfo);
+            if (!UsernameExists)
+            {
+                var registrationInfo = _repository.RegisterCustomer(newCustomer);
+
+                return Created($"/api/user/{registrationInfo.Id}", registrationInfo);
+            }
+            else
+            {
+                return Conflict("This Username already exists");
+            }
         }
 
 
