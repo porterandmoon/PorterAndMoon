@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 using PorterAndMoon.Models;
 using PorterAndMoon.Interface;
 
-namespace PorterAndMoon.Data
+namespace PorterAndMoon.Connections
 {
     public class CustomerRepo
     {
