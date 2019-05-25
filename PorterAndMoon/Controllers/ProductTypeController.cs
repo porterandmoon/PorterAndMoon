@@ -30,7 +30,7 @@ namespace PorterAndMoon.Controllers
         }
 
 
-        /* === Gets Specified Product
+        /* === Gets Specified Product ===
          * Pass the ProductType ID in the URL
          */
         [HttpGet("{id}")]
@@ -41,12 +41,23 @@ namespace PorterAndMoon.Controllers
             return Ok(type);
         }
 
+        /* === Create New Product Type ===
+         * Pass the Key "name" with a string value
+         */
         [HttpPost]
         public ActionResult AddType(NewType newType)
         {
             var newTypeSuccess = _repository.AddType(newType);
 
             return Created("api/producttype", newTypeSuccess);
+        }
+
+        [HttpPut]
+        public ActionResult UpdateType(ProductType updatedType)
+        {
+            var updateSuccessInfo = _repository.UpdateType(updatedType);
+
+            return Ok(updateSuccessInfo);
         }
     }
 }

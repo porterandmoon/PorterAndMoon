@@ -71,5 +71,28 @@ namespace PorterAndMoon.Connections
             }
             throw new Exception("error getting product types");
         }
+
+        public ProductType UpdateType(ProductType updatedType)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                string selectQuery = @"UPDATE ProductType
+                                       SET name = @name
+                                       OUTPUT inserted.*
+                                       WHERE Id = @id";
+
+                var parameters = new { name = updatedType.Name, id = updatedType.Id };
+
+                var productType = db.QueryFirstOrDefault<ProductType>(selectQuery, parameters);
+
+                if (productType != null)
+                {
+                    return productType;
+                }
+            }
+            throw new Exception("error getting product types");
+
+        }
+
     }
 }
