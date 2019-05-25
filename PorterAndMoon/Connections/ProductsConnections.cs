@@ -73,5 +73,20 @@ namespace PorterAndMoon.Connections
                 throw new Exception("Can't delete that product");
             }
         }
+
+        public ProductQuantity UpdateQuantity(ProductQuantity updatedQuantity)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var queryString = @"Update Product
+                                    Set quantity = @quantity
+                                    output inserted.*
+                                    Where id = @id";
+                var updatedProduct = connection.QueryFirstOrDefault<ProductQuantity>(queryString, new { quantity = updatedQuantity.Quantity, id = updatedQuantity.Id });
+                return updatedProduct;
+            }
+
+            throw new Exception("Could not update product quantity");
+        }
     }
 }
