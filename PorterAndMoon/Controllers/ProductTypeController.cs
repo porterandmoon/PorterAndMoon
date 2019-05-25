@@ -52,6 +52,9 @@ namespace PorterAndMoon.Controllers
             return Created("api/producttype", newTypeSuccess);
         }
 
+        /* === Update an existing Product Type ===
+         * Pass the Key "id" and "name". The only value that can be updated is the name
+         */
         [HttpPut]
         public ActionResult UpdateType(ProductType updatedType)
         {
@@ -60,6 +63,9 @@ namespace PorterAndMoon.Controllers
             return Ok(updateSuccessInfo);
         }
 
+        /* === Deletes a Product Type
+         * Pass the Id into the URL
+         */
         [HttpDelete("{id}")]
         public ActionResult DeleteType(int id)
         {
