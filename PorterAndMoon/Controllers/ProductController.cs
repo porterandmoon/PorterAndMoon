@@ -36,12 +36,12 @@ namespace PorterAndMoon.Controllers
         }
 
 
-        //[HttpPost]
-        //public Products AddNewProduct(Products newProduct)
-        //{
-        //    var product = _connections.AddNewProduct(newProduct);
-        //    return Accepted(product);
-        //}
+        [HttpPost]
+        public ActionResult AddNewProduct(Products newProduct)
+        {
+            var product = _connections.AddNewProduct(newProduct);
+            return Accepted(product);
+        }
 
 
         [HttpDelete("{id}")]
