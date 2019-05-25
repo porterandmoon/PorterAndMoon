@@ -18,19 +18,13 @@ namespace PorterAndMoon.Connections
             ConnectionString = dbConfig.Value.ConnectionString;
         }
 
-        public IEnumerable<ProductsConnections> GetAllProducts()
+        public IEnumerable<Products> GetAllProducts()
         {
             var connection = new SqlConnection(ConnectionString);
             var queryString = @"Select *
                                     From [Product]";
-            var products = connection.Query<ProductsConnections>(queryString);
-
-            if (products != null)
-            {
-                return products;
-            }
-
-            throw new Exception("error getting all products list");
+            var products = connection.Query<Products>(queryString).ToList();
+            return products;
         }
 
         public Products GetSingleProduct(int id)
