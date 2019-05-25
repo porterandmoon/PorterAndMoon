@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PorterAndMoon.Models
 {
-    public class Products
+    public class NewProduct
     {
         public int Type { get; set; }
         public string Description { get; set; }
@@ -13,7 +13,5 @@ namespace PorterAndMoon.Models
         public int SellerId { get; set; }
         public decimal Price { get; set; }
         public string Title { get; set; }
-        public int Id { get; set; }
-  
     }
 }

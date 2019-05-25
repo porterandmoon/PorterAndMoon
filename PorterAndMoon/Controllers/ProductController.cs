@@ -48,7 +48,7 @@ namespace PorterAndMoon.Controllers
              }
          */
         [HttpPost]
-        public ActionResult AddNewProduct(Products newProduct)
+        public ActionResult AddNewProduct(NewProduct newProduct)
         {
             var product = _connections.AddNewProduct(newProduct);
             return Accepted(product);

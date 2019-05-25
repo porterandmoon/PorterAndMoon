@@ -43,7 +43,7 @@ namespace PorterAndMoon.Connections
             }
         }
 
-        public Products AddNewProduct(Products newProduct)
+        public Products AddNewProduct(NewProduct newProduct)
         {
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
