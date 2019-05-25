@@ -72,6 +72,26 @@ namespace PorterAndMoon.Connections
             throw new Exception("error getting product types");
         }
 
+        public ProductType DeleteType(int id)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                string selectQuery = @"DELETE ProductType
+                                       OUTPUT deleted.*
+                                       WHERE Id = @id";
+
+                var parameters = new { id = id };
+
+                var productType = db.QueryFirstOrDefault<ProductType>(selectQuery, parameters);
+
+                if (productType != null)
+                {
+                    return productType;
+                }
+            }
+            throw new Exception("error getting product types");
+        }
+
         public ProductType UpdateType(ProductType updatedType)
         {
             using (var db = new SqlConnection(_connectionString))
@@ -91,8 +111,6 @@ namespace PorterAndMoon.Connections
                 }
             }
             throw new Exception("error getting product types");
-
         }
-
     }
 }

@@ -20,7 +20,7 @@ namespace PorterAndMoon.Controllers
             _repository = repository;
         }
 
-        // === Gets all Product Types
+        // === Gets all Product Types ===
         [HttpGet]
         public ActionResult GetTypes()
         {
@@ -58,6 +58,14 @@ namespace PorterAndMoon.Controllers
             var updateSuccessInfo = _repository.UpdateType(updatedType);
 
             return Ok(updateSuccessInfo);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteType(int id)
+        {
+            var deletedType = _repository.DeleteType(id);
+
+            return Ok(deletedType);
         }
     }
 }
