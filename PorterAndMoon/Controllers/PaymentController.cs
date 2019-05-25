@@ -49,9 +49,10 @@ namespace PorterAndMoon.Controllers
         }
 
         [HttpPut]
-        public ActionResult EditPaymentType(PaymentType oldPayment)
+        public ActionResult EditPaymentType(PaymentType changedPayment)
         {
-            var paymentType = _connections.UpdatePaymentType(oldPayment);
+            _connections.UpdatePaymentType(changedPayment);
+            var paymentType = GetPaymentType(changedPayment.Id);
             return Accepted(paymentType);
         }
     }

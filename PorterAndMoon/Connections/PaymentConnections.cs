@@ -77,22 +77,154 @@ namespace PorterAndMoon.Connections
                 throw new Exception("Uhh uhh uhhh, didn't say the magic word.");
         }
 
-        public PaymentType UpdatePaymentType(PaymentType oldPayment)
+        public PaymentType UpdateCardNumber(PaymentType changedPayment)
         {
             using (var connection = new SqlConnection(ConnectionString)) {
                 var queryString = @"Update Payment
-                                    Set type = @Type, customerId = @CustomerId, cardNumber = @CardNumber, securityNumber = @SecurityNumber,
-                                    routingNumber = @RoutingNumber, bankAccountNumber = @BankAccountNumber, name = @Name,
-                                    isExpired = @IsExpired, expirationDate = @ExpirationDate
+                                    Set cardNumber = @CardNumber
                                     Output inserted.*
                                     Where Id= @Id";
-                var payment = connection.QueryFirstOrDefault<PaymentType>(queryString, oldPayment);
+                var payment = connection.QueryFirstOrDefault<PaymentType>(queryString, changedPayment);
                 if (payment != null)
                 {
                     return payment;
                 }
             }
                 throw new Exception("Uhh uhh uhhh, didn't say the magic word.");
+        }
+
+        public PaymentType UpdateBankAccountNumber(PaymentType changedPayment)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var queryString = @"Update Payment
+                                    Set bankAccountNumber = @BankAccountNumber
+                                    Output inserted.*
+                                    Where Id= @Id";
+                var payment = connection.QueryFirstOrDefault<PaymentType>(queryString, changedPayment);
+                if (payment != null)
+                {
+                    return payment;
+                }
+            }
+            throw new Exception("Uhh uhh uhhh, didn't say the magic word.");
+        }
+
+        public PaymentType UpdateRoutingNumber(PaymentType changedPayment)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var queryString = @"Update Payment
+                                    Set routingNumber = @RoutingNumber
+                                    Output inserted.*
+                                    Where Id= @Id";
+                var payment = connection.QueryFirstOrDefault<PaymentType>(queryString, changedPayment);
+                if (payment != null)
+                {
+                    return payment;
+                }
+            }
+            throw new Exception("Uhh uhh uhhh, didn't say the magic word.");
+        }
+
+        public PaymentType UpdateSecurityNumber(PaymentType changedPayment)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var queryString = @"Update Payment
+                                    Set securityNumber = @SecurityNumber
+                                    Output inserted.*
+                                    Where Id= @Id";
+                var payment = connection.QueryFirstOrDefault<PaymentType>(queryString, changedPayment);
+                if (payment != null)
+                {
+                    return payment;
+                }
+            }
+            throw new Exception("Uhh uhh uhhh, didn't say the magic word.");
+        }
+
+        public PaymentType UpdateExpirationDate(PaymentType changedPayment)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var queryString = @"Update Payment
+                                    Set expirationDate = @ExpirationDate
+                                    Output inserted.*
+                                    Where Id= @Id";
+                var payment = connection.QueryFirstOrDefault<PaymentType>(queryString, changedPayment);
+                if (payment != null)
+                {
+                    return payment;
+                }
+            }
+            throw new Exception("Uhh uhh uhhh, didn't say the magic word.");
+        }
+
+        public PaymentType UpdatePaypalAuth(PaymentType changedPayment)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var queryString = @"Update Payment
+                                    Set paypalAuth = @PaypalAuth
+                                    Output inserted.*
+                                    Where Id= @Id";
+                var payment = connection.QueryFirstOrDefault<PaymentType>(queryString, changedPayment);
+                if (payment != null)
+                {
+                    return payment;
+                }
+            }
+            throw new Exception("Uhh uhh uhhh, didn't say the magic word.");
+        }
+
+        public PaymentType UpdateName(PaymentType changedPayment)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var queryString = @"Update Payment
+                                    Set name = @Name
+                                    Output inserted.*
+                                    Where Id= @Id";
+                var payment = connection.QueryFirstOrDefault<PaymentType>(queryString, changedPayment);
+                if (payment != null)
+                {
+                    return payment;
+                }
+            }
+            throw new Exception("Uhh uhh uhhh, didn't say the magic word.");
+        }
+
+        public void UpdatePaymentType(PaymentType changedPayment)
+        {
+            if (changedPayment.BankAccountNumber != null)
+            {
+                UpdateBankAccountNumber(changedPayment);
+            }
+            if (changedPayment.CardNumber != null)
+            {
+                UpdateCardNumber(changedPayment);
+            }
+            if (changedPayment.ExpirationDate != null)
+            {
+                UpdateExpirationDate(changedPayment);
+            }
+            if (changedPayment.PaypalAuth != null)
+            {
+                UpdatePaypalAuth(changedPayment);
+            }
+            if (changedPayment.RoutingNumber != null)
+            {
+                UpdateRoutingNumber(changedPayment);
+            }
+            if (changedPayment.SecurityNumber != null)
+            {
+                UpdateSecurityNumber(changedPayment);
+            }
+            if (changedPayment.Name != null)
+            {
+                UpdateName(changedPayment);
+            }
         }
     }
 }
