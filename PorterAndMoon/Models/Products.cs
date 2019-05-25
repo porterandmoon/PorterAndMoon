@@ -13,17 +13,6 @@ namespace PorterAndMoon.Models
         public int SellerId { get; set; }
         public decimal Price { get; set; }
         public string Title { get; set; }
-
-        public Products(int type, string description, decimal quantity, int sellerId, decimal price, string title)
-        {
-            Type = type;
-            Description = description;
-            Quantity = quantity;
-            SellerId = sellerId;
-            Price = price;
-            Title = title;
-        }
-
-        
+  
     }
 }
