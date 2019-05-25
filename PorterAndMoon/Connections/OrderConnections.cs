@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Extensions.Options;
-using PorterAndMoon.Models;
+using PorterAndMoon.Models.Order;
 
 namespace PorterAndMoon.Connections
 {
