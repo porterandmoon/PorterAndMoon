@@ -36,12 +36,12 @@ namespace PorterAndMoon.Controllers
         }
 
 
-        [HttpPost]
-        public Products AddNewProduct(Products newProduct)
-        {
-            var product = _connections.AddNewProduct(newProduct);
-            return Accepted(product);
-        }
+        //[HttpPost]
+        //public Products AddNewProduct(Products newProduct)
+        //{
+        //    var product = _connections.AddNewProduct(newProduct);
+        //    return Accepted(product);
+        //}
 
 
         [HttpDelete("{id}")]
@@ -50,27 +50,6 @@ namespace PorterAndMoon.Controllers
             var product = _connections.DeleteProduct(id);
             return Accepted(product);
         }
-
-        //[HttpPut("{id}")]
-        //public Products updateProduct(int id)
-        //{
-        //    using (var connection = new SqlConnection("Server = localhost; Database = PorterAndMoon; Trusted_Connection = True;"))
-        //    {
-        //        connection.Open();
-        //        var updateProductCommand = connection.CreateCommand();
-        //        updateProductCommand.CommandText = "Update Product " +
-        //            "                                   Set [type] = "@type"
-        //                                              ,[description] = "@description"
-        //                                              ,[quantity] = "@quantity"
-        //                                              ,[sellerId] = "@sellerId"
-        //                                              ,[price] = "@price"
-        //                                              ,[title] = "@title"
-        //                                            Output inserted.* Where Id = @id";
-
-
-        //        updateProductCommand.Parameters.AddWithValue("id", id);
-        //    var reader = updateProductCommand.ExecuteReader();
-        //    }
 
     }
     

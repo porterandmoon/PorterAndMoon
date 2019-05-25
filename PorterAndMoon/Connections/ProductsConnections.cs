@@ -18,12 +18,12 @@ namespace PorterAndMoon.Connections
             ConnectionString = dbConfig.Value.ConnectionString;
         }
 
-        public List<ProductsConnections> GetAllProducts()
+        public IEnumerable<ProductsConnections> GetAllProducts()
         {
             var connection = new SqlConnection(ConnectionString);
             var queryString = @"Select *
                                     From [Product]";
-            var products = connection.Query<ProductsConnections>(queryString).ToList();
+            var products = connection.Query<ProductsConnections>(queryString);
 
             if (products != null)
             {
@@ -51,7 +51,7 @@ namespace PorterAndMoon.Connections
 
         public Products AddNewProduct(Products newProduct)
         {
-            using (var connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
 
                 var queryString = @"Insert into Product(Type, Description, Quantity, SellerId, Price, Title)
@@ -63,6 +63,20 @@ namespace PorterAndMoon.Connections
                     return product;
                 }
                 throw new Exception("Can't add a new product");
+            }
+        }
+
+        public Products DeleteProduct(int id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var queryString = @"Delete From Product Output Deleted.* Where Id = @id";
+                var deletedProduct = connection.QueryFirstOrDefault<Products>(queryString, new { id });
+                if (deletedProduct != null)
+                {
+                    return deletedProduct;
+                }
+                throw new Exception("Can't delete that product");
             }
         }
     }
