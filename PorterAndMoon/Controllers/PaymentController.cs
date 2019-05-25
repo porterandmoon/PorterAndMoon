@@ -34,6 +34,10 @@ namespace PorterAndMoon.Controllers
             return Accepted(paymentType);
         }
 
+        /*
+         Pass new payment info into body of request.
+         */
+
         [HttpPost]
         public ActionResult PostPaymentType(PaymentType newPayment)
         {
@@ -47,6 +51,11 @@ namespace PorterAndMoon.Controllers
             var paymentType = _connections.RemovePaymentType(Id);
             return Accepted(paymentType);
         }
+
+        /*
+        Pass any information to update into the body of request 
+        along with the id of the payment to update
+        */
 
         [HttpPut]
         public ActionResult EditPaymentType(PaymentType changedPayment)
