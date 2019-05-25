@@ -57,9 +57,10 @@ namespace PorterAndMoon.Connections
             using (var db = new SqlConnection(_connectionString))
             {
                 string selectQuery = @"INSERT Into ProductType (Name)
-                                       OUTPUT ";
+                                       OUTPUT inserted.*
+                                       VALUES (@name)";
 
-                var parameters = new { Id = id };
+                var parameters = new { name = newType.Name };
 
                 var productType = db.QueryFirstOrDefault<ProductType>(selectQuery, parameters);
 

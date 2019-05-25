@@ -44,8 +44,9 @@ namespace PorterAndMoon.Controllers
         [HttpPost]
         public ActionResult AddType(NewType newType)
         {
-            var newType = _repository.AddType(newType);
+            var newTypeSuccess = _repository.AddType(newType);
 
+            return Created("api/producttype", newTypeSuccess);
         }
     }
 }
