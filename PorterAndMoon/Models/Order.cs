@@ -7,6 +7,7 @@ namespace PorterAndMoon.Models
 {
     public class Order
     {
+        public int Id { get; set; }
         public bool IsRefunded { get; set; }
         public bool IsCompleted { get; set; }
         public int CustomerId { get; set; }

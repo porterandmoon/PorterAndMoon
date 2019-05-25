@@ -31,6 +31,7 @@ namespace PorterAndMoon
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.Configure<DbConfiguration>(Configuration);
             services.AddTransient<OrderConnections>();
+            services.AddTransient<PaymentConnections>();
             services.AddTransient<CustomerRepo>();
             services.AddTransient<ISingleCustomer>(builder => builder.GetService<SingleCustomer>());
 
