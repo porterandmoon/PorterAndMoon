@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PorterAndMoon.Connections;
+using PorterAndMoon.Interface;
+using PorterAndMoon.Models;
 
 namespace PorterAndMoon
 {
@@ -30,6 +32,8 @@ namespace PorterAndMoon
             services.Configure<DbConfiguration>(Configuration);
             services.AddTransient<OrderConnections>();
             services.AddTransient<PaymentConnections>();
+            services.AddTransient<CustomerRepo>();
+            services.AddTransient<ISingleCustomer>(builder => builder.GetService<SingleCustomer>());
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
