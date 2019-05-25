@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PorterAndMoon.Connections;
-using PorterAndMoon.Models;
+using PorterAndMoon.Models.Customer;
 
 namespace PorterAndMoon.Controllers
 {

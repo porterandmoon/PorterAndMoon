@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using System.Data.SqlClient;
-using PorterAndMoon.Models;
+using PorterAndMoon.Models.Customer;
 using PorterAndMoon.Interface;
 
 namespace PorterAndMoon.Connections

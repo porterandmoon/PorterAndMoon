@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PorterAndMoon.Interface;
 
-namespace PorterAndMoon.Models
+namespace PorterAndMoon.Models.Customer
 {
-    // All Collumns
-    public class SingleCustomer : ISingleCustomer
+    public class RegisterCustomer
     {
-        public int Id { get; set; }
         public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime? CreationDate { get; set; }
     }
 }

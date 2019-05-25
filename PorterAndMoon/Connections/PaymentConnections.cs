@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
-using PorterAndMoon.Models;
+using PorterAndMoon.Models.Payment;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
