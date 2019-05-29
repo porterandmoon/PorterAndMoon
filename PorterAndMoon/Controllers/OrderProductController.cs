@@ -20,6 +20,7 @@ namespace PorterAndMoon.Controllers
             _connections = connections;
         }
 
+        // in URL localhost:#####/api/OrderProduct/all
         [HttpGet("All")]
         public ActionResult GetAllOrderProducts()
         {
@@ -27,6 +28,7 @@ namespace PorterAndMoon.Controllers
             return Accepted(orderProductsList);
         }
 
+        // in URL localhost:#####/api/OrderProduct/{id}
         [HttpGet("{Id}")]
         public ActionResult GetSingleOrderProduct(int Id)
         {
@@ -34,7 +36,13 @@ namespace PorterAndMoon.Controllers
             return Accepted(product);
         }
 
-
+        /* in body
+         * {
+	        "ProductId" : "",
+	        "OrderId" : "",
+	        "Quantity" : ""
+             }
+         */
         [HttpPost]
         public ActionResult AddNewOrderProduct(NewOrderProduct newOrderProduct)
         {
@@ -42,7 +50,7 @@ namespace PorterAndMoon.Controllers
             return Accepted(product);
         }
 
-
+        // pass id in body
         [HttpDelete("{id}")]
         public ActionResult DeleteOrderProduct(int id)
         {
@@ -50,6 +58,7 @@ namespace PorterAndMoon.Controllers
             return Accepted(product);
         }
 
+        // pass {"quantity": "", "id" : ""} in body
         [HttpPut]
         public ActionResult updateQuantity(UpdateOrderProductQuantity updatedOrderProduct)
         {
