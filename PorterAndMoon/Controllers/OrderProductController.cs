@@ -50,11 +50,11 @@ namespace PorterAndMoon.Controllers
             return Accepted(product);
         }
 
-        //[HttpPut]
-        //public ActionResult updateQuantity(OrderProductQuantity updatedOrderProduct)
-        //{
-        //    var product = _connections.UpdateProductQuantity(updatedOrderProduct);
-        //    return Accepted(product);
-        //}
+        [HttpPut]
+        public ActionResult updateQuantity(UpdateOrderProductQuantity updatedOrderProduct)
+        {
+            var product = _connections.UpdateQuantity(updatedOrderProduct);
+            return Accepted(product);
+        }
     }
 }

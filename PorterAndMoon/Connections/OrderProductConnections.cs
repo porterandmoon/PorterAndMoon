@@ -73,6 +73,20 @@ namespace PorterAndMoon.Connections
             }
         }
 
+        public UpdateOrderProductQuantity UpdateQuantity(UpdateOrderProductQuantity updatedOrderQuantity)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var queryString = @"Update OrderProduct
+                                    Set quantity = @quantity
+                                    output inserted.*
+                                    Where id = @id";
+                var updatedProduct = connection.QueryFirstOrDefault<UpdateOrderProductQuantity>(queryString, new { quantity = updatedOrderQuantity.Quantity, id = updatedOrderQuantity.Id });
+                return updatedProduct;
+            }
+
+            throw new Exception("Could not update product quantity");
+        }
 
     }
 }
