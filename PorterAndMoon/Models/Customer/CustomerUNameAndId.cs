@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PorterAndMoon.Models
+namespace PorterAndMoon.Models.Customer
 {
     public class CustomerUNameAndId
     {

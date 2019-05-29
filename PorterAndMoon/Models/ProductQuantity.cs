@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace PorterAndMoon.Models
 {
-    public class CustomerLite
+    public class ProductQuantity
     {
-        public int Id { get; }
-        public string Username { get; }
-        public string FirstName { get; }
+        public decimal Quantity { get; set; }
+        public int Id { get; set; }
+
     }
 }
