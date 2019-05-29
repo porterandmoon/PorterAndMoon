@@ -1,20 +1,63 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
+import {
+  BrowserRouter, Route, Redirect, Switch,
+} from 'react-router-dom';
+import axios from Axios;
+
 
 export default class App extends Component {
-  displayName = App.name
+
+  state = {
+    loginStatus: false,
+    pendingUser: true,
+  }
+
+  componentDidMount() {
+    connection();
+    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          loginStatus: true,
+          pendingUser: false,
+        });
+      } else {
+        this.setState({
+          loginStatus: false,
+          pendingUser: false,
+        });
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this.removeListener();
+  }
+
+  const PublicRoute = ({ component: Component, loginStatus, ...rest }) => {
+    const routeChecker = props => (loginStatus === false
+      ? (<Component { ...props } />)
+      : (<Redirect to={{ pathname: '/home', state: { from: props.location } } } />));
+    return <Route {...rest} render={props => routeChecker(props)} />;
+  };
+  
+  const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
+    const routeChecker = props => (loginStatus === true
+      ? (<Component { ...props } />)
+      : (<Redirect to={{ pathname: '/login', state: { from: props.location } } } />));
+    return <Route {...rest} render={props => routeChecker(props)} />;
+  };
 
   render() {
     return (
-      <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetchdata' component={FetchData} />
-      </Layout>
+      <BrowserRouter>
+        <React.Fragment>
+          <Switch>
+            <PrivateRoute path='/' exact component={Home} loginStatus={this.state.loginStatus}/>
+            <PrivateRoute path='/home' component={Home} loginStatus={this.state.loginStatus}/>
+            <PublicRoute path='/' exact component={Home} loginStatus={this.state.loginStatus}/>
+          </Switch>
+        </React.Fragment>
+      </BrowserRouter>
     );
   }
 }
