@@ -42,6 +42,37 @@ namespace PorterAndMoon.Connections
             }
         }
 
+        public OrderProduct AddNewOrderProduct(NewOrderProduct newOrderProduct)
+        {
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+
+                var queryString = @"Insert into OrderProduct(ProductId, OrderId, Quantity)
+                                        Output inserted.* 
+                                        Values(@ProductId, @OrderId, @Quantity)";
+                var product = connection.QueryFirstOrDefault<OrderProduct>(queryString, newOrderProduct);
+                if (product != null)
+                {
+                    return product;
+                }
+                throw new Exception("Can't add a new order product");
+            }
+        }
+
+        public OrderProduct DeleteOrderProduct(int id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var queryString = @"Delete From OrderProduct Output Deleted.* Where Id = @id";
+                var deletedOrderProduct = connection.QueryFirstOrDefault<OrderProduct>(queryString, new { id });
+                if (deletedOrderProduct != null)
+                {
+                    return deletedOrderProduct;
+                }
+                throw new Exception("Can't delete that product");
+            }
+        }
+
 
     }
 }

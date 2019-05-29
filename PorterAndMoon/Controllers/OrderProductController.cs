@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PorterAndMoon.Connections;
+using PorterAndMoon.Models.OrderProduct;
 
 namespace PorterAndMoon.Controllers
 {
@@ -34,20 +35,20 @@ namespace PorterAndMoon.Controllers
         }
 
 
-        //[HttpPost]
-        //public ActionResult AddNewOrderProduct(NewOrderProduct newOrderProduct)
-        //{
-        //    var product = _connections.AddNewOrderProduct(newOrderProduct);
-        //    return Accepted(product);
-        //}
+        [HttpPost]
+        public ActionResult AddNewOrderProduct(NewOrderProduct newOrderProduct)
+        {
+            var product = _connections.AddNewOrderProduct(newOrderProduct);
+            return Accepted(product);
+        }
 
 
-        //[HttpDelete("{id}")]
-        //public ActionResult DeleteOrderProduct(int id)
-        //{
-        //    var product = _connections.DeleteOrderProduct(id);
-        //    return Accepted(product);
-        //}
+        [HttpDelete("{id}")]
+        public ActionResult DeleteOrderProduct(int id)
+        {
+            var product = _connections.DeleteOrderProduct(id);
+            return Accepted(product);
+        }
 
         //[HttpPut]
         //public ActionResult updateQuantity(OrderProductQuantity updatedOrderProduct)
