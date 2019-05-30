@@ -1,5 +1,5 @@
 import React from 'react';
-import registerData from '../../data/registerData';
+import registerData from '../../../data/FirebaseFactory/registerData';
 import './register.scss';
 
 class register extends React.Component {
@@ -12,8 +12,8 @@ class register extends React.Component {
   render() {
     return (
       <div className="register">
-        <div class="jumbotron">
-          <h1 class="display-4">Register a new account.</h1>
+        <div className="jumbotron">
+          <h1 className="display-4">Register a new account.</h1>
           <form>
               <div className="form-group">
                 <label htmlFor="usernameInput">Email</label>

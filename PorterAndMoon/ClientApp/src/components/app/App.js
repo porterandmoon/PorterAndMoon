@@ -3,8 +3,10 @@ import {
   BrowserRouter, Route, Redirect, Switch,
 } from 'react-router-dom';
 import firebase from 'firebase/app';
-import connection from '../../data/connection';
-import Register from '../register/register';
+import connection from '../../data/FirebaseFactory/connection';
+import Register from '../pages/register/register';
+import Profile from '../pages/Profile/Profile';
+import './app.scss';
 
 const PublicRoute = ({ component: Component, loginStatus, ...rest }) => {
   const routeChecker = props => (loginStatus === false
@@ -15,14 +17,14 @@ const PublicRoute = ({ component: Component, loginStatus, ...rest }) => {
 
 const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
   const routeChecker = props => (loginStatus === true
-    ? (<Component { ...props } />)
+    ? (<Component { ...props } loginStatus={loginStatus}/>)
     : (<Redirect to={{ pathname: '/register', state: { from: props.location } } } />));
   return <Route {...rest} render={props => routeChecker(props)} />;
 };
 
  class App extends Component {
   state = {
-    loginStatus: false,
+    loginStatus: true,
     pendingUser: true,
   }
 
@@ -36,7 +38,7 @@ const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
         });
       } else {
         this.setState({
-          loginStatus: false,
+          loginStatus: true,
           pendingUser: false,
         });
       }
@@ -54,6 +56,7 @@ const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
           <Switch>
             <PrivateRoute path='/' exact component={Register} loginStatus={this.state.loginStatus}/>
             <PrivateRoute path='/home' component={Register} loginStatus={this.state.loginStatus}/>
+            <PrivateRoute path='/profile' component={Profile} loginStatus={this.state.loginStatus}/>
             <PublicRoute path='/register' exact component={Register} loginStatus={this.state.loginStatus}/>
           </Switch>
         </React.Fragment>
