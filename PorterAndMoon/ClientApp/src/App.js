@@ -1,20 +1,38 @@
 import React, { Component } from 'react';
 import {
-  BrowserRouter, Route, Redirect, Switch,
+    BrowserRouter,
+    Route,
+    Redirect,
+    Switch,
 } from 'react-router-dom';
-import axios from Axios;
+import Home from './components/pages/Home/Home';
+import firebase from 'firebase';
+import axios from 'axios';
 
+const PublicRoute = ({ component: Component, loginStatus, ...rest }) => {
+    const routeChecker = props => (loginStatus === false
+        ? (<Component {...props} />)
+        : (<Redirect to={{ pathname: '/home', state: { from: props.location } }} />));
+    return <Route {...rest} render={props => routeChecker(props)} />;
+};
+
+const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
+    const routeChecker = props => (loginStatus === true
+        ? (<Component {...props} />)
+        : (<Redirect to={{ pathname: '/login', state: { from: props.location } }} />));
+    return <Route {...rest} render={props => routeChecker(props)} />;
+};
 
 export default class App extends Component {
 
   state = {
-    loginStatus: false,
-    pendingUser: true,
+    loginStatus: true,
+    //pendingUser: true,
   }
 
   componentDidMount() {
-    connection();
-    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+    //connection();
+    /*this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
           loginStatus: true,
@@ -26,26 +44,14 @@ export default class App extends Component {
           pendingUser: false,
         });
       }
-    });
+    });*/
   }
 
   componentWillUnmount() {
     this.removeListener();
   }
 
-  const PublicRoute = ({ component: Component, loginStatus, ...rest }) => {
-    const routeChecker = props => (loginStatus === false
-      ? (<Component { ...props } />)
-      : (<Redirect to={{ pathname: '/home', state: { from: props.location } } } />));
-    return <Route {...rest} render={props => routeChecker(props)} />;
-  };
   
-  const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
-    const routeChecker = props => (loginStatus === true
-      ? (<Component { ...props } />)
-      : (<Redirect to={{ pathname: '/login', state: { from: props.location } } } />));
-    return <Route {...rest} render={props => routeChecker(props)} />;
-  };
 
   render() {
     return (
