@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using PorterAndMoon.Connections;
 using PorterAndMoon.Interface;
-using PorterAndMoon.Models;
+using PorterAndMoon.Models.Customer;
 
 namespace PorterAndMoon
 {
@@ -51,6 +51,9 @@ namespace PorterAndMoon
             services.AddTransient<OrderConnections>();
             services.AddTransient<PaymentConnections>();
             services.AddTransient<CustomerRepo>();
+            services.AddTransient<ProductTypeRepo>();
+            services.AddTransient<ProductsConnections>();
+            services.AddTransient<OrderProductConnections>();
             services.AddTransient<ISingleCustomer>(builder => builder.GetService<SingleCustomer>());
 
             // In production, the React files will be served from this directory
