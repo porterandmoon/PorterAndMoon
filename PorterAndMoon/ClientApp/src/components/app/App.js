@@ -26,22 +26,22 @@ const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
     pendingUser: true,
   }
 
-  // componentDidMount() {
-  //   connection();
-  //   this.removeListener = firebase.auth().onAuthStateChanged((user) => {
-  //     if (user) {
-  //       this.setState({
-  //         loginStatus: true,
-  //         pendingUser: false,
-  //       });
-  //     } else {
-  //       this.setState({
-  //         loginStatus: false,
-  //         pendingUser: false,
-  //       });
-  //     }
-  //   });
-  // }
+  componentDidMount() {
+    connection();
+    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          loginStatus: true,
+          pendingUser: false,
+        });
+      } else {
+        this.setState({
+          loginStatus: false,
+          pendingUser: false,
+        });
+      }
+    });
+  }
 
   componentWillUnmount() {
     this.removeListener();
