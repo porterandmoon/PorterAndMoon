@@ -6,6 +6,7 @@ import {
     Switch,
 } from 'react-router-dom';
 import Home from './components/pages/Home/Home';
+import Profile from './components/pages/Profile/Profile';
 import firebase from 'firebase';
 import axios from 'axios';
 
@@ -58,9 +59,11 @@ export default class App extends Component {
       <BrowserRouter>
         <React.Fragment>
           <Switch>
-            <PrivateRoute path='/' exact component={Home} loginStatus={this.state.loginStatus}/>
             <PrivateRoute path='/home' component={Home} loginStatus={this.state.loginStatus}/>
-            <PublicRoute path='/' exact component={Home} loginStatus={this.state.loginStatus}/>
+            <PrivateRoute path='/' component={Home} loginStatus={this.state.loginStatus}/>
+            <PrivateRoute path='/profile' component={Profile} loginStatus={this.state.loginStatus}/>
+            {/*<PrivateRoute path='/' exact component={Home} loginStatus={this.state.loginStatus}/>*/}
+            <PublicRoute path='/login' exact component={Home} loginStatus={this.state.loginStatus}/>
           </Switch>
         </React.Fragment>
       </BrowserRouter>
