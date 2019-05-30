@@ -9,14 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace PorterAndMoon.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
-    public class SecureControllerBaseController : ControllerBase
+    [ApiController, Authorize]
+    public class SecureControllerBase : ControllerBase
     {
-        [Route("api/[controller]")]
-        [ApiController, Authorize]
-        public class SecureControllerBase : ControllerBase
-        {
-            protected string UserId => User.FindFirst(x => x.Type == "user_id").Value;
-        }
+        protected string UserId => User.FindFirst(x => x.Type == "user_id").Value;
     }
 }
