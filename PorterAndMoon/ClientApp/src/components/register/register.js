@@ -1,4 +1,4 @@
-import { Component } from React;
+import React from 'react';
 import registerData from '../../data/registerData';
 import './register.scss';
 
@@ -11,7 +11,7 @@ class register extends React.Component {
 
   render() {
     return (
-      <Div className="register">
+      <div className="register">
         <div class="jumbotron">
           <h1 class="display-4">Register a new account.</h1>
           <form>
@@ -29,7 +29,9 @@ class register extends React.Component {
               </div>
           </form>
         </div>
-      </Div>
+      </div>
     );
   }
 }
+
+export default register;
