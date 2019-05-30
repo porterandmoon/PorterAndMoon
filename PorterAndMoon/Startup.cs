@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -5,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using PorterAndMoon.Connections;
 using PorterAndMoon.Interface;
 using PorterAndMoon.Models.Customer;
@@ -29,7 +31,23 @@ namespace PorterAndMoon
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.Configure<DbConfiguration>(Configuration);
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+               .AddJwtBearer(options =>
+               {
+                   options.IncludeErrorDetails = true;
+                   options.Authority = "https://securetoken.google.com/porterandmoon";
+                   options.TokenValidationParameters = new TokenValidationParameters
+                   {
+                       ValidateIssuer = true,
+                       ValidIssuer = "https://securetoken.google.com/porterandmoon",
+                       ValidateAudience = true,
+                       ValidAudience = "porterandmoon",
+                       ValidateLifetime = true
+                   };
+               }
+               );
+
+           services.Configure<DbConfiguration>(Configuration);
             services.AddTransient<OrderConnections>();
             services.AddTransient<PaymentConnections>();
             services.AddTransient<CustomerRepo>();
