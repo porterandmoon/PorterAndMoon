@@ -1,7 +1,10 @@
 import React from 'react';
+import { 
+  Button,
+  Badge
+ } from 'reactstrap';
 import ProfileCalls from '../../../data/PortAndMoonFactory/Profile'
-import './Profile.scss';
-
+import './Profile.scss'
 class Profile extends React.Component {
   state = {
     creationDate: undefined,
@@ -33,15 +36,13 @@ class Profile extends React.Component {
     return (
       <div>
         <h1>Profile info</h1>
-        <ul>
-          <li>Username</li>
-          <li>FirstName</li>
-          <li>LastName</li>
-          <li>DateCreated</li>
-          <li>OrderHistoryButton</li>
-          <li>ProductListings</li>
-          <li>PaymentInfoButton</li>
-        </ul>
+        <span className="username">testing <p className="badge badge-info"> {this.state.userName}</p></span>
+        <h6>DateCreated: {this.state.creationDate}</h6>
+        <h4>FirstName: {this.state.firstName}</h4>
+        <h4>LastName: {this.state.lastName}</h4>
+        <Button color="primary">OrderHistoryButton</Button>
+        <Button color="primary">Productbuttonstings</Button>
+        <Button color="primary">PaymentInfoButton</Button>
       </div>
     );
   }
