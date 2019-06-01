@@ -2,6 +2,10 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import axios from 'axios';
+import apiKeys from './apiKeys';
+
+const URL = apiKeys.firebaseKeys.databaseURL;
+const DBURL = 'http://localhost:62990/api';
 
 axios.interceptors.request.use((request) => {
   const token = sessionStorage.getItem('token');
@@ -31,6 +35,17 @@ const createUser = (email, password) => new Promise((resolve, reject) => {
     });
 });
 
+const createUserInDB = (FirstName, LastName, UserName, Uid) => {
+  const newUser = {
+    FirstName,
+    LastName,
+    UserName,
+    Uid
+  }
+  axios.post(`${DBURL}/user`, newUser);
+}
+
 export default {
-  createUser
+  createUser,
+  createUserInDB
 };

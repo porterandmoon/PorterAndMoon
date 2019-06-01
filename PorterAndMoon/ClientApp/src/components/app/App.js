@@ -6,6 +6,7 @@ import firebase from 'firebase/app';
 import connection from '../../data/FirebaseFactory/connection';
 import Register from '../pages/register/register';
 import Profile from '../pages/Profile/Profile';
+import Home from '../home/home';
 import './app.scss';
 
 const PublicRoute = ({ component: Component, loginStatus, ...rest }) => {
@@ -55,8 +56,8 @@ const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
         <React.Fragment>
           <Switch>
             <PrivateRoute path='/' exact component={Register} loginStatus={this.state.loginStatus}/>
-            <PrivateRoute path='/home' component={Register} loginStatus={this.state.loginStatus}/>
             <PrivateRoute path='/profile' component={Profile} loginStatus={this.state.loginStatus}/>
+            <PrivateRoute path='/home' component={Home} loginStatus={this.state.loginStatus}/>
             <PublicRoute path='/register' exact component={Register} loginStatus={this.state.loginStatus}/>
           </Switch>
         </React.Fragment>
