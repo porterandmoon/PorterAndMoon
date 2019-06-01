@@ -1,12 +1,12 @@
-import React, { Component } from './node_modules/react';
+import React, { Component } from 'react';
 import {
   BrowserRouter, Route, Redirect, Switch,
-} from './node_modules/react-router-dom';
-import firebase from './node_modules/firebase/app';
-import connection from '../../data/FirebaseFactory/connection';
-import Register from '../pages/register/register';
-import Profile from '../pages/Profile/Profile';
-import Home from '../home/home';
+} from 'react-router-dom';
+import firebase from 'firebase/app';
+import connection from '../data/FirebaseFactory/connection';
+import Register from '../components/pages/register/register';
+import Profile from '../components/pages/Profile/Profile';
+import Home from '../components/home/home';
 import './app.scss';
 
 const PublicRoute = ({ component: Component, loginStatus, ...rest }) => {
