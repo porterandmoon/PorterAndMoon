@@ -36,7 +36,7 @@ class Profile extends React.Component {
     return (
       <div>
         <h1>Profile info</h1>
-        <span className="username">testing <p className="badge badge-info"> {this.state.userName}</p></span>
+        <Badge color="warning" className="username">{this.state.userName}</Badge>
         <h6>DateCreated: {this.state.creationDate}</h6>
         <h4>FirstName: {this.state.firstName}</h4>
         <h4>LastName: {this.state.lastName}</h4>
