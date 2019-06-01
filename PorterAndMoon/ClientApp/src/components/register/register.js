@@ -3,6 +3,7 @@ import registerData from '../../data/registerData';
 import './register.scss';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import Login from '../login/login';
 
 class register extends React.Component {
   state = {
@@ -32,7 +33,6 @@ class register extends React.Component {
       registerData.createUser(this.state.email, this.state.password)
       .then(() => {
         const uid = firebase.auth().currentUser.uid;
-        console.log(uid);
         registerData.createUserInDB(this.state.firstName, this.state.lastName, this.state.username, uid)
           .then(() => {
             this.props.history.push('/home');
@@ -65,9 +65,10 @@ class register extends React.Component {
   render() {
     return (
       <div className="register">
+        <Login/>
         <div className="jumbotron">
           <h1 className="display-4">Register a new account.</h1>
-          <form>
+          <form className='registerForm'>
               <div className="form-group">
                 <label htmlFor="usernameInput">Username</label>
                 <input type="text" className="form-control" id="usernameInput" placeholder="Enter username" onChange={this.updateField}/>
