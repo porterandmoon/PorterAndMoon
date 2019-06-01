@@ -5,6 +5,7 @@ import {
 import firebase from 'firebase/app';
 import connection from '../../data/connection';
 import Register from '../register/register';
+import Home from '../home/home';
 
 const PublicRoute = ({ component: Component, loginStatus, ...rest }) => {
   const routeChecker = props => (loginStatus === false
@@ -53,7 +54,7 @@ const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
         <React.Fragment>
           <Switch>
             <PrivateRoute path='/' exact component={Register} loginStatus={this.state.loginStatus}/>
-            <PrivateRoute path='/home' component={Register} loginStatus={this.state.loginStatus}/>
+            <PrivateRoute path='/home' component={Home} loginStatus={this.state.loginStatus}/>
             <PublicRoute path='/register' exact component={Register} loginStatus={this.state.loginStatus}/>
           </Switch>
         </React.Fragment>
