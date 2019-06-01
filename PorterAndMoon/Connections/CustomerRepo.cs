@@ -61,14 +61,15 @@ namespace PorterAndMoon.Connections
             {
                 var doesUNameExist = CheckIfUsernameExists(newCustomer.UserName);
                 
-                    var insertQuery = @"INSERT Into Customer (Username, FirstName, LastName, CreationDate)
+                    var insertQuery = @"INSERT Into Customer (Username, FirstName, LastName, CreationDate, Uid)
                                         OUTPUT Inserted.*
-                                        VALUES (@username, @firstname, @lastname, @creationDate)";
+                                        VALUES (@username, @firstname, @lastname, @creationDate, @uid)";
                     var parameters = new
                     {
                         username = newCustomer.UserName,
                         firstname = newCustomer.FirstName,
                         lastname = newCustomer.LastName,
+                        uid = newCustomer.Uid,
                         creationDate = DateTime.Now
                     };
 
