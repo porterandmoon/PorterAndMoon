@@ -6,6 +6,7 @@ import firebase from 'firebase/app';
 import connection from '../../data/connection';
 import Register from '../register/register';
 import Home from '../home/home';
+import './app.scss';
 
 const PublicRoute = ({ component: Component, loginStatus, ...rest }) => {
   const routeChecker = props => (loginStatus === false
