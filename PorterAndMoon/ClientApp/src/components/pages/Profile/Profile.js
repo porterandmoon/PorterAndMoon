@@ -4,12 +4,29 @@ import './Profile.scss';
 
 class Profile extends React.Component {
   state = {
-
+    creationDate: undefined,
+    firstName: undefined,
+    id: undefined,
+    lastName: undefined,
+    userName: undefined
   }
 
 
   componentDidMount() {
-    console.log(ProfileCalls.currentUserInfo());
+    ProfileCalls.currentUserInfo()
+      .then(profileInfo => {
+        const content = profileInfo.data
+          this.setState({
+            creationDate: content.creationDate,
+            firstName: content.firstName,
+            id: content.id,
+            lastName: content.lastName,
+            userName: content.userName
+          });
+        })
+      .catch(err => {
+        console.error(err);
+      });
   }
 
   render() {

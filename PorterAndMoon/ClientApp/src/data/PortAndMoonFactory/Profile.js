@@ -1,13 +1,9 @@
 import axios from 'axios';
 
-const currentUserInfo = () => {
+const currentUserInfo = () => new Promise ((resolve, reject) => {
   axios.get("http://localhost:51450/api/user/1")
-  .then(res => {
-    return res;
-  })
-  .catch(err => {
-    console.error(err);
-  });
-}
+  .then(res => resolve(res))
+  .catch(err => reject(err));
+});
 
 export default { currentUserInfo }
