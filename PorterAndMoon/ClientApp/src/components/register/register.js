@@ -4,6 +4,9 @@ import './register.scss';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import Login from '../login/login';
+import logo from '../../images/rocket3.png';
+import logoText from '../../images/logotext.png';
+import { Button } from 'reactstrap';
 
 class register extends React.Component {
   state = {
@@ -23,6 +26,7 @@ class register extends React.Component {
       case 'firstNameInput' : this.setState({ firstName : val }); break;
       case 'lastNameInput' : this.setState({ lastName : val }); break;
       case 'passwordInput' : this.setState({ password : val }); break; 
+      default : break;
     }
   }
 
@@ -35,7 +39,7 @@ class register extends React.Component {
         const uid = firebase.auth().currentUser.uid;
         registerData.createUserInDB(this.state.firstName, this.state.lastName, this.state.username, uid)
           .then(() => {
-            this.props.history.push('/home');
+            this.props.history.push('/homel');
           });
       })
       .catch((err) => {
@@ -65,33 +69,50 @@ class register extends React.Component {
   render() {
     return (
       <div className="register">
-        <Login/>
-        <div className="jumbotron">
-          <h1 className="display-4">Register a new account.</h1>
+        <div className='container-fluid'>
+          <div className='row'>
+            <div className='col-6'>
+              <div className='logoDiv'>
+                <div className='logoTextDiv'>
+                  <img src={logoText} className='logoText'/>
+                  <p>We've got space... in space</p>
+                </div>              
+                <img src={logo} className='logo'/>
+              </div> 
+            </div>
+            <div className='col-4 spacer'></div>
+            <div className='loginDiv col'>
+              <p className='loginP'>Already a member?</p>
+              <Login location='register'/>
+            </div>   
+          </div>
+        </div>        
+        <div className="jumbotron registerMain">
+          <h3 className="registerTitle">Register a new Porter And Moon account.</h3>
           <form className='registerForm'>
-              <div className="form-group">
+              <div className="form-group registerFormGroup">
                 <label htmlFor="usernameInput">Username</label>
                 <input type="text" className="form-control" id="usernameInput" placeholder="Enter username" onChange={this.updateField}/>
               </div>
-              <div className="form-group">
+              <div className="form-group registerFormGroup">
                 <label htmlFor="emailInput">Email</label>
                 <input type="email" className="form-control" id="emailInput" placeholder="Enter email" onChange={this.updateField}/>
               </div>
-              <div className="form-group">
+              <div className="form-group registerFormGroup">
                 <label htmlFor="passwordInput">Password</label>
                 <input type="password" className="form-control" id="passwordInput" placeholder="Enter password" onChange={this.updateField}/>
               </div>
-              <div className="form-group">
+              <div className="form-group registerFormGroup">
                 <label htmlFor="firstNameInput">First Name</label>
                 <input type="text" className="form-control" id="firstNameInput" placeholder="Enter first name" onChange={this.updateField}/>
               </div>
-              <div className="form-group">
+              <div className="form-group registerFormGroup">
                 <label htmlFor="lastNameInput">Last Name</label>
                 <input type="text" className="form-control" id="lastNameInput" placeholder="Enter last name" onChange={this.updateField}/>
               </div>
           </form>
           <p className='errorMsg'>{this.state.registerError ? this.state.registerError : null}</p>
-          <button onClick={this.addUser}>Register</button>
+          <Button onClick={this.addUser} className='registerButton'>Register</Button>
         </div>
       </div>
     );
