@@ -39,7 +39,21 @@
 #rocketMenu {
   background-color: deepskyblue;
   color: white;
-  position: relative;
+  position: absolute;
   left: 1218px;
   width: 112px;
+  top: 60px;
+}
+
+#destinationMenu {
+  background-color: darkcyan;
+  color: white;
+  position: absolute;
+  left: 1106px;
+  width: 112px;
+  top: 60px;
+}
+
+.destinationItem {
+  height: 45px;
 }

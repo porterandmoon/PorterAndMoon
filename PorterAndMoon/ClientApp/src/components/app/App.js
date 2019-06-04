@@ -58,8 +58,10 @@ const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
           <Switch>
             <PrivateRoute path='/' exact component={Register} loginStatus={this.state.loginStatus}/>
             <PrivateRoute path='/homel' component={Home} loginStatus={this.state.loginStatus}/>
-            <PrivateRoute path='/freightl' component={Freight} loginStatus={this.state.loginStatus}/>
-            <PrivateRoute path='/passengerl' component={Passenger} loginStatus={this.state.loginStatus}/>
+            <PrivateRoute path='/freightl' exact component={Freight} loginStatus={this.state.loginStatus}/>
+            <PrivateRoute path='/passengerl' exact component={Passenger} loginStatus={this.state.loginStatus}/>
+            <PrivateRoute path='/freightl+*' component={Freight} loginStatus={this.state.loginStatus}/>
+            <PrivateRoute path='/passengerl+*' component={Passenger} loginStatus={this.state.loginStatus}/>
             <PublicRoute path='/home' exact component={Home} loginStatus={this.state.loginStatus}/>
             <PublicRoute path='/register' exact component={Register} loginStatus={this.state.loginStatus}/>
           </Switch>
