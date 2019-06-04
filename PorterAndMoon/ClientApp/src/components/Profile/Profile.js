@@ -3,7 +3,7 @@ import {
   Button,
   Badge
  } from 'reactstrap';
-import ProfileCalls from '../../../data/PortAndMoonFactory/Profile';
+import ProfileCalls from '../../data/PortAndMoonFactory/Profile';
 import './Profile.scss';
 class Profile extends React.Component {
   state = {
@@ -16,7 +16,7 @@ class Profile extends React.Component {
 
 
   componentDidMount() {
-    ProfileCalls.currentUserInfo()
+    ProfileCalls.currentUserInfo(this.props.uid)
       .then(profileInfo => {
         const content = profileInfo.data
           this.setState({
@@ -33,6 +33,10 @@ class Profile extends React.Component {
     console.log();
   }
 
+  getToOrderHistory = () => {
+    this.props.history.push("/order-history")
+  }
+
   render() {
     return (
       <div className="profile-container">
@@ -42,7 +46,7 @@ class Profile extends React.Component {
         <h4>FirstName: {this.state.firstName}</h4>
         <h4>LastName: {this.state.lastName}</h4>
         <div>
-          <Button color="primary">OrderHistoryButton</Button>
+          <Button color="primary" onClick={this.getToOrderHistory}>OrderHistoryButton</Button>
           <Button color="primary">Productbuttonstings</Button>
           <Button color="primary">PaymentInfoButton</Button>
         </div>
