@@ -15,23 +15,6 @@ class Profile extends React.Component {
   }
 
 
-  componentDidMount() {
-    ProfileCalls.currentUserInfo(this.props.uid)
-      .then(profileInfo => {
-        const content = profileInfo.data
-          this.setState({
-            creationDate: content.creationDate,
-            firstName: content.firstName,
-            id: content.id,
-            lastName: content.lastName,
-            userName: content.userName
-          });
-        })
-      .catch(err => {
-        console.error(err);
-      });
-    console.log();
-  }
 
   getToOrderHistory = () => {
     this.props.history.push("/order-history")

@@ -7,6 +7,7 @@ import 'firebase/auth';
 import connection from '../../data/FirebaseFactory/connection';
 import Register from '../register/register';
 import Profile from '../Profile/Profile';
+import ProfileCalls from '../../data/PortAndMoonFactory/Profile'
 import Home from '../home/home';
 import OrderHistory from '../OrderHistory/OrderHistory';
 import './app.scss';
@@ -29,15 +30,36 @@ const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
   state = {
     loginStatus: false,
     pendingUser: true,
+    creationDate: undefined,
+    firstName: undefined,
+    id: undefined,
+    lastName: undefined,
+    userName: undefined,
   }
 
   componentDidMount() {
     connection();
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        ProfileCalls.currentUserInfo(user.uid)
+        .then(profileInfo => {
+          const content = profileInfo.data
+            this.setState({
+              creationDate: content.creationDate,
+              firstName: content.firstName,
+              id: content.id,
+              lastName: content.lastName,
+              userName: content.userName
+            });
+          })
+        .catch(err => {
+          console.error(err);
+        });
+  
         this.setState({
           loginStatus: true,
           pendingUser: false,
+        
         });
       } else {
         this.setState({
