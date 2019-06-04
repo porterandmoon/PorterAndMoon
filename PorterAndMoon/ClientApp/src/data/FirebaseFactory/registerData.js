@@ -2,10 +2,9 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import axios from 'axios';
-import apiKeys from './apiKeys';
+import apiKeys from '../apiKeys';
 
-const URL = apiKeys.firebaseKeys.databaseURL;
-const DBURL = 'http://localhost:62990/api';
+const DBURL = apiKeys.firebaseKeys.baseUrl;
 
 axios.interceptors.request.use((request) => {
   const token = sessionStorage.getItem('token');

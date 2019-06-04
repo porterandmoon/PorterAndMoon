@@ -19,14 +19,14 @@ namespace PorterAndMoon.Connections
             _connectionString = dbConfig.Value.ConnectionString;
         }
 
-        public ISingleCustomer GetUser(int id)
+        public ISingleCustomer GetUser(string uid)
         {
             using (var db = new SqlConnection(_connectionString))
             {
                 string selectQuery = @"SELECT *
                                        FROM Customer
-                                       WHERE Id = @id";
-                var parameters = new { id = id };
+                                       WHERE uid = @uid";
+                var parameters = new { uid = uid };
 
                 var user = db.QuerySingleOrDefault<SingleCustomer>(selectQuery, parameters);
 

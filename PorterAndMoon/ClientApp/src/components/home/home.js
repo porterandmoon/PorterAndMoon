@@ -13,11 +13,17 @@ class home extends React.Component {
     this.props.history.push(path);
   }
 
+  getToProfile = () => {
+    this.props.history.push("/profile")
+  }
+
   render() {
     return(<div className='home'>
       <NavbarC historyPusher={this.historyPusher}/>
       You're home
       <button onClick={this.logOut}>Log out</button>
+      <button onClick={this.getToProfile}>Profile</button>
+
     </div>);
   }
 }
