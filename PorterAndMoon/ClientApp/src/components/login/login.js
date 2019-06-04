@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Modal, ModalHeader, ModalBody,
+  Modal, ModalHeader, ModalBody, Button
 } from 'reactstrap';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -25,6 +25,7 @@ class login extends React.Component {
     switch(event.target.id) {
       case 'emailInputLogin' : this.setState({ email : val }); break;
       case 'passwordInputLogin' : this.setState({ password : val }); break; 
+      default : break;
     }
   }
 
@@ -34,7 +35,7 @@ class login extends React.Component {
     if (!this.state.error) {
       firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
-        this.props.history.push('/home');
+        this.historyPusher();
       })
       .catch((err) => {
         if (err.code === 'auth/wrong-password') {
@@ -42,6 +43,14 @@ class login extends React.Component {
         }
       });
     }  
+  }
+
+  historyPusher = () => {
+    if (this.props.location === 'register') {
+      this.props.history.push('/homel');
+    } else {
+      this.props.history.push(`/${this.props.location}l`);
+    }
   }
 
   validate = () => {
@@ -57,12 +66,12 @@ class login extends React.Component {
   render() {
     return(
       <div className='login'>
-        <button onClick={this.toggle}>Login</button>
+        <Button onClick={this.toggle}>Login</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>
-            Login
+          <ModalHeader className='loginM' toggle={this.toggle}>
+            Login to Porter And Moon
           </ModalHeader>
-          <ModalBody>
+          <ModalBody className='loginM'>
             <div>
               <form>
                 <div className="form-group">
@@ -74,7 +83,7 @@ class login extends React.Component {
                   <input type="password" className="form-control" id="passwordInputLogin" placeholder="Enter password" onChange={this.updateField}/>
                 </div>
               </form>
-              <button onClick={this.loginUser}>Login</button>
+              <Button onClick={this.loginUser}>Login</Button>
               <p className='errorMsg'>{this.state.error ? this.state.error : null}</p>
             </div>
           </ModalBody>
