@@ -3,8 +3,8 @@ import {
   Button,
   Badge
  } from 'reactstrap';
-import ProfileCalls from '../../../data/PortAndMoonFactory/Profile'
-import './Profile.scss'
+import ProfileCalls from '../../../data/PortAndMoonFactory/Profile';
+import './Profile.scss';
 class Profile extends React.Component {
   state = {
     creationDate: undefined,
@@ -30,19 +30,22 @@ class Profile extends React.Component {
       .catch(err => {
         console.error(err);
       });
+    console.log();
   }
 
   render() {
     return (
-      <div>
+      <div className="profile-container">
         <h1>Profile info</h1>
         <Badge color="warning" className="username">{this.state.userName}</Badge>
-        <h6>DateCreated: {this.state.creationDate}</h6>
+        <h6 className="date-time">DateCreated: {this.state.creationDate}</h6>
         <h4>FirstName: {this.state.firstName}</h4>
         <h4>LastName: {this.state.lastName}</h4>
-        <Button color="primary">OrderHistoryButton</Button>
-        <Button color="primary">Productbuttonstings</Button>
-        <Button color="primary">PaymentInfoButton</Button>
+        <div>
+          <Button color="primary">OrderHistoryButton</Button>
+          <Button color="primary">Productbuttonstings</Button>
+          <Button color="primary">PaymentInfoButton</Button>
+        </div>
       </div>
     );
   }

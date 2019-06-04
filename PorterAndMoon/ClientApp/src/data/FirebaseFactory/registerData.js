@@ -4,7 +4,6 @@ import 'firebase/auth';
 import axios from 'axios';
 import apiKeys from '../apiKeys';
 
-const URL = apiKeys.firebaseKeys.databaseURL;
 const DBURL = apiKeys.firebaseKeys.baseUrl;
 
 axios.interceptors.request.use((request) => {

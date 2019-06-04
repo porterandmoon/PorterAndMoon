@@ -25,7 +25,7 @@ const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
 
  class App extends Component {
   state = {
-    loginStatus: true,
+    loginStatus: false,
     pendingUser: true,
   }
 
@@ -39,7 +39,7 @@ const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
         });
       } else {
         this.setState({
-          loginStatus: true,
+          loginStatus: false,
           pendingUser: false,
         });
       }
@@ -56,8 +56,8 @@ const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
         <React.Fragment>
           <Switch>
             <PrivateRoute path='/' exact component={Register} loginStatus={this.state.loginStatus}/>
-            <PrivateRoute path='/profile' component={Profile} loginStatus={this.state.loginStatus}/>
-            <PrivateRoute path='/home' component={Home} loginStatus={this.state.loginStatus}/>
+            <PrivateRoute path='/profile' exact component={Profile} loginStatus={this.state.loginStatus}/>
+            <PrivateRoute path='/home' exact component={Home} loginStatus={this.state.loginStatus}/>
             <PublicRoute path='/register' exact component={Register} loginStatus={this.state.loginStatus}/>
           </Switch>
         </React.Fragment>

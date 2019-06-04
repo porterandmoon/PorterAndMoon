@@ -22,10 +22,10 @@ namespace PorterAndMoon.Controllers
 
         /* === Get a single Customer ===
          * Pass the intended customer's ID in the URL to get the user's properties*/
-        [HttpGet("{id}")]
-        public ActionResult GetUser(int id)
+        [HttpGet("{uid}")]
+        public ActionResult GetUser(string uid)
         {
-            var user = _repository.GetUser(id);
+            var user = _repository.GetUser(uid);
 
             return Ok(user);
         }

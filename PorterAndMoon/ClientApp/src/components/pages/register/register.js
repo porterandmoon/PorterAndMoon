@@ -3,7 +3,7 @@ import registerData from '../../../data/FirebaseFactory/registerData';
 import './register.scss';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import Login from '../login/login';
+import Login from '../../login/login'
 
 class register extends React.Component {
   state = {
