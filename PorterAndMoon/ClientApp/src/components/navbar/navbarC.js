@@ -171,9 +171,16 @@ class navbarC extends React.Component {
                 <NavLink onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut} onClick={this.linkClicked} id='homeLink'>
                   <i className="fas fa-home"></i> Home
                 </NavLink>
+                <div>
                 <NavLink onMouseEnter={this.dropDown} onMouseLeave={this.dropDownOut} className={this.state.rocketMenu ? 'hovered' : null} id='rocketLink'>
                   <i className="fas fa-home"></i> Find A Rocket
+                <div id='dropdownMenuDiv'>  
+                {this.state.rocketMenu ? this.rocketMenu() : null}
+                {this.state.destinationMenuF ? this.destinationMenu(true) : null}
+                {this.state.destinationMenuP ? this.destinationMenu(false) : null}
+                </div>
                 </NavLink>
+                </div>
                 <NavLink onClick={this.logoutClicked}
                   onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut}>
                   <i className="fas fa-sign-out-alt"></i> Logout
@@ -181,9 +188,6 @@ class navbarC extends React.Component {
               </NavItem>
             </Nav>
         </Navbar>
-        {this.state.rocketMenu ? this.rocketMenu() : null}
-        {this.state.destinationMenuF ? this.destinationMenu(true) : null}
-        {this.state.destinationMenuP ? this.destinationMenu(false) : null}
       </div>
     );
   }

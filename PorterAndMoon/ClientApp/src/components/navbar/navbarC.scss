@@ -39,21 +39,24 @@
 #rocketMenu {
   background-color: deepskyblue;
   color: white;
-  position: absolute;
-  left: 1218px;
-  width: 112px;
-  top: 60px;
+  height: 120px;
 }
 
 #destinationMenu {
   background-color: darkcyan;
   color: white;
-  position: absolute;
-  left: 1106px;
   width: 112px;
-  top: 60px;
 }
 
 .destinationItem {
   height: 45px;
+}
+
+#dropdownMenuDiv {
+  display: flex;
+  margin-top: 18px;
+}
+
+#rocketLink {
+  width: 120px;
 }
