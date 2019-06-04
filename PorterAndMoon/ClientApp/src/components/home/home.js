@@ -8,10 +8,18 @@ class home extends React.Component {
     firebase.auth().signOut();
   }
 
+  getToProfile = () => {
+    this.props.history.push("/profile")
+  }
+
+
+
   render() {
     return(<div>
       You're home
       <button onClick={this.logOut}>Log out</button>
+      <button onClick={this.getToProfile}>Profile</button>
+
     </div>);
   }
 }

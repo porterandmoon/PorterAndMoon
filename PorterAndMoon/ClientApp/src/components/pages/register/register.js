@@ -1,11 +1,11 @@
 import React from 'react';
-import registerData from '../../data/registerData';
+import registerData from '../../../data/FirebaseFactory/registerData';
 import './register.scss';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import Login from '../login/login';
-import logo from '../../images/rocket3.png';
-import logoText from '../../images/logotext.png';
+import Login from '../../login/login'
+import logo from '../../../images/rocket3.png';
+import logoText from '../../../images/logotext.png';
 import { Button } from 'reactstrap';
 
 class register extends React.Component {
