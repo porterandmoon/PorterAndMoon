@@ -9,12 +9,9 @@ import Register from '../register/register';
 import Profile from '../Profile/Profile';
 import ProfileCalls from '../../data/PortAndMoonFactory/Profile'
 import Home from '../home/home';
-<<<<<<< HEAD:PorterAndMoon/ClientApp/src/components/app/App.js
 import Freight from '../freight/freight';
 import Passenger from '../passenger/passenger';
-=======
 import OrderHistory from '../OrderHistory/OrderHistory';
->>>>>>> master:PorterAndMoon/ClientApp/src/components/App/App.js
 import './app.scss';
 
 const PublicRoute = ({ component: Component, loginStatus, ...rest }) => {
