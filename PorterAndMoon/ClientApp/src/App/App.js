@@ -12,7 +12,7 @@ import './app.scss';
 const PublicRoute = ({ component: Component, loginStatus, ...rest }) => {
   const routeChecker = props => (loginStatus === false
     ? (<Component { ...props } />)
-    : (<Redirect to={{ pathname: '/home', state: { from: props.location } } } />));
+    : (<Redirect to={{ pathname: '/homel', state: { from: props.location } } } />));
   return <Route {...rest} render={props => routeChecker(props)} />;
 };
 
@@ -57,7 +57,8 @@ const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
           <Switch>
             <PrivateRoute path='/' exact component={Register} loginStatus={this.state.loginStatus}/>
             <PrivateRoute path='/profile' exact component={Profile} loginStatus={this.state.loginStatus}/>
-            <PrivateRoute path='/home' exact component={Home} loginStatus={this.state.loginStatus}/>
+            <PrivateRoute path='/homel' component={Home} loginStatus={this.state.loginStatus}/>
+            <PublicRoute path='/home' exact component={Home} loginStatus={this.state.loginStatus}/>
             <PublicRoute path='/register' exact component={Register} loginStatus={this.state.loginStatus}/>
           </Switch>
         </React.Fragment>
