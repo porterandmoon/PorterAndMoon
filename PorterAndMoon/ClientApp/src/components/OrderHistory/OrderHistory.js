@@ -4,7 +4,7 @@ import './OrderHistory.scss';
 class OrderHistory extends React.Component {
   render() {
     return(
-      <div>
+      <div className="order-container">
         hello
       </div>
     );
