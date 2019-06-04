@@ -6,6 +6,8 @@ import firebase from 'firebase/app';
 import connection from '../../data/connection';
 import Register from '../register/register';
 import Home from '../home/home';
+import Freight from '../freight/freight';
+import Passenger from '../passenger/passenger';
 import './app.scss';
 
 const PublicRoute = ({ component: Component, loginStatus, ...rest }) => {
@@ -56,6 +58,8 @@ const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
           <Switch>
             <PrivateRoute path='/' exact component={Register} loginStatus={this.state.loginStatus}/>
             <PrivateRoute path='/homel' component={Home} loginStatus={this.state.loginStatus}/>
+            <PrivateRoute path='/freightl' component={Freight} loginStatus={this.state.loginStatus}/>
+            <PrivateRoute path='/passengerl' component={Passenger} loginStatus={this.state.loginStatus}/>
             <PublicRoute path='/home' exact component={Home} loginStatus={this.state.loginStatus}/>
             <PublicRoute path='/register' exact component={Register} loginStatus={this.state.loginStatus}/>
           </Switch>
