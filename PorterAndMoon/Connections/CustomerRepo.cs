@@ -117,5 +117,25 @@ namespace PorterAndMoon.Connections
             }
             throw new Exception("The selected user data could not be erased");
         }
+
+        public List<CustomerLite> SearchCustomers(string input)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                string selectQuery = @"SELECT *
+                                       FROM Customer
+                                       WHERE username
+                                       LIKE '%' + @input + '%'";
+                var parameters = new { input = input };
+
+                var users = db.Query<CustomerLite>(selectQuery, parameters).ToList();
+
+                if (users != null)
+                {
+                    return users;
+                }
+            }
+            throw new Exception("Something went wrong searching the users");
+        }
     }
 }
