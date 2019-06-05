@@ -3,6 +3,8 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import './home.scss';
 
+import SearchBar from '../SearchBar/SearchBar';
+
 class home extends React.Component {
   logOut = () => {
     firebase.auth().signOut();
@@ -16,6 +18,7 @@ class home extends React.Component {
 
   render() {
     return(<div>
+      <SearchBar />
       You're home
       <button onClick={this.logOut}>Log out</button>
       <button onClick={this.getToProfile}>Profile</button>
