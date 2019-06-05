@@ -45,7 +45,7 @@ namespace PorterAndMoon.Connections
             }
         }
 
-        public List<Order> GetUserOrders(UserOrder id)
+        public List<Order> GetUserOrders(int id)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
@@ -53,7 +53,7 @@ namespace PorterAndMoon.Connections
                                     FROM [Order]
                                     WHERE (customerId = @UserId)
 	                                    and (isCompleted = 1)";
-                var parameters = new { UserId = id.UserId };
+                var parameters = new { UserId = id };
 
                 var matchedOrders = connection.Query<Order>(queryString, parameters).ToList();
 

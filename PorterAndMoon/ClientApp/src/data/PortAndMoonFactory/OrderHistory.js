@@ -4,5 +4,14 @@ import apiKeys from '../apiKeys';
 const baseUrl = apiKeys.baseUrl;
 
 const getCompletedOrders = (customerId) => new Promise((Resolve,Reject) => {
-  axios.get
-})
+  axios.get(`${baseUrl}/order/my-orders`,
+   {
+     params: {
+        userid: 15
+     }
+   })
+    .then((res) => Resolve(res))
+    .catch((rej) => Reject(rej));
+});
+
+export default { getCompletedOrders };
