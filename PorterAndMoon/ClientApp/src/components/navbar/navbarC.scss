@@ -1,0 +1,63 @@
+.hovered {
+  background-color: skyblue !important;
+  color: black !important;
+}
+
+.active {
+  background-color: darkgray !important;
+  color: white !important;
+}
+
+.navbar {
+  width: 100%;
+  padding-bottom: 0;
+  padding-top: 0;
+  padding-right: 0;
+  padding-left: 0;
+  height: 60px;
+  background-color: midnightblue !important;
+}
+
+.logo {
+  width: 40px;
+}
+
+.navLinks {
+  display: flex;
+}
+
+.nav-link {
+  height: 60px;
+  padding-top: 18px;
+}
+
+.navTitle {
+  color: lightgray !important;
+  margin-top: 7px;
+}
+
+#rocketMenu {
+  background-color: deepskyblue;
+  color: white;
+  height: 120px;
+  margin-left: -7px;
+}
+
+#destinationMenu {
+  background-color: darkcyan;
+  color: white;
+  width: 112px;
+}
+
+.destinationItem {
+  height: 45px;
+}
+
+#dropdownMenuDiv {
+  display: flex;
+  margin-top: 18px;
+}
+
+#rocketLink {
+  width: 120px;
+}

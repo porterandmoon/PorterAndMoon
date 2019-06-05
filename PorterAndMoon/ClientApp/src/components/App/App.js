@@ -9,6 +9,8 @@ import Register from '../register/register';
 import Profile from '../Profile/Profile';
 import ProfileCalls from '../../data/PortAndMoonFactory/Profile'
 import Home from '../home/home';
+import Freight from '../freight/freight';
+import Passenger from '../passenger/passenger';
 import OrderHistory from '../OrderHistory/OrderHistory';
 import './app.scss';
 
@@ -92,6 +94,10 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, ...rest 
       <BrowserRouter>
         <React.Fragment>
           <Switch>
+            <PrivateRoute path='/freightl' exact component={Freight} loginStatus={this.state.loginStatus}/>
+            <PrivateRoute path='/passengerl' exact component={Passenger} loginStatus={this.state.loginStatus}/>
+            <PrivateRoute path='/freightl+*' component={Freight} loginStatus={this.state.loginStatus}/>
+            <PrivateRoute path='/passengerl+*' component={Passenger} loginStatus={this.state.loginStatus}/>
             <PublicRoute path='/register' exact component={Register} loginStatus={this.state.loginStatus}/>
             <PrivateRoute path='/' exact component={Register} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
             <PrivateRoute path='/homel' component={Home} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
