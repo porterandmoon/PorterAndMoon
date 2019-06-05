@@ -6,33 +6,106 @@ import './freight.scss';
 class freight extends React.Component {
   state = {
     rocketInfo: {
-      error: ['loading','loading']
-    }
+      loading: ['loading','loading']
+    },
+    chosenDestination: ''
   }
 
   componentDidMount() {
-    freightData.getAvailableFreightRockets()
+    const path = this.props.history.location.pathname;
+    let parsedPath = path.replace('/freightl', '');
+    parsedPath = parsedPath.replace('+', '');
+    this.setState({ chosenDestination: parsedPath });
+    if (parsedPath === '') {
+      freightData.getAvailableFreightRockets()
       .then((rockets) => {
         this.setState({ rocketInfo: rockets });
       });
+    } else {
+      freightData.getAvailableFreightRocketsToDestination(parsedPath)
+        .then((rockets) => {
+          this.setState({ rocketInfo: rockets });
+        });
+    }
   }
 
   historyPusher = (path) => {
     this.props.history.push(path);
   }
 
+  cardBuilderPart2_3OrMore = (dest) => {
+    const renderArray = [];
+    for (let i = 0; i < this.state.rocketInfo[dest].length; i++) {
+      renderArray.push(<tr>
+        <th scope="row">{this.state.rocketInfo[dest][i].title}</th>
+        <td>{this.state.rocketInfo[dest][i].seller}</td>
+        <td>{this.state.rocketInfo[dest][i].destination}</td>
+        <td>{this.state.rocketInfo[dest][i].origin}</td>
+        <td>{this.state.rocketInfo[dest][i].price}</td>
+        <td>{this.state.rocketInfo[dest][i].quantity}</td>
+        <td>{this.state.rocketInfo[dest][i].description}</td>
+      </tr>);
+    }
+    return renderArray;   
+   }
+
+  cardBuilderPart2_LessThan3 = (dest) => {
+    const renderArray = [];
+    this.state.rocketInfo[dest].forEach((rocket) => {
+      renderArray.push(<tr>
+        <th scope="row">{rocket.title}</th>
+        <td>{rocket.seller}</td>
+        <td>{rocket.destination}</td>
+        <td>{rocket.origin}</td>
+        <td>{rocket.price}</td>
+        <td>{rocket.quantity}</td>
+        <td>{rocket.description}</td>
+      </tr>);
+    }); 
+    return renderArray;
+  }
+
   rocketCardBuilder = () => {
     const renderArray = [];
      Object.keys(this.state.rocketInfo).forEach((destination) => {
-      renderArray.push(<div><h3>{destination}</h3></div>);
       if (this.state.rocketInfo[destination].length > 2) {
-        for (let i = 0; i < this.state.rocketInfo[destination].length; i++) {
-          renderArray.push(<div>{this.state.rocketInfo[destination][i].description}</div>);
-        }   
-       } else {
-        this.state.rocketInfo[destination].forEach((rocket) => {
-          renderArray.push(<div>{rocket.description}</div>);
-      });  
+        renderArray.push(<div><h4 className='topFlightsTitle'>Top flights to {destination}</h4>
+        <table className="table table-striped table-dark flightTable">
+        <thead>
+          <tr>
+            <th scope="col">Flight #</th>
+            <th scope="col">Spaceline</th>
+            <th scope="col">Destination</th>
+            <th scope="col">Origin</th>
+            <th scope="col">Price</th>
+            <th scope="col">Space Available</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.cardBuilderPart2_3OrMore(destination)}
+          </tbody>
+          </table>
+          </div>);
+      } else {
+        renderArray.push(<div><h4 className='topFlightsTitle'>Top flights to {destination}</h4>
+        <table className="table table-striped table-dark flightTable">
+        <thead>
+          <tr>
+            <th scope="col">Flight #</th>
+            <th scope="col">Spaceline</th>
+            <th scope="col">Destination</th>
+            <th scope="col">Origin</th>
+            <th scope="col">Price</th>
+            <th scope="col">Space Available</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.cardBuilderPart2_LessThan3(destination)}
+          </tbody>
+          </table>
+          </div>);
     };
   });
   return renderArray;
@@ -42,6 +115,7 @@ class freight extends React.Component {
     return(
       <div className='freight'>
         <NavbarC historyPusher={this.historyPusher}/>
+        <h4 className='freightTitle'>Available Freight Rockets</h4>
         {this.rocketCardBuilder()}
       </div>
     );
