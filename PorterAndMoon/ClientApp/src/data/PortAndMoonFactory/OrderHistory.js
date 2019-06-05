@@ -1,8 +1,8 @@
 import axios from 'axios';
 import apiKeys from '../apiKeys';
 
-const baseUrl = apiKeys.firebaseKeys.baseUrl;
+const baseUrl = apiKeys.baseUrl;
 
-const getUser = () => {
-  
-}
+const getCompletedOrders = (customerId) => new Promise((Resolve,Reject) => {
+  axios.get
+})

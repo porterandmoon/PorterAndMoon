@@ -45,7 +45,27 @@ namespace PorterAndMoon.Connections
             }
         }
 
-        public Order AddOrder(Order newOrder)
+        public List<Order> GetUserOrders(UserOrder id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var queryString = @"SELECT *
+                                    FROM [Order]
+                                    WHERE (customerId = @UserId)
+	                                    and (isCompleted = 1)";
+                var parameters = new { UserId = id.UserId };
+
+                var matchedOrders = connection.Query<Order>(queryString, parameters).ToList();
+
+                if(matchedOrders != null)
+                {
+                    return matchedOrders;
+                }
+            }
+            throw new Exception("Unable to find matched, completed orders");
+        }
+
+            public Order AddOrder(Order newOrder)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
