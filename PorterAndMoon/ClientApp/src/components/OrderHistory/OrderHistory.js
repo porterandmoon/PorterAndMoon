@@ -9,7 +9,7 @@ class OrderHistory extends React.Component {
   }
 
   componentDidMount() {
-    OrderHistoryList.getCompletedOrders()
+    OrderHistoryList.getCompletedOrders(this.props.currentUser.id)
       .then(res => {
         if(res.status === 200){
           this.setState({ orders: res.data })

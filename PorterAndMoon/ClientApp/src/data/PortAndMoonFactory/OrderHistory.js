@@ -7,7 +7,7 @@ const getCompletedOrders = (customerId) => new Promise((Resolve,Reject) => {
   axios.get(`${baseUrl}/order/my-orders`,
    {
      params: {
-        userid: 15
+        userid: customerId
      }
    })
     .then((res) => Resolve(res))

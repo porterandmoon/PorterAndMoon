@@ -49,6 +49,16 @@ namespace PorterAndMoon.Connections
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
+                /* SELECT o.isRefunded, o.date, o.paymentId, op.productId, op.quantity,
+                 * p.description, p.price, p.title, pt.name, c.firstName, c.lastName
+                 * FROM [Order] as O
+                 *    join OrderProduct as OP on OP.orderId = O.Id
+                 *    join Product as P on OP.productId = P.Id
+                 *    join productType as PT on P.type = PT.Id
+                 *    join Customer as c on C.id = P.sellerId
+                 *    join Payment as pay on pay.id = o.paymentId
+                 * WHERE (O.customerId = 15)
+	             *    and (O.isCompleted = 1)*/
                 var queryString = @"SELECT *
                                     FROM [Order]
                                     WHERE (customerId = @UserId)
