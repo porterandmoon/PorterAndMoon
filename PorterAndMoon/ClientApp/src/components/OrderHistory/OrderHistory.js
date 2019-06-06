@@ -30,7 +30,6 @@ class OrderHistory extends React.Component {
     
     return(
       <div className="order-container">
-        hello
         { listOrders() }
       </div>
     );
