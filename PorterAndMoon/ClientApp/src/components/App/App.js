@@ -14,6 +14,8 @@ import Passenger from '../passenger/passenger';
 import OrderHistory from '../OrderHistory/OrderHistory';
 import './app.scss';
 
+connection();
+
 const PublicRoute = ({ component: Component, loginStatus, ...rest }) => {
   const routeChecker = props => (loginStatus === false
     ? (<Component { ...props } />)
@@ -40,7 +42,6 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, ...rest 
   }
 
   componentDidMount() {
-    connection();
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
@@ -91,22 +92,24 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, ...rest 
     }
 
     return (
-      <BrowserRouter>
-        <React.Fragment>
-          <Switch>
-            <PrivateRoute path='/freightl' exact component={Freight} loginStatus={this.state.loginStatus}/>
-            <PrivateRoute path='/passengerl' exact component={Passenger} loginStatus={this.state.loginStatus}/>
-            <PrivateRoute path='/freightl+*' component={Freight} loginStatus={this.state.loginStatus}/>
-            <PrivateRoute path='/passengerl+*' component={Passenger} loginStatus={this.state.loginStatus}/>
-            <PublicRoute path='/register' exact component={Register} loginStatus={this.state.loginStatus}/>
-            <PrivateRoute path='/' exact component={Register} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
-            <PrivateRoute path='/homel' component={Home} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
-            <PublicRoute path='/home' exact component={Home} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
-            <PrivateRoute path='/profile' exact component={Profile} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
-            <PrivateRoute path='/order-history' exact component={OrderHistory} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
-          </Switch>
-        </React.Fragment>
-      </BrowserRouter>
+      <div>
+        <BrowserRouter>
+          <React.Fragment>
+            <Switch>
+              <PublicRoute path='/register' exact component={Register} loginStatus={this.state.loginStatus}/>
+              <PrivateRoute path='/freightl' exact component={Freight} loginStatus={this.state.loginStatus}/>
+              <PrivateRoute path='/passengerl' exact component={Passenger} loginStatus={this.state.loginStatus}/>
+              <PrivateRoute path='/freightl+*' component={Freight} loginStatus={this.state.loginStatus}/>
+              <PrivateRoute path='/passengerl+*' component={Passenger} loginStatus={this.state.loginStatus}/>
+              <PrivateRoute path='/' exact component={Register} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
+              <PrivateRoute path='/homel' component={Home} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
+              <PublicRoute path='/home' exact component={Home} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
+              <PrivateRoute path='/profile' exact component={Profile} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
+              <PrivateRoute path='/order-history' exact component={OrderHistory} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
+            </Switch>
+          </React.Fragment>
+        </BrowserRouter>
+      </div>
     );
   }
 }
