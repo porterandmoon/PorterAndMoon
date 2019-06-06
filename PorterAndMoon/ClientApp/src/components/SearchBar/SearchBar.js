@@ -5,13 +5,12 @@ import getSearchData from '../../data/PortAndMoonFactory/Search';
 
 class SearchBar extends React.Component {
     state = {
-        query: '',
+        value: '',
         data: [],
-        searchString:[]
     }
 
     handleChange(event) {
-        this.setState({query: event.target.value.toLowerCase()});
+        this.setState({value: event.target.value});
       }
 
     executeSearch = () => {
@@ -22,14 +21,18 @@ class SearchBar extends React.Component {
         })
         .catch(err => console.error('error with search GET', err))
     }
+
+    // componentWillMount(){
+    //     this.executeSearch();
+    // }
     
 
     render() {
+
         return (
             <div className="searchForm">
                 <InputGroup>
-                    <Input placeholder="Search..." />
-                    <Input className ="input" value={this.state.query} onChange={this.handleChange} placeholder="Search..." />
+                    <Input className="input" type="text" value={this.state.value} onChange={this.handleChange} placeholder="Search..." />
                     <Button className="searchBtn" onClick={this.executeSearch}>Go</Button>
                 </InputGroup>
             </div>
