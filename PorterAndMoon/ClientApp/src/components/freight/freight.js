@@ -80,47 +80,74 @@ class freight extends React.Component {
 
   rocketCardBuilder = () => {
     const renderArray = [];
-     Object.keys(this.state.rocketInfo).forEach((destination) => {
-      if (this.state.rocketInfo[destination].length > 2) {
-        renderArray.push(<div key={destination}><h4 className='topFlightsTitle'>Top flights to {destination}</h4>
-        <table className="table table-striped table-dark flightTable">
-        <thead>
-          <tr>
-            <th scope="col">Flight #</th>
-            <th scope="col">Spaceline</th>
-            <th scope="col">Destination</th>
-            <th scope="col">Origin</th>
-            <th scope="col">Price</th>
-            <th scope="col">Space Available</th>
-            <th scope="col">Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.cardBuilderPart2_3OrMore(destination)}
-          </tbody>
-          </table>
-          </div>);
-      } else {
-        renderArray.push(<div><h4 className='topFlightsTitle'>Top flights to {destination}</h4>
-        <table className="table table-striped table-dark flightTable">
-        <thead>
-          <tr>
-            <th scope="col">Flight #</th>
-            <th scope="col">Spaceline</th>
-            <th scope="col">Destination</th>
-            <th scope="col">Origin</th>
-            <th scope="col">Price</th>
-            <th scope="col">Space Available</th>
-            <th scope="col">Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.cardBuilderPart2_LessThan3(destination)}
-          </tbody>
-          </table>
-          </div>);
-    };
-  });
+    if (this.state.rocketInfo !== null) {
+      Object.keys(this.state.rocketInfo).forEach((destination) => {
+        if (this.state.rocketInfo[destination].length > 2) {
+          renderArray.push(<div key={destination}><h4 className='topFlightsTitle'>
+            Top flights to {destination} ({this.state.rocketInfo[destination].length} Total)</h4>
+          <table className="table table-striped table-dark flightTable">
+          <thead>
+            <tr>
+              <th scope="col">Flight #</th>
+              <th scope="col">Spaceline</th>
+              <th scope="col">Destination</th>
+              <th scope="col">Origin</th>
+              <th scope="col">Price</th>
+              <th scope="col">Space Available</th>
+              <th scope="col">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.cardBuilderPart2_3OrMore(destination)}
+            </tbody>
+            </table>
+            </div>);
+        } else {
+          renderArray.push(<div key={destination}><h4 className='topFlightsTitle'>
+            Top flights to {destination} ({this.state.rocketInfo[destination].length} Total)</h4>
+          <table className="table table-striped table-dark flightTable">
+          <thead>
+            <tr>
+              <th scope="col">Flight #</th>
+              <th scope="col">Spaceline</th>
+              <th scope="col">Destination</th>
+              <th scope="col">Origin</th>
+              <th scope="col">Price</th>
+              <th scope="col">Space Available</th>
+              <th scope="col">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.cardBuilderPart2_LessThan3(destination)}
+            </tbody>
+            </table>
+            </div>);
+      };
+    });
+    } else {
+      renderArray.push(<div key='0'><h4 className='topFlightsTitle'>
+      Top flights to {this.state.chosenDestination}</h4>
+    <table className="table table-striped table-dark flightTable">
+    <thead>
+      <tr>
+        <th scope="col">Flight #</th>
+        <th scope="col">Spaceline</th>
+        <th scope="col">Destination</th>
+        <th scope="col">Origin</th>
+        <th scope="col">Price</th>
+        <th scope="col">Space Available</th>
+        <th scope="col">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+      <th scope="col-7">No flights to {this.state.chosenDestination}</th>
+      </tr>
+    </tbody>
+    </table>
+    </div>);
+    }
+     
   return renderArray;
 }
 

@@ -16,10 +16,13 @@ const getAvailableFreightRockets = () => new Promise((resolve, reject) => {
 const getAvailableFreightRocketsToDestination = (destination) => new Promise((resolve, reject) => {
   axios.get(`${DBURL}/product/all/freight/${destination}`)
     .then((data) => {
-      const returnOBj = {
-        [data.data[0].destination] : data.data
-      }
-      resolve(returnOBj);
+      let returnObj = null;
+      if (data.data[0] !== undefined) {
+        returnObj = {
+          [data.data[0].destination] : data.data
+        }
+      } 
+      resolve(returnObj);
     })
     .catch((err) => {
       reject(err);
