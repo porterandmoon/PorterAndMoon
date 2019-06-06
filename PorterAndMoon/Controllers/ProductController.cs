@@ -70,6 +70,27 @@ namespace PorterAndMoon.Controllers
             var product = _connections.UpdateQuantity(updatedProduct);
             return Accepted(product);
         }
+
+        [HttpGet("all/{type}")]
+        public ActionResult getAllProductOfType(int type)
+        {
+            var rockets = _connections.GetRocketsOfType(type);
+            return Accepted(rockets);
+        }
+
+        [HttpGet("all/freight/{destination}")]
+        public ActionResult getAllFreightProductOfType(string destination)
+        {
+            var rockets = _connections.GetFreightRocketsOfDestination(destination);
+            return Accepted(rockets);
+        }
+
+        [HttpGet("all/passenger/{destination}")]
+        public ActionResult getAllPassengerProductOfType(string destination)
+        {
+            var rockets = _connections.GetPassengerRocketsOfDestination(destination);
+            return Accepted(rockets);
+        }
     }
     
 }
