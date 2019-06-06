@@ -8,24 +8,37 @@ class freight extends React.Component {
     rocketInfo: {
       loading: ['loading','loading']
     },
-    chosenDestination: ''
+    chosenDestination: '',
+    path: '/freightl'
   }
 
   componentDidMount() {
     const path = this.props.history.location.pathname;
     let parsedPath = path.replace('/freightl', '');
     parsedPath = parsedPath.replace('+', '');
-    this.setState({ chosenDestination: parsedPath });
-    if (parsedPath === '') {
+    this.setState({ chosenDestination: parsedPath, path }, () => {this.mounterCallBack()});    
+  }
+
+  mounterCallBack = () => {
+    if (this.state.chosenDestination === '') {
       freightData.getAvailableFreightRockets()
       .then((rockets) => {
         this.setState({ rocketInfo: rockets });
       });
     } else {
-      freightData.getAvailableFreightRocketsToDestination(parsedPath)
+      freightData.getAvailableFreightRocketsToDestination(this.state.chosenDestination)
         .then((rockets) => {
           this.setState({ rocketInfo: rockets });
         });
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.state.path !== this.props.history.location.pathname) {
+      const path = this.props.history.location.pathname;
+      let parsedPath = path.replace('/freightl', '');
+      parsedPath = parsedPath.replace('+', '');
+      this.setState({ chosenDestination: parsedPath, path }, () => {this.mounterCallBack()});
     }
   }
 
@@ -36,7 +49,7 @@ class freight extends React.Component {
   cardBuilderPart2_3OrMore = (dest) => {
     const renderArray = [];
     for (let i = 0; i < this.state.rocketInfo[dest].length; i++) {
-      renderArray.push(<tr>
+      renderArray.push(<tr key={this.state.rocketInfo[dest][i].id}>
         <th scope="row">{this.state.rocketInfo[dest][i].title}</th>
         <td>{this.state.rocketInfo[dest][i].seller}</td>
         <td>{this.state.rocketInfo[dest][i].destination}</td>
@@ -52,7 +65,7 @@ class freight extends React.Component {
   cardBuilderPart2_LessThan3 = (dest) => {
     const renderArray = [];
     this.state.rocketInfo[dest].forEach((rocket) => {
-      renderArray.push(<tr>
+      renderArray.push(<tr key={rocket.id}>
         <th scope="row">{rocket.title}</th>
         <td>{rocket.seller}</td>
         <td>{rocket.destination}</td>
@@ -69,7 +82,7 @@ class freight extends React.Component {
     const renderArray = [];
      Object.keys(this.state.rocketInfo).forEach((destination) => {
       if (this.state.rocketInfo[destination].length > 2) {
-        renderArray.push(<div><h4 className='topFlightsTitle'>Top flights to {destination}</h4>
+        renderArray.push(<div key={destination}><h4 className='topFlightsTitle'>Top flights to {destination}</h4>
         <table className="table table-striped table-dark flightTable">
         <thead>
           <tr>
