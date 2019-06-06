@@ -4,28 +4,29 @@ import getSearchData from '../../data/PortAndMoonFactory/Search';
 
 
 class SearchBar extends React.Component {
-    state = {
-        value: '',
-        data: [],
+    constructor(props) {
+        super(props);
+        this.state = {
+          value: "",
+          data: []
+        };
+    
+        this.handleChange = this.handleChange.bind(this);
+    }
+    
+    handleChange(e) {
+        e.preventDefault();
+        this.setState({ value: e.target.value });
     }
 
-    handleChange(event) {
-        this.setState({value: event.target.value});
-      }
-
     executeSearch = () => {
-        const input = this.state.query;
+        const input = this.state.value;
         getSearchData(input)
         .then((responseData) => {
             this.setState({ data: responseData });
         })
         .catch(err => console.error('error with search GET', err))
     }
-
-    // componentWillMount(){
-    //     this.executeSearch();
-    // }
-    
 
     render() {
 
