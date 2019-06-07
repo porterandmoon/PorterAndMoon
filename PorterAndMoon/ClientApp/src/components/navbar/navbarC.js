@@ -12,7 +12,6 @@ import 'firebase/auth';
 import './navbarC.scss';
 import logo from '../../images/moon.png';
 
-import searchBar from '../SearchBar/SearchBar';
 import SearchBar from '../SearchBar/SearchBar';
 
 class navbarC extends React.Component {
@@ -168,10 +167,10 @@ class navbarC extends React.Component {
             <img src={logo} alt='logo' className='logo'/>
             Porter And Moon
           </NavbarBrand>
-          <SearchBar className="searchBar"/>
           <NavbarToggler onClick={this.toggle} />
             <Nav className="ml-auto" navbar>
               <NavItem className='navLinks'>
+              <SearchBar className="searchBar"/>
                 <NavLink onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut} onClick={this.linkClicked} id='homeLink'>
                   <i className="fas fa-home"></i> Home
                 </NavLink>

@@ -1,20 +1,17 @@
 import React from 'react';
-import { InputGroup, Input, Button } from 'reactstrap';
+import { InputGroup, Input, Button, Dropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap';
 import getSearchData from '../../data/PortAndMoonFactory/Search';
+import './SearchBar.scss';
 
 
 class SearchBar extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          value: "",
-          data: []
-        };
+    state = {
+        value: "",
+        data: [],
+        dropdownOpen: false   
+    };
     
-        this.handleChange = this.handleChange.bind(this);
-    }
-    
-    handleChange(e) {
+    handleChange = (e) => {
         e.preventDefault();
         this.setState({ value: e.target.value });
     }
@@ -28,13 +25,27 @@ class SearchBar extends React.Component {
         .catch(err => console.error('error with search GET', err))
     }
 
+    toggle = () => {
+        this.setState(prevState => ({
+          dropdownOpen: !prevState.dropdownOpen
+        }));
+      }
+
     render() {
 
         return (
             <div className="searchForm">
                 <InputGroup>
                     <Input className="input" type="text" value={this.state.value} onChange={this.handleChange} placeholder="Search..." />
-                    <Button className="searchBtn" onClick={this.executeSearch}>Go</Button>
+                    <Dropdown group isOpen={this.state.dropdownOpen} size="sm" toggle={this.toggle}>
+                        <DropdownToggle caret>
+                            Dropdown
+                        </DropdownToggle>
+                        <DropdownMenu>
+                            <DropdownItem onClick={this.executeSearch}>Search Users</DropdownItem>
+                            <DropdownItem onClick={this.executeSearch}>Search Products</DropdownItem>
+                        </DropdownMenu>
+                        </Dropdown>
                 </InputGroup>
             </div>
         );
