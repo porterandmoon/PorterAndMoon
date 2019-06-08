@@ -37,7 +37,7 @@ namespace PorterAndMoon.Controllers
         [HttpGet("my-orders")]
         public ActionResult GetUserOrders(int userid)
         {
-            var myOrders = _connections.GetUserOrders(userid);
+            var myOrders = _connections.test(userid);
 
             return Ok(myOrders);
         }

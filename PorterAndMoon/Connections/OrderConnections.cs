@@ -18,6 +18,72 @@ namespace PorterAndMoon.Connections
             ConnectionString = dbConfig.Value.ConnectionString;
         }
 
+        public IEnumerable<OrderInfo> test(int id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var queryString = @"SELECT o.id, op.productId, op.id as [OPid], o.paymentId
+                                    FROM [Order] as O
+	                                    join OrderProduct as OP on OP.orderId = O.Id
+                                    WHERE (O.customerId = 15)
+	                                    and (O.isCompleted = 1)";
+                var parameters = new { UserId = id };
+
+
+
+                var matchedOrders = connection.Query<OrderId>(queryString);
+
+                if (matchedOrders != null)
+                {
+                    List<OrderInfo> finalOrders = new List<OrderInfo>();
+
+                    var UserOrders = matchedOrders.GroupBy(order => order.Id);
+
+                    foreach (var group in UserOrders)
+                    {
+                        var payid = group.ToList()[0].PaymentId;
+
+
+                        var orderQuery = @"SELECT o.id, o.isRefunded, o.date, 
+                                    pay.type as [paymentType], pay.cardNumber, pay.bankAccountNumber,
+                                    pay.name as [CardHolderName], pay.payPalAuth as [paypalReference]
+                                    FROM[Order] as O
+                                        join Payment as pay on pay.id = o.paymentId
+                                    WHERE(pay.id = @PayId)
+                                    and (O.isCompleted = 1)";
+                        var orderParameters = new { PayId = payid };
+
+                        var orderInfo = connection.QueryFirstOrDefault<OrderInfo>(orderQuery, orderParameters);
+
+                        foreach (var product in group)
+                        {
+                            var productQuery = @"
+                            SELECT op.quantity as [quantityOrdered], p.description, p.price,
+                                    p.title, pt.name as [type], c.username as [seller]
+                            FROM OrderProduct as OP
+                               join Product as P on OP.productId = P.Id
+                               join productType as PT on P.type = PT.Id
+                               join Customer as c on C.id = P.sellerId
+                            WHERE(op.Id = @OrdProdId)";
+                            var productParams = new { OrdProdId = product.OPid };
+
+                            var productDetail = connection.QueryFirstOrDefault<OrderProductInfo>(productQuery, productParams);
+
+                            if (productDetail != null)
+                            {
+                                orderInfo.ProductDetail.Add(productDetail);
+                            }
+                        }
+
+                        finalOrders.Add(orderInfo);
+                    }
+                    return finalOrders;
+                }
+            }
+            throw new Exception("Unable to find matched, completed orders");
+        }
+
+
         public IEnumerable<Order> GetAllOrders()
         {
             using (var connection = new SqlConnection(ConnectionString))
@@ -45,53 +111,8 @@ namespace PorterAndMoon.Connections
             }
         }
 
-        public List<OrderInfo> GetUserOrders(int id)
-        {
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                var queryString = @"SELECT o.id, o.isRefunded, o.date, op.quantity as [quantityOrdered],
-					                p.description, p.price, p.title, pt.name as [type], c.username as [seller],
-                                    pay.type as [paymentType], pay.cardNumber, pay.bankAccountNumber,
-                                    pay.name as [CardHolderName], pay.payPalAuth as [paypalReference]
-					                FROM [Order] as O
-						               join OrderProduct as OP on OP.orderId = O.Id
-						               join Product as P on OP.productId = P.Id
-						               join productType as PT on P.type = PT.Id
-						               join Customer as c on C.id = P.sellerId
-						               join Payment as pay on pay.id = o.paymentId
-					                WHERE (O.customerId = @UserId)
-						               and (O.isCompleted = 1)";
-                var parameters = new { UserId = id };
 
-                var matchedOrders = connection.Query<OrderInfo>(queryString, parameters).ToList();
-
-                if(matchedOrders != null)
-                {
-                    foreach (var order in matchedOrders)
-                    {
-                        if (order.CardNumber != null)
-                        {
-                            order.CardNumber = order.CardNumber.Remove(0, 12);
-
-                            order.CardNumber = order.CardNumber.PadLeft(16, '*');
-                        }
-                        if(order.BankAccountNumber != null)
-                        {
-                            var hiddenValueLength = order.BankAccountNumber.Length - 3;
-
-                            order.BankAccountNumber = order.BankAccountNumber.Remove(0, hiddenValueLength);
-
-                            order.BankAccountNumber = order.BankAccountNumber.PadLeft(hiddenValueLength + 3, '*');
-
-                        }
-                    }
-                    return matchedOrders;
-                }
-            }
-            throw new Exception("Unable to find matched, completed orders");
-        }
-
-            public Order AddOrder(Order newOrder)
+        public Order AddOrder(Order newOrder)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {

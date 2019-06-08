@@ -6,10 +6,6 @@ import {
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import firebase from 'firebase/app';
@@ -176,15 +172,8 @@ class navbarC extends React.Component {
                 <NavLink onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut} onClick={this.linkClicked} id='homeLink'>
                   <i className="fas fa-home"></i> Home
                 </NavLink>
-                <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle Nav caret>
-                    Profile
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    <Link to="/profile">User Info</Link>
-                    <Link to="/order-history">Order History</Link>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
+                    <Link className="nav-link" to="/profile">User Info</Link>
+                    <Link className="nav-link" to="/order-history">Order History</Link>
                 <div>
                 <NavLink onMouseEnter={this.dropDown} onMouseLeave={this.dropDownOut} className={this.state.rocketMenu ? 'hovered' : null} id='rocketLink'>
                   <i className="fas fa-home"></i> Find A Rocket
