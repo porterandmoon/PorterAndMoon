@@ -7,3 +7,48 @@
   margin-left: 2%;
   margin-top: 2%;
 }
+
+.aggregateRow {
+  display: flex;
+  justify-content: space-around;
+}
+
+.aggregateHeader {
+  display: flex;
+  justify-content: space-around;
+}
+
+.RocketsAggregateDiv {
+  background-color: black;
+  color: white;
+  border: 2px solid white;
+  border-radius: 3px;
+  width: 30%;
+  margin-left: 2%;
+  margin-top: 2%;
+  text-align: center;
+}
+
+.aggregateUnit {
+  margin-left: 1%;
+  margin-top: 1%;
+}
+
+.sellerRocketsDiv {
+  display: flex;
+}
+
+.aggregateMenus {
+  display: flex;
+  justify-content: space-around;
+}
+
+.menuUnit {
+  display: flex;
+  justify-content: space-around;
+}
+
+.menuTitle {
+  margin-right: 5%;
+  margin-top: 4%;
+}

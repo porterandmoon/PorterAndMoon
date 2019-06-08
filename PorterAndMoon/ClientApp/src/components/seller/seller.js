@@ -1,5 +1,6 @@
 import React from 'react';
 import NavbarC from '../navbar/navbarC';
+import Menu from './menu/menu';
 import sellerData from '../../data/PortAndMoonFactory/sellerData';
 import './seller.scss';
 
@@ -46,12 +47,50 @@ class seller extends React.Component {
     }
   }
 
-  rocketsAggregateBuilder = () => {
+  rocketsAggregateBuilder = (type) => {
     if (this.state.rocketInfo != null) {
       const renderArray = [];
-      Object.keys(this.state.rocketInfo).forEach(destination)
+      renderArray.push(<div className='aggregateRow'>
+        <p className='aggregateUnit'>{this.state[`selectedOrigin${type}`]}</p>
+        <p className='aggregateUnit'>{this.state[`selectedDestination${type}`]}</p>
+        <p className='aggregateUnit'>{this.rocketsTotalizer(this.state[`selectedOrigin${type}`], this.state[`selectedDestination${type}`])}</p>
+      </div>);
+      this.state.destinations.forEach((destination) => {
+        if (destination !== this.state[`selectedDestination${type}`] && destination !== this.state[`selectedOrigin${type}`])
+        renderArray.push(<div className='aggregateRow'>
+        <p className='aggregateUnit'></p>
+        <p className='aggregateUnit'>{destination}</p>
+        <p className='aggregateUnit'>{this.rocketsTotalizer(this.state[`selectedOrigin${type}`], destination)}</p>
+      </div>);
+      });
       return renderArray;
     }
+  }
+
+  rocketsTotalizer = (origin, destination) => {
+    let total = 0;
+    this.state.rocketInfo.forEach((rocket) => {
+      if (rocket.origin === origin && rocket.destination === destination) {
+        total++;
+      }
+    });
+    return total;
+  }
+
+  selectorOP = (selection) => {
+    this.setState({ selectedOriginP : selection });
+  }
+
+  selectorOF = (selection) => {
+    this.setState({ selectedOriginF : selection });
+  }
+
+  selectorDP = (selection) => {
+    this.setState({ selectedDestinationP : selection });
+  }
+
+  selectorDF = (selection) => {
+    this.setState({ selectedDestinationF : selection });
   }
 
   render() {
@@ -59,8 +98,45 @@ class seller extends React.Component {
       <div className='seller'>
         <NavbarC historyPusher={this.historyPusher}/>
         {this.sellerInfoBuilder()}
-        <div className='passengerRocketsAggregateDiv'>
-          {this.rocketsAggregateBuilder()}
+        <div className='sellerRocketsDiv'>
+          <div className='RocketsAggregateDiv'>
+            <h4>Passenger Rockets</h4>
+            <div className='aggregateHeader'>
+              <p className='aggregateUnit'>Origin</p>
+              <p className='aggregateUnit'>Destination</p>
+              <p className='aggregateUnit'>Quantity</p>
+            </div>
+            {this.rocketsAggregateBuilder('P')}
+            <div className='aggregateMenus'>
+              <div className='menuUnit'>
+                <p className='menuTitle'>Origin</p>
+                <Menu selector={this.selectorOP} default='Earth'/>
+              </div>
+              <div className='menuUnit'>
+                <p className='menuTitle'>Destination</p>
+                <Menu selector={this.selectorDP} default='Moon'/>
+              </div>
+            </div>
+          </div>
+          <div className='RocketsAggregateDiv'>
+            <h4>Freight Rockets</h4>
+            <div className='aggregateHeader'>
+                <p className='aggregateUnit'>Origin</p>
+                <p className='aggregateUnit'>Destination</p>
+                <p className='aggregateUnit'>Quantity</p>
+            </div>
+            {this.rocketsAggregateBuilder('F')}
+            <div className='aggregateMenus'>
+              <div className='menuUnit'>
+                <p className='menuTitle'>Origin</p>
+                <Menu selector={this.selectorOF}  default='Earth'/>
+              </div>
+              <div className='menuUnit'>
+                <p className='menuTitle'>Destination</p>
+                <Menu selector={this.selectorDF}  default='Moon'/>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
