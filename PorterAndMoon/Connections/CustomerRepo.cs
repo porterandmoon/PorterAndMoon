@@ -117,5 +117,21 @@ namespace PorterAndMoon.Connections
             }
             throw new Exception("The selected user data could not be erased");
         }
+
+        public SingleCustomer GetSeller(int id)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var queryString = @"Select id, username, creationDate
+                                    From customer
+                                    Where id = @id";
+                var seller = db.QueryFirstOrDefault<SingleCustomer>(queryString, new { id });
+                if (seller != null)
+                {
+                    return seller;
+                }
+            }
+            throw new Exception("Could not find user");
+        }
     }
 }

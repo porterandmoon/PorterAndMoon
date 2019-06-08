@@ -47,10 +47,10 @@ namespace PorterAndMoon.Connections
         {
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
-
-                var queryString = @"Insert into Product(Type, Description, Quantity, SellerId, Price, Title)
+                newProduct.TimePosted = DateTime.Now;
+                var queryString = @"Insert into Product(Type, Description, Quantity, SellerId, Price, Title, TimePosted)
                                         Output inserted.* 
-                                        Values(@Type, @Description, @Quantity, @SellerId, @Price, @Title)";
+                                        Values(@Type, @Description, @Quantity, @SellerId, @Price, @Title, @TimePosted)";
                 var product = connection.QueryFirstOrDefault<Products>(queryString, newProduct);
                 if (product != null)
                 {
@@ -95,6 +95,7 @@ namespace PorterAndMoon.Connections
             {
                 var queryString = @"Select *
                                     From product
+                                    Join customer on sellerId = customer.id
                                     Where type = @type";
                 var rockets = connection.Query<Products>(queryString, new { type });
                 var sortedRockets = rockets.GroupBy(rocket => rocket.Destination);                
@@ -110,6 +111,7 @@ namespace PorterAndMoon.Connections
             {
                 var queryString = @"Select *
                                     From product
+                                    Join customer on sellerId = customer.id
                                     Where destination = @destination AND type = 1";
                 var rockets = connection.Query<Products>(queryString, new { destination });
 
@@ -124,12 +126,42 @@ namespace PorterAndMoon.Connections
             {
                 var queryString = @"Select *
                                     From product
+                                    Join customer on sellerId = customer.id
                                     Where destination = @destination AND type = 2";
                 var rockets = connection.Query<Products>(queryString, new { destination });
 
                 return rockets;
             }
             throw new Exception("Could not get rockets");
+        }
+
+        public Dictionary<string, List<Products>> GetMostRecentRockets()
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var queryString = @"Select top(20) *
+                                    From product
+                                    Join customer on sellerId = customer.id
+                                    Order by timePosted desc";
+                var rockets = connection.Query<Products>(queryString);
+                var sortedRockets = rockets.GroupBy(rocket => rocket.Destination);
+
+                return sortedRockets.ToDictionary(x => x.Key, x => x.ToList());
+            }
+            throw new Exception("Could not get rockets");
+        }
+
+        public IEnumerable<Products> GetSellerRockets(int id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var queryString = @"Select *
+                                    From product
+                                    Where id = @id";
+                var rockets = connection.Query<Products>(queryString, new { id });
+                return rockets;
+            }
+            throw new Exception("Could not find rockets");
         }
     }
 }

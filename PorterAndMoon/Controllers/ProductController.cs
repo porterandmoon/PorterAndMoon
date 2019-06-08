@@ -91,6 +91,20 @@ namespace PorterAndMoon.Controllers
             var rockets = _connections.GetPassengerRocketsOfDestination(destination);
             return Accepted(rockets);
         }
+
+        [HttpGet("recent")]
+        public ActionResult getRecentRockets()
+        {
+            var rockets = _connections.GetMostRecentRockets();
+            return Accepted(rockets);
+        }
+
+        [HttpGet("seller/{id}")]
+        public ActionResult GetSellerRockets(int id)
+        {
+            var rockets = _connections.GetSellerRockets(id);
+            return Accepted(rockets);
+        }
     }
     
 }

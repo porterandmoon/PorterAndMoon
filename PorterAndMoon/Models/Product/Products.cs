@@ -16,5 +16,7 @@ namespace PorterAndMoon.Models
         public int Id { get; set; }
         public string Destination { get; set; }
         public string Origin { get; set; }
+        public DateTime TimePosted { get; set; }
+        public string Username { get; set; }
     }
 }

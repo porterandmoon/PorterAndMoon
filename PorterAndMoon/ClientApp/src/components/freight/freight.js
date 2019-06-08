@@ -52,7 +52,7 @@ class freight extends React.Component {
     for (let i = 0; i < this.state.rocketInfo[dest].length; i++) {
       renderArray.push(<tr key={this.state.rocketInfo[dest][i].id}>
         <th scope="row"><Link to={`/detail/${this.state.rocketInfo[dest][i].title}`}>{this.state.rocketInfo[dest][i].title}</Link></th>
-        <td><Link to={`seller/${this.state.rocketInfo[dest][i]}.sellerId`}>{this.state.rocketInfo[dest][i].username}</Link></td>
+        <td><Link to={`seller/${this.state.rocketInfo[dest][i].sellerId}`}>{this.state.rocketInfo[dest][i].username}</Link></td>
         <td>{this.state.rocketInfo[dest][i].destination}</td>
         <td>{this.state.rocketInfo[dest][i].origin}</td>
         <td>{this.state.rocketInfo[dest][i].price}</td>
