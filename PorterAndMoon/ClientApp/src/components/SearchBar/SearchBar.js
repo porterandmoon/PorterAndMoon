@@ -1,6 +1,6 @@
 import React from 'react';
 import { InputGroup, Input, Button, Dropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap';
-import getSearchData from '../../data/PortAndMoonFactory/Search';
+import getData from '../../data/PortAndMoonFactory/Search';
 import './SearchBar.scss';
 
 
@@ -18,7 +18,16 @@ class SearchBar extends React.Component {
 
     executeSearch = () => {
         const input = this.state.value;
-        getSearchData(input)
+        getData.getSearchData(input)
+        .then((responseData) => {
+            this.setState({ data: responseData });
+        })
+        .catch(err => console.error('error with search GET', err))
+    }
+
+    executeProductsSearch = () => {
+        const input = this.state.value;
+        getData.getProductsSearchData(input)
         .then((responseData) => {
             this.setState({ data: responseData });
         })
@@ -43,7 +52,7 @@ class SearchBar extends React.Component {
                         </DropdownToggle>
                         <DropdownMenu>
                             <DropdownItem onClick={this.executeSearch}>Search Users</DropdownItem>
-                            <DropdownItem onClick={this.executeSearch}>Search Products</DropdownItem>
+                            <DropdownItem onClick={this.executeProductsSearch}>Search Products</DropdownItem>
                         </DropdownMenu>
                         </Dropdown>
                 </InputGroup>
