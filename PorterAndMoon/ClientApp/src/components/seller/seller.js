@@ -13,6 +13,9 @@ class seller extends React.Component {
     selectedDestinationF: 'Moon',
     selectedOriginP: 'Earth',
     selectedOriginF: 'Earth',
+    listOrigin: 'Earth',
+    listDestination: 'Moon',
+    listType: 1
   }
 
   componentDidMount() {
@@ -77,6 +80,19 @@ class seller extends React.Component {
     return total;
   }
 
+  rocketListBuilder = () => {
+    if (this.state.rocketInfo !== null) {
+      const renderArray = [];
+      this.state.rocketInfo.forEach((rocket) => {
+        if (rocket.origin === this.state.listOrigin && rocket.destination === this.state.listDestination && rocket.type == this.state.listType) {
+
+        }
+      });
+
+      return renderArray;
+    }
+  }
+
   selectorOP = (selection) => {
     this.setState({ selectedOriginP : selection });
   }
@@ -107,14 +123,17 @@ class seller extends React.Component {
               <p className='aggregateUnit'>Quantity</p>
             </div>
             {this.rocketsAggregateBuilder('P')}
-            <div className='aggregateMenus'>
-              <div className='menuUnit'>
-                <p className='menuTitle'>Origin</p>
-                <Menu selector={this.selectorOP} default='Earth'/>
-              </div>
-              <div className='menuUnit'>
-                <p className='menuTitle'>Destination</p>
-                <Menu selector={this.selectorDP} default='Moon'/>
+            <div className='aggregateSelector'>
+              <h5>Select a Route</h5>
+              <div className='aggregateMenus'>
+                <div className='menuUnit'>
+                  <p className='menuTitle'>Origin</p>
+                  <Menu selector={this.selectorOP} default='Earth'/>
+                </div>
+                <div className='menuUnit'>
+                  <p className='menuTitle'>Destination</p>
+                  <Menu selector={this.selectorDP} default='Moon'/>
+                </div>
               </div>
             </div>
           </div>
@@ -126,17 +145,23 @@ class seller extends React.Component {
                 <p className='aggregateUnit'>Quantity</p>
             </div>
             {this.rocketsAggregateBuilder('F')}
-            <div className='aggregateMenus'>
-              <div className='menuUnit'>
-                <p className='menuTitle'>Origin</p>
-                <Menu selector={this.selectorOF}  default='Earth'/>
-              </div>
-              <div className='menuUnit'>
-                <p className='menuTitle'>Destination</p>
-                <Menu selector={this.selectorDF}  default='Moon'/>
+            <div className='aggregateSelector'>
+              <h5>Select a Route</h5>
+              <div className='aggregateMenus'>
+                <div className='menuUnit'>
+                  <p className='menuTitle'>Origin</p>
+                  <Menu selector={this.selectorOF}  default='Earth'/>
+                </div>
+                <div className='menuUnit'>
+                  <p className='menuTitle'>Destination</p>
+                  <Menu selector={this.selectorDF}  default='Moon'/>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+        <div className='sellerRocketList'>
+          {this.rocketListBuilder()}
         </div>
       </div>
     );
