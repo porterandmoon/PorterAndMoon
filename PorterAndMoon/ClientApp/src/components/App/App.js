@@ -12,6 +12,8 @@ import Home from '../home/home';
 import Freight from '../freight/freight';
 import Passenger from '../passenger/passenger';
 import OrderHistory from '../OrderHistory/OrderHistory';
+import Seller from '../seller/seller';
+import RocketDetail from '../rocketDetail/rocketDetail';
 import './app.scss';
 
 const PublicRoute = ({ component: Component, loginStatus, ...rest }) => {
@@ -89,6 +91,8 @@ const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
             <PrivateRoute path='/passengerl' exact component={Passenger} loginStatus={this.state.loginStatus}/>
             <PrivateRoute path='/freightl+*' component={Freight} loginStatus={this.state.loginStatus}/>
             <PrivateRoute path='/passengerl+*' component={Passenger} loginStatus={this.state.loginStatus}/>
+            <PrivateRoute path='/seller/*' component={Seller} loginStatus={this.state.loginStatus}/>
+            <PrivateRoute path='/detail/*' component={RocketDetail} loginStatus={this.state.loginStatus}/>
             <PublicRoute path='/home' exact component={Home} loginStatus={this.state.loginStatus}/>
             <PublicRoute path='/register' exact component={Register} loginStatus={this.state.loginStatus}/>
           </Switch>

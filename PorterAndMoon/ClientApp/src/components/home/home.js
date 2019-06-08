@@ -3,6 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import NavbarC from '../navbar/navbarC';
 import homeData from '../../data/PortAndMoonFactory/homeData';
+import { Link } from 'react-router-dom';
 import './home.scss';
 
 class home extends React.Component {
@@ -33,8 +34,8 @@ class home extends React.Component {
     const renderArray = [];
     this.state.rocketInfo[dest].forEach((rocket) => {
       renderArray.push(<tr key={rocket.id}>
-        <th scope="row">{rocket.title}</th>
-        <td>{rocket.username}</td>
+        <th scope="row"><Link to={`/detail/${rocket.title}`}>{rocket.title}</Link></th>
+        <td><Link to={`/seller/${rocket.sellerId}`}>{rocket.username}</Link></td>
         <td>{rocket.destination}</td>
         <td>{rocket.origin}</td>
         <td>{rocket.price}</td>

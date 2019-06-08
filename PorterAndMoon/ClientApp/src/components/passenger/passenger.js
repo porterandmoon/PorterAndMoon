@@ -1,5 +1,6 @@
 import React from 'react';
 import NavbarC from '../navbar/navbarC';
+import { Link } from 'react-router-dom';
 import passengerData from '../../data/PortAndMoonFactory/passengerData';
 import './passenger.scss';
 
@@ -50,8 +51,8 @@ class passenger extends React.Component {
     const renderArray = [];
     for (let i = 0; i < this.state.rocketInfo[dest].length; i++) {
       renderArray.push(<tr key={this.state.rocketInfo[dest][i].id}>
-        <th scope="row">{this.state.rocketInfo[dest][i].title}</th>
-        <td>{this.state.rocketInfo[dest][i].username}</td>
+        <th scope="row"><Link to={`/detail/${this.state.rocketInfo[dest][i].title}`}>{this.state.rocketInfo[dest][i].title}</Link></th>
+        <td><Link to={`/seller/${this.state.rocketInfo[dest][i].sellerId}`}>{this.state.rocketInfo[dest][i].username}</Link></td>
         <td>{this.state.rocketInfo[dest][i].destination}</td>
         <td>{this.state.rocketInfo[dest][i].origin}</td>
         <td>{this.state.rocketInfo[dest][i].price}</td>
@@ -66,8 +67,8 @@ class passenger extends React.Component {
     const renderArray = [];
     this.state.rocketInfo[dest].forEach((rocket) => {
       renderArray.push(<tr key={rocket.id}>
-        <th scope="row">{rocket.title}</th>
-        <td>{rocket.username}</td>
+        <th scope="row"><Link to={`/detail/${rocket.title}`}>{rocket.title}</Link></th>
+        <td><Link to={`/seller/${rocket.sellerId}`}>{rocket.username}</Link></td>
         <td>{rocket.destination}</td>
         <td>{rocket.origin}</td>
         <td>{rocket.price}</td>
