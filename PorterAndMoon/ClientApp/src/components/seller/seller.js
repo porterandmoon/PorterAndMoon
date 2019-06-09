@@ -53,14 +53,16 @@ class seller extends React.Component {
   rocketsAggregateBuilder = (type) => {
     if (this.state.rocketInfo != null) {
       const renderArray = [];
-      renderArray.push(<div className='aggregateRow'>
+      renderArray.push(<div className='aggregateRow' onMouseEnter={this.routeHovered} onMouseLeave={this.routeHoveredOut} type={type === 'P' ? 1 : 2}
+        origin={this.state[`selectedOrigin${type}`]} destination={this.state[`selectedDestination${type}`]} onClick={this.routeSelect}>
         <p className='aggregateUnit'>{this.state[`selectedOrigin${type}`]}</p>
         <p className='aggregateUnit'>{this.state[`selectedDestination${type}`]}</p>
         <p className='aggregateUnit'>{this.rocketsTotalizer(this.state[`selectedOrigin${type}`], this.state[`selectedDestination${type}`])}</p>
       </div>);
       this.state.destinations.forEach((destination) => {
-        if (destination !== this.state[`selectedDestination${type}`] && destination !== this.state[`selectedOrigin${type}`])
-        renderArray.push(<div className='aggregateRow'>
+        if (destination !== this.state[`selectedDestination${type}`] && destination !== this.state[`selectedOrigin${type}`]) 
+        renderArray.push(<div className='aggregateRow' onMouseEnter={this.routeHovered} onMouseLeave={this.routeHoveredOut} type={type === 'P' ? 1 : 2}
+          origin={this.state[`selectedOrigin${type}`]} destination={destination} key={destination} onClick={this.routeSelect}>
         <p className='aggregateUnit'></p>
         <p className='aggregateUnit'>{destination}</p>
         <p className='aggregateUnit'>{this.rocketsTotalizer(this.state[`selectedOrigin${type}`], destination)}</p>
@@ -107,6 +109,29 @@ class seller extends React.Component {
 
   selectorDF = (selection) => {
     this.setState({ selectedDestinationF : selection });
+  }
+
+  routeHovered = (event) => {
+    const tar = event.currentTarget;
+    if (tar.className.includes('hovering') === false) {
+      tar.className += ' hovering';
+    }
+  }
+
+  routeHoveredOut = (event) => {
+    const tar = event.currentTarget;
+    if (tar.className.includes('hovering')) {
+      tar.className = tar.className.replace(' hovering', '');
+    }
+  }
+
+  routeSelect = (event) => {
+    const tar = event.currentTarget;
+    this.setState({
+      listOrigin : tar.getAttribute('Origin'),
+      listDestination: tar.getAttribute('Destination'),
+      listType: tar.getAttribute('type')
+    });
   }
 
   render() {
