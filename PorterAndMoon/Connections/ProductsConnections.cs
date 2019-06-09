@@ -157,7 +157,7 @@ namespace PorterAndMoon.Connections
             {
                 var queryString = @"Select *
                                     From product
-                                    Where id = @id";
+                                    Where sellerId = @id";
                 var rockets = connection.Query<Products>(queryString, new { id });
                 return rockets;
             }

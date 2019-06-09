@@ -33,6 +33,7 @@ class menu extends React.Component {
           <DropdownItem onClick={this.select} value='Venus'>Venus</DropdownItem>
           <DropdownItem onClick={this.select} value='Earth'>Earth</DropdownItem>
           <DropdownItem onClick={this.select} value='Moon'>Moon</DropdownItem>
+          <DropdownItem onClick={this.select} value='Mars'>Mars</DropdownItem>
           <DropdownItem onClick={this.select} value='Europa'>Europa</DropdownItem>
           <DropdownItem onClick={this.select} value='Ganymede'>Ganymede</DropdownItem>
           <DropdownItem onClick={this.select} value='Io'>Io</DropdownItem>

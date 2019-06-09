@@ -1,6 +1,7 @@
 import React from 'react';
 import NavbarC from '../navbar/navbarC';
 import Menu from './menu/menu';
+import { Link } from 'react-router-dom';
 import sellerData from '../../data/PortAndMoonFactory/sellerData';
 import './seller.scss';
 
@@ -53,29 +54,30 @@ class seller extends React.Component {
   rocketsAggregateBuilder = (type) => {
     if (this.state.rocketInfo != null) {
       const renderArray = [];
-      renderArray.push(<div className='aggregateRow' onMouseEnter={this.routeHovered} onMouseLeave={this.routeHoveredOut} type={type === 'P' ? 1 : 2}
+      renderArray.push(<div className='aggregateRow' onMouseEnter={this.routeHovered} onMouseLeave={this.routeHoveredOut} type={type === 'P' ? 2 : 1}
         origin={this.state[`selectedOrigin${type}`]} destination={this.state[`selectedDestination${type}`]} onClick={this.routeSelect}>
         <p className='aggregateUnit'>{this.state[`selectedOrigin${type}`]}</p>
         <p className='aggregateUnit'>{this.state[`selectedDestination${type}`]}</p>
-        <p className='aggregateUnit'>{this.rocketsTotalizer(this.state[`selectedOrigin${type}`], this.state[`selectedDestination${type}`])}</p>
+        <p className='aggregateUnit'>{this.rocketsTotalizer(this.state[`selectedOrigin${type}`], this.state[`selectedDestination${type}`], type)}</p>
       </div>);
       this.state.destinations.forEach((destination) => {
         if (destination !== this.state[`selectedDestination${type}`] && destination !== this.state[`selectedOrigin${type}`]) 
-        renderArray.push(<div className='aggregateRow' onMouseEnter={this.routeHovered} onMouseLeave={this.routeHoveredOut} type={type === 'P' ? 1 : 2}
+        renderArray.push(<div className='aggregateRow' onMouseEnter={this.routeHovered} onMouseLeave={this.routeHoveredOut} type={type === 'P' ? 2 : 1}
           origin={this.state[`selectedOrigin${type}`]} destination={destination} key={destination} onClick={this.routeSelect}>
         <p className='aggregateUnit'></p>
         <p className='aggregateUnit'>{destination}</p>
-        <p className='aggregateUnit'>{this.rocketsTotalizer(this.state[`selectedOrigin${type}`], destination)}</p>
+        <p className='aggregateUnit'>{this.rocketsTotalizer(this.state[`selectedOrigin${type}`], destination, type)}</p>
       </div>);
       });
       return renderArray;
     }
   }
 
-  rocketsTotalizer = (origin, destination) => {
+  rocketsTotalizer = (origin, destination, type) => {
     let total = 0;
+    type = (type === 'P' ? 2 : 1);
     this.state.rocketInfo.forEach((rocket) => {
-      if (rocket.origin === origin && rocket.destination === destination) {
+      if (rocket.origin === origin && rocket.destination === destination && rocket.type === type) {
         total++;
       }
     });
@@ -85,14 +87,36 @@ class seller extends React.Component {
   rocketListBuilder = () => {
     if (this.state.rocketInfo !== null) {
       const renderArray = [];
-      this.state.rocketInfo.forEach((rocket) => {
-        if (rocket.origin === this.state.listOrigin && rocket.destination === this.state.listDestination && rocket.type == this.state.listType) {
-
-        }
-      });
-
+      renderArray.push(<table className="table table-striped table-dark flightTable">
+      <thead>
+        <tr>
+          <th scope="col">Flight #</th>
+          <th scope="col">Price</th>
+          <th scope="col">Space Available</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        {this.rocketListSubBuilder()}
+        </tbody>
+        </table>);
       return renderArray;
     }
+  }
+
+  rocketListSubBuilder = () => {
+    const renderArray = [];
+    this.state.rocketInfo.forEach((rocket) => {
+      if (rocket.origin === this.state.listOrigin && rocket.destination === this.state.listDestination && rocket.type == this.state.listType) {
+        renderArray.push(<tr key={rocket.id}>
+          <th scope="row"><Link to={`/detail/${rocket.title}`}>{rocket.title}</Link></th>
+          <td>{rocket.price}</td>
+          <td>{rocket.quantity}</td>
+          <td>{rocket.description}</td>
+        </tr>);
+      }
+    });
+    return renderArray;
   }
 
   selectorOP = (selection) => {
@@ -186,6 +210,7 @@ class seller extends React.Component {
           </div>
         </div>
         <div className='sellerRocketList'>
+          <h5 className='sellerListTitle'>Flights On Selected Route</h5>
           {this.rocketListBuilder()}
         </div>
       </div>
