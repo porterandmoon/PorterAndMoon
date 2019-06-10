@@ -6,6 +6,8 @@ import './home.scss';
 
 
 class home extends React.Component {
+
+
   logOut = () => {
     firebase.auth().signOut();
   }
@@ -19,12 +21,14 @@ class home extends React.Component {
   }
 
   render() {
-    return(<div className='home'>
+
+
+    return(
+    <div className='home'>
       <NavbarC historyPusher={this.historyPusher}/>
       You're home
       <button onClick={this.logOut}>Log out</button>
       <button onClick={this.getToProfile}>Profile</button>
-
     </div>);
   }
 }
