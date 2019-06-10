@@ -34,6 +34,14 @@ namespace PorterAndMoon.Controllers
             return Accepted(order);
         }
 
+        [HttpGet("my-orders")]
+        public ActionResult GetUserOrders(int userid)
+        {
+            var myOrders = _connections.test(userid);
+
+            return Ok(myOrders);
+        }
+
         //[HttpDelete("{Id}")]
         //public ActionResult DeleteOrder(int Id)
         //{

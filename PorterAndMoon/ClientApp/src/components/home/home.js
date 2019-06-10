@@ -104,6 +104,7 @@ class home extends React.Component {
       {this.rocketCardBuilder()}
       <button onClick={this.logOut}>Log out</button>
       <button onClick={this.getToProfile}>Profile</button>
+      <a href="/order-history">click me</a>
 
     </div>);
   }

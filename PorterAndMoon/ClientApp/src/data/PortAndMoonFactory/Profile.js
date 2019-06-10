@@ -1,7 +1,7 @@
 import axios from 'axios';
 import apiKeys from '../apiKeys';
 
-const baseUrl = apiKeys.firebaseKeys.baseUrl
+const baseUrl = apiKeys.baseUrl
 
 const currentUserInfo = uid => new Promise ((resolve, reject) => {
   axios.get(`${baseUrl}/user/${uid}`)
