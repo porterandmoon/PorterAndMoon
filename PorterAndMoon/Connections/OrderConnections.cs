@@ -25,13 +25,13 @@ namespace PorterAndMoon.Connections
                 var queryString = @"SELECT o.id, op.productId, op.id as [OPid], o.paymentId
                                     FROM [Order] as O
 	                                    join OrderProduct as OP on OP.orderId = O.Id
-                                    WHERE (O.customerId = 15)
+                                    WHERE (O.customerId = @Id)
 	                                    and (O.isCompleted = 1)";
                 var parameters = new { UserId = id };
 
 
 
-                var matchedOrders = connection.Query<OrderId>(queryString);
+                var matchedOrders = connection.Query<OrderId>(queryString, parameters);
 
                 if (matchedOrders != null)
                 {
