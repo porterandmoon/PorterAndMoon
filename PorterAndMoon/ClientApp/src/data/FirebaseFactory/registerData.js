@@ -4,7 +4,8 @@ import 'firebase/auth';
 import axios from 'axios';
 import apiKeys from '../apiKeys';
 
-const DBURL = apiKeys.firebaseKeys.baseUrl;
+
+const DBURL = apiKeys.baseUrl;
 
 axios.interceptors.request.use((request) => {
   const token = sessionStorage.getItem('token');

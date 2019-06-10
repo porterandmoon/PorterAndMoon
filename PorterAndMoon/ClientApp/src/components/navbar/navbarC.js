@@ -7,6 +7,7 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import './navbarC.scss';
@@ -171,6 +172,8 @@ class navbarC extends React.Component {
                 <NavLink onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut} onClick={this.linkClicked} id='homeLink'>
                   <i className="fas fa-home"></i> Home
                 </NavLink>
+                    <Link className="nav-link" to="/profile">User Info</Link>
+                    <Link className="nav-link" to="/order-history">Order History</Link>
                 <div>
                 <NavLink onMouseEnter={this.dropDown} onMouseLeave={this.dropDownOut} className={this.state.rocketMenu ? 'hovered' : null} id='rocketLink'>
                   <i className="fas fa-home"></i> Find A Rocket
