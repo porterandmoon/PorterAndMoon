@@ -14,6 +14,8 @@ import Passenger from '../passenger/passenger';
 import OrderHistory from '../OrderHistory/OrderHistory';
 import './app.scss';
 
+connection();
+
 const PublicRoute = ({ component: Component, loginStatus, ...rest }) => {
   const routeChecker = props => (loginStatus === false
     ? (<Component { ...props } />)
@@ -21,9 +23,9 @@ const PublicRoute = ({ component: Component, loginStatus, ...rest }) => {
   return <Route {...rest} render={props => routeChecker(props)} />;
 };
 
-const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
+const PrivateRoute = ({ component: Component, loginStatus, currentUser, ...rest }) => {
   const routeChecker = props => (loginStatus === true
-    ? (<Component { ...props } loginStatus={loginStatus} uid={firebase.auth().currentUser.uid}/>)
+    ? (<Component { ...props } loginStatus={loginStatus} currentUser={currentUser}/>)
     : (<Redirect to={{ pathname: '/register', state: { from: props.location } } } />));
   return <Route {...rest} render={props => routeChecker(props)} />;
 };
@@ -40,9 +42,13 @@ const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
   }
 
   componentDidMount() {
-    connection();
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        this.setState({
+          loginStatus: true,
+          pendingUser: false,
+        });
+
         ProfileCalls.currentUserInfo(user.uid)
         .then(profileInfo => {
           const content = profileInfo.data
@@ -57,16 +63,15 @@ const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
         .catch(err => {
           console.error(err);
         });
-  
-        this.setState({
-          loginStatus: true,
-          pendingUser: false,
-        
-        });
       } else {
         this.setState({
           loginStatus: false,
           pendingUser: false,
+          creationDate: undefined,
+          firstName: undefined,
+          id: undefined,
+          lastName: undefined,
+          userName: undefined,
         });
       }
     });
@@ -77,23 +82,34 @@ const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
   }
 
   render() {
+
+    const currentUser = {
+      creationDate: this.state.creationDate,
+      firstName: this.state.firstName,
+      id: this.state.id,
+      lastName: this.state.lastName,
+      userName: this.state.userName,
+    }
+
     return (
-      <BrowserRouter>
-        <React.Fragment>
-          <Switch>
-            <PrivateRoute path='/' exact component={Register} loginStatus={this.state.loginStatus}/>
-            <PrivateRoute path='/profile' exact component={Profile} loginStatus={this.state.loginStatus}/>
-            <PrivateRoute path='/order-history' exact component={OrderHistory} loginStatus={this.state.loginStatus}/>
-            <PrivateRoute path='/homel' component={Home} loginStatus={this.state.loginStatus}/>
-            <PrivateRoute path='/freightl' exact component={Freight} loginStatus={this.state.loginStatus}/>
-            <PrivateRoute path='/passengerl' exact component={Passenger} loginStatus={this.state.loginStatus}/>
-            <PrivateRoute path='/freightl+*' component={Freight} loginStatus={this.state.loginStatus}/>
-            <PrivateRoute path='/passengerl+*' component={Passenger} loginStatus={this.state.loginStatus}/>
-            <PublicRoute path='/home' exact component={Home} loginStatus={this.state.loginStatus}/>
-            <PublicRoute path='/register' exact component={Register} loginStatus={this.state.loginStatus}/>
-          </Switch>
-        </React.Fragment>
-      </BrowserRouter>
+      <div>
+        <BrowserRouter>
+          <React.Fragment>
+            <Switch>
+              <PublicRoute path='/register' exact component={Register} loginStatus={this.state.loginStatus}/>
+              <PrivateRoute path='/freightl' exact component={Freight} loginStatus={this.state.loginStatus}/>
+              <PrivateRoute path='/passengerl' exact component={Passenger} loginStatus={this.state.loginStatus}/>
+              <PrivateRoute path='/freightl+*' component={Freight} loginStatus={this.state.loginStatus}/>
+              <PrivateRoute path='/passengerl+*' component={Passenger} loginStatus={this.state.loginStatus}/>
+              <PrivateRoute path='/' exact component={Register} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
+              <PrivateRoute path='/homel' component={Home} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
+              <PublicRoute path='/home' exact component={Home} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
+              <PrivateRoute path='/profile' exact component={Profile} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
+              <PrivateRoute path='/order-history' exact component={OrderHistory} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
+            </Switch>
+          </React.Fragment>
+        </BrowserRouter>
+      </div>
     );
   }
 }

@@ -29,6 +29,8 @@ class home extends React.Component {
       You're home
       <button onClick={this.logOut}>Log out</button>
       <button onClick={this.getToProfile}>Profile</button>
+      <a href="/order-history">click me</a>
+
     </div>);
   }
 }
