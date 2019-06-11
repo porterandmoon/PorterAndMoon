@@ -1,5 +1,4 @@
 import React from 'react';
-import NavbarC from '../navbar/navbarC';
 import Menu from './menu/menu';
 import { Link } from 'react-router-dom';
 import sellerData from '../../data/PortAndMoonFactory/sellerData';
@@ -35,10 +34,6 @@ class seller extends React.Component {
       .then((rocketInfo) => {
         this.setState({ rocketInfo });
       });
-  }
-
-  historyPusher = (path) => {
-    this.props.history.push(path);
   }
 
   sellerInfoBuilder = () => {
@@ -161,7 +156,6 @@ class seller extends React.Component {
   render() {
     return(
       <div className='seller'>
-        <NavbarC historyPusher={this.historyPusher}/>
         {this.sellerInfoBuilder()}
         <div className='sellerRocketsDiv'>
           <div className='RocketsAggregateDiv'>

@@ -14,6 +14,7 @@ import Passenger from '../passenger/passenger';
 import OrderHistory from '../OrderHistory/OrderHistory';
 import Seller from '../seller/seller';
 import RocketDetail from '../rocketDetail/rocketDetail';
+import NavbarC from '../navbar/navbarC';
 import './app.scss';
 
 connection();
@@ -94,8 +95,8 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, ...rest 
     }
 
     return (
-      <div>
         <BrowserRouter>
+          <NavbarC/>
           <React.Fragment>
             <Switch>
               <PublicRoute path='/register' exact component={Register} loginStatus={this.state.loginStatus}/>
@@ -113,7 +114,6 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, ...rest 
             </Switch>
           </React.Fragment>
         </BrowserRouter>
-      </div>
     );
   }
 }
