@@ -27,7 +27,7 @@ namespace PorterAndMoon.Connections
 	                                    join OrderProduct as OP on OP.orderId = O.Id
                                     WHERE (O.customerId = @Id)
 	                                    and (O.isCompleted = 1)";
-                var parameters = new { UserId = id };
+                var parameters = new { Id = id };
 
 
 

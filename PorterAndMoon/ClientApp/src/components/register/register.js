@@ -77,7 +77,7 @@ class register extends React.Component {
                   <img src={logoText} className='logoText'/>
                   <p>We've got space... in space</p>
                 </div>              
-                <img src={logo} className='logo'/>
+                <img src={logo} className='logoR'/>
               </div> 
             </div>
             <div className='col-4 spacer'></div>
