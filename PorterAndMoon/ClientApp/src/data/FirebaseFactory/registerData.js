@@ -4,10 +4,6 @@ import 'firebase/auth';
 import axios from 'axios';
 import apiKeys from '../apiKeys';
 
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 const DBURL = apiKeys.baseUrl;
 
 axios.interceptors.request.use((request) => {
