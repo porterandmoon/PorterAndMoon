@@ -13,5 +13,6 @@ namespace PorterAndMoon.Models
         public int SellerId { get; set; }
         public decimal Price { get; set; }
         public string Title { get; set; }
+        public DateTime TimePosted { get; set; }
     }
 }

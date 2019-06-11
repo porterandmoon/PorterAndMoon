@@ -9,6 +9,7 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import firebase from 'firebase/app';
+import navbarData from '../../data/PortAndMoonFactory/navbarData';
 import 'firebase/auth';
 import './navbarC.scss';
 import logo from '../../images/moon.png';
@@ -19,7 +20,20 @@ class navbarC extends React.Component {
   state = {
     rocketMenu: false,
     destinationMenuF: false,
-    destinationMenuP: false
+    destinationMenuP: false,
+    freightRocketInfo: null,
+    passengerRocketInfo: null
+  }
+
+  componentDidMount() {
+    navbarData.getAvailableRockets(1)
+      .then((rockets) => {
+        this.setState({ freightRocketInfo: rockets });
+      });
+    navbarData.getAvailableRockets(2)
+      .then((rockets) => {
+        this.setState({ passengerRocketInfo: rockets });
+      });
   }
 
   hovered = (event) => {
@@ -128,35 +142,67 @@ class navbarC extends React.Component {
 
   rocketMenu = () => {
     return <div id='rocketMenu' onMouseEnter={this.dropDown} onMouseLeave={this.dropDownOut}>
-              <NavLink onMouseEnter={this.destinationF} onMouseLeave={this.destinationFOut} onClick={this.linkClicked} className={this.state.destinationMenuF ? 'hovered' : null} id='freightLink'>Freight</NavLink>
-              <NavLink onMouseEnter={this.destinationP} onMouseLeave={this.destinationPOut} onClick={this.linkClicked} className={this.state.destinationMenuP ? 'hovered' : null} id='passengerLink'>Passenger</NavLink>
+              <NavLink onMouseEnter={this.destinationF} onMouseLeave={this.destinationFOut} onClick={this.linkClicked} className={this.state.destinationMenuF ? 'hovered destinationItem' : 'destinationItem'} id='freightLink'>Freight</NavLink>
+              <NavLink onMouseEnter={this.destinationP} onMouseLeave={this.destinationPOut} onClick={this.linkClicked} className={this.state.destinationMenuP ? 'hovered destinationItem' : 'destinationItem'} id='passengerLink'>Passenger</NavLink>
             </div>;
   }
 
   destinationMenu = (menuF) => {
     return <div id='destinationMenu' onMouseEnter={this.dropDown} onMouseLeave={this.dropDownOut}>
       <NavLink className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
-        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='mercuryLink'>Mercury</NavLink>
+        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='mercuryLink'>Mercury
+        {menuF ? ` (${this.state.freightRocketInfo.Mercury != null ? this.state.freightRocketInfo.Mercury.length : ''})`
+          : ` (${this.state.passengerRocketInfo.Mercury != null ? this.state.passengerRocketInfo.Mercury.length : ''})`}</NavLink>
+
       <NavLink className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
-        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='venusLink'>Venus</NavLink>
+        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='venusLink'>Venus
+        {menuF ? ` (${this.state.freightRocketInfo.Venus != null ? this.state.freightRocketInfo.Venus.length : ''})`
+          : ` (${this.state.passengerRocketInfo.Venus != null ? this.state.passengerRocketInfo.Venus.length : ''})`}</NavLink>
+
       <NavLink className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
-        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='earthLink'>Earth</NavLink>
+        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='earthLink'>Earth
+        {menuF ? ` (${this.state.freightRocketInfo.Earth != null ? this.state.freightRocketInfo.Earth.length : ''})`
+          : ` (${this.state.passengerRocketInfo.Earth != null ? this.state.passengerRocketInfo.Earth.length : ''})`}</NavLink>
+
       <NavLink className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
-        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='moonLink'>Moon</NavLink>
+        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='moonLink'>Moon
+        {menuF ? ` (${this.state.freightRocketInfo.Moon != null ? this.state.freightRocketInfo.Moon.length : ''})`
+          : ` (${this.state.passengerRocketInfo.Moon != null ? this.state.passengerRocketInfo.Moon.length : ''})`}</NavLink>
+
       <NavLink className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
-        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='marsLink'>Mars</NavLink>
+        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='marsLink'>Mars 
+          {menuF ? ` (${this.state.freightRocketInfo.Mars != null ? this.state.freightRocketInfo.Mars.length : ''})`
+          : ` (${this.state.passengerRocketInfo.Mars != null ? this.state.passengerRocketInfo.Mars.length : ''})`}</NavLink>
+
       <NavLink className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
-        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='europaLink'>Europa</NavLink>
+        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='europaLink'>Europa
+        {menuF ? ` (${this.state.freightRocketInfo.Europa != null ? this.state.freightRocketInfo.Europa.length : ''})`
+          : ` (${this.state.passengerRocketInfo.Europa != null ? this.state.passengerRocketInfo.Europa.length : ''})`}</NavLink>
+
       <NavLink className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
-        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='ganymedeLink'>Ganymede</NavLink>
+        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='ganymedeLink'>Ganymede
+        {menuF ? ` (${this.state.freightRocketInfo.Ganymede != null ? this.state.freightRocketInfo.Ganymede.length : ''})`
+          : ` (${this.state.passengerRocketInfo.Ganymede != null ? this.state.passengerRocketInfo.Ganymede.length : ''})`}</NavLink>
+
       <NavLink className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
-        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='ioLink'>Io</NavLink>
+        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='ioLink'>Io
+        {menuF ? ` (${this.state.freightRocketInfo.Io != null ? this.state.freightRocketInfo.Io.length : ''})`
+          : ` (${this.state.passengerRocketInfo.Io != null ? this.state.passengerRocketInfo.Io.length : ''})`}</NavLink>
+
       <NavLink className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
-        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='callistoLink'>Callisto</NavLink>
+        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='callistoLink'>Callisto
+        {menuF ? ` (${this.state.freightRocketInfo.Callisto != null ? this.state.freightRocketInfo.Callisto.length : ''})`
+          : ` (${this.state.passengerRocketInfo.Callisto != null ? this.state.passengerRocketInfo.Callisto.length : ''})`}</NavLink>
+
       <NavLink className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
-        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='titanLink'>Titan</NavLink>
+        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='titanLink'>Titan
+        {menuF ? ` (${this.state.freightRocketInfo.Titan != null ? this.state.freightRocketInfo.Titan.length : ''})`
+          : ` (${this.state.passengerRocketInfo.Titan != null ? this.state.passengerRocketInfo.Titan.length : ''})`}</NavLink>
+
       <NavLink className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
-        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='rheaLink'>Rhea</NavLink>
+        onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut} onClick={this.linkClicked} id='rheaLink'>Rhea
+        {menuF ? ` (${this.state.freightRocketInfo.Rhea != null ? this.state.freightRocketInfo.Rhea.length : ''})`
+          : ` (${this.state.passengerRocketInfo.Rhea != null ? this.state.passengerRocketInfo.Rhea.length : ''})`}</NavLink>
     </div>
   }
 
@@ -180,10 +226,10 @@ class navbarC extends React.Component {
                 <div>
                 <NavLink onMouseEnter={this.dropDown} onMouseLeave={this.dropDownOut} className={this.state.rocketMenu ? 'hovered' : null} id='rocketLink'>
                   <i className="fas fa-home"></i> Find A Rocket
-                <div id='dropdownMenuDiv'>  
-                {this.state.rocketMenu ? this.rocketMenu() : null}
+                <div id='dropdownMenuDiv'>
                 {this.state.destinationMenuF ? this.destinationMenu(true) : null}
-                {this.state.destinationMenuP ? this.destinationMenu(false) : null}
+                {this.state.destinationMenuP ? this.destinationMenu(false) : null}  
+                {this.state.rocketMenu ? this.rocketMenu() : null}
                 </div>
                 </NavLink>
                 </div>

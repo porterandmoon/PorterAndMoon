@@ -82,5 +82,12 @@ namespace PorterAndMoon.Controllers
 
             return Ok(deletedInfo);
         }
+
+        [HttpGet("seller/{id}")]
+        public ActionResult GetSellerInfo(int id)
+        {
+            var sellerInfo = _repository.GetSeller(id);
+            return Ok(sellerInfo);
+        }
     }
 }
