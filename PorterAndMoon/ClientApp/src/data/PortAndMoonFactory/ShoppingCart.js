@@ -12,7 +12,7 @@ const currentProduct = (searchParam) => new Promise((Resolve,Reject) => {
 const addProductToCart = (product) => new Promise((Resolve, Reject) => {
  axios.post(`${baseUrl}/order${product}`,
  { data: {
-
+  
  }})
 });
 
