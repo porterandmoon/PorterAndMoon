@@ -55,23 +55,26 @@ namespace PorterAndMoon.Connections
 
                         var orderInfo = connection.QueryFirstOrDefault<OrderInfo>(orderQuery, orderParameters);
 
-                        foreach (var product in group)
+                        if(orderInfo != null)
                         {
-                            var productQuery = @"
-                            SELECT op.quantity as [quantityOrdered], p.description, p.price,
-                                    p.title, pt.name as [type], c.username as [seller]
-                            FROM OrderProduct as OP
-                               join Product as P on OP.productId = P.Id
-                               join productType as PT on P.type = PT.Id
-                               join Customer as c on C.id = P.sellerId
-                            WHERE(op.Id = @OrdProdId)";
-                            var productParams = new { OrdProdId = product.OPid };
-
-                            var productDetail = connection.QueryFirstOrDefault<OrderProductInfo>(productQuery, productParams);
-
-                            if (productDetail != null)
+                            foreach (var product in group)
                             {
-                                orderInfo.ProductDetail.Add(productDetail);
+                                var productQuery = @"
+                                SELECT op.quantity as [quantityOrdered], p.description, p.price,
+                                        p.title, pt.name as [type], c.username as [seller]
+                                FROM OrderProduct as OP
+                                   join Product as P on OP.productId = P.Id
+                                   join productType as PT on P.type = PT.Id
+                                   join Customer as c on C.id = P.sellerId
+                                WHERE(op.Id = @OrdProdId)";
+                                var productParams = new { OrdProdId = product.OPid };
+
+                                var productDetail = connection.QueryFirstOrDefault<OrderProductInfo>(productQuery, productParams);
+
+                                if (productDetail != null)
+                                {
+                                    orderInfo.ProductDetail.Add(productDetail);
+                                }
                             }
                         }
 
