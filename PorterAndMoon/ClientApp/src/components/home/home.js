@@ -29,7 +29,7 @@ class home extends React.Component {
     const renderArray = [];
     this.state.rocketInfo[dest].forEach((rocket) => {
       renderArray.push(<tr key={rocket.id}>
-        <th scope="row"><Link to={`/detail/${rocket.title}`}>{rocket.title}</Link></th>
+        <th scope="row"><Link to={`/detail/${rocket.title}/?Id=${rocket.id}`}>{rocket.title}</Link></th>
         <td><Link to={`/seller/${rocket.sellerId}`}>{rocket.username}</Link></td>
         <td>{rocket.destination}</td>
         <td>{rocket.origin}</td>
