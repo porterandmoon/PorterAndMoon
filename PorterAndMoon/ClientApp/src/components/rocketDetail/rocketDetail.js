@@ -13,6 +13,10 @@ class rocketDetail extends React.Component {
       .catch((err) => console.error(err));
   }
 
+  AddProduct(){
+    
+  }
+
   render() {
     return(
       <div className='rocketDetail'>

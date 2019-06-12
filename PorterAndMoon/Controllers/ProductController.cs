@@ -37,6 +37,14 @@ namespace PorterAndMoon.Controllers
             return Accepted(product);
         }
 
+        [HttpGet]
+        public ActionResult GetProductDetail(int Id)
+        {
+            var product = _connections.GetSingleProduct(Id);
+            return Accepted(product);
+        }
+
+
         /* in body
          * {
 	        "Type" : "",

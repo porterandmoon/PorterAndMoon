@@ -116,67 +116,67 @@ class navbarC extends React.Component {
 
   destinationMenu = (menuF) => {
     return <div id='destinationMenu' onMouseEnter={this.dropDown} onMouseLeave={this.dropDownOut}>
-      <NavLink tag={RRNavLink} to={`${menuF ? 'freightl' : 'passengerl'}+mercury`}
+      <NavLink tag={RRNavLink} to={`/${menuF ? 'freightl' : 'passengerl'}+mercury`}
         className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
         onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut}>Mercury
         {menuF ? ` (${this.state.freightRocketInfo.Mercury != null ? this.state.freightRocketInfo.Mercury.length : ''})`
           : ` (${this.state.passengerRocketInfo.Mercury != null ? this.state.passengerRocketInfo.Mercury.length : ''})`}</NavLink>
 
-      <NavLink tag={RRNavLink} to={`${menuF ? 'freightl' : 'passengerl'}+venus`}
+      <NavLink tag={RRNavLink} to={`/${menuF ? 'freightl' : 'passengerl'}+venus`}
         className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
         onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut}>Venus
         {menuF ? ` (${this.state.freightRocketInfo.Venus != null ? this.state.freightRocketInfo.Venus.length : ''})`
           : ` (${this.state.passengerRocketInfo.Venus != null ? this.state.passengerRocketInfo.Venus.length : ''})`}</NavLink>
 
-      <NavLink tag={RRNavLink} to={`${menuF ? 'freightl' : 'passengerl'}+earth`}
+      <NavLink tag={RRNavLink} to={`/${menuF ? 'freightl' : 'passengerl'}+earth`}
         className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
         onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut}>Earth
         {menuF ? ` (${this.state.freightRocketInfo.Earth != null ? this.state.freightRocketInfo.Earth.length : ''})`
           : ` (${this.state.passengerRocketInfo.Earth != null ? this.state.passengerRocketInfo.Earth.length : ''})`}</NavLink>
 
-      <NavLink tag={RRNavLink} to={`${menuF ? 'freightl' : 'passengerl'}+moon`}
+      <NavLink tag={RRNavLink} to={`/${menuF ? 'freightl' : 'passengerl'}+moon`}
         className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
         onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut}>Moon
         {menuF ? ` (${this.state.freightRocketInfo.Moon != null ? this.state.freightRocketInfo.Moon.length : ''})`
           : ` (${this.state.passengerRocketInfo.Moon != null ? this.state.passengerRocketInfo.Moon.length : ''})`}</NavLink>
 
-      <NavLink tag={RRNavLink} to={`${menuF ? 'freightl' : 'passengerl'}+mars`}
+      <NavLink tag={RRNavLink} to={`/${menuF ? 'freightl' : 'passengerl'}+mars`}
         className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
         onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut}>Mars 
           {menuF ? ` (${this.state.freightRocketInfo.Mars != null ? this.state.freightRocketInfo.Mars.length : ''})`
           : ` (${this.state.passengerRocketInfo.Mars != null ? this.state.passengerRocketInfo.Mars.length : ''})`}</NavLink>
 
-      <NavLink tag={RRNavLink} to={`${menuF ? 'freightl' : 'passengerl'}+europa`}
+      <NavLink tag={RRNavLink} to={`/${menuF ? 'freightl' : 'passengerl'}+europa`}
         className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
         onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut}>Europa
         {menuF ? ` (${this.state.freightRocketInfo.Europa != null ? this.state.freightRocketInfo.Europa.length : ''})`
           : ` (${this.state.passengerRocketInfo.Europa != null ? this.state.passengerRocketInfo.Europa.length : ''})`}</NavLink>
 
-      <NavLink tag={RRNavLink} to={`${menuF ? 'freightl' : 'passengerl'}+ganymede`}
+      <NavLink tag={RRNavLink} to={`/${menuF ? 'freightl' : 'passengerl'}+ganymede`}
         className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
         onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut}>Ganymede
         {menuF ? ` (${this.state.freightRocketInfo.Ganymede != null ? this.state.freightRocketInfo.Ganymede.length : ''})`
           : ` (${this.state.passengerRocketInfo.Ganymede != null ? this.state.passengerRocketInfo.Ganymede.length : ''})`}</NavLink>
 
-      <NavLink tag={RRNavLink} to={`${menuF ? 'freightl' : 'passengerl'}+io`}
+      <NavLink tag={RRNavLink} to={`/${menuF ? 'freightl' : 'passengerl'}+io`}
         className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
         onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut}>Io
         {menuF ? ` (${this.state.freightRocketInfo.Io != null ? this.state.freightRocketInfo.Io.length : ''})`
           : ` (${this.state.passengerRocketInfo.Io != null ? this.state.passengerRocketInfo.Io.length : ''})`}</NavLink>
 
-      <NavLink tag={RRNavLink} to={`${menuF ? 'freightl' : 'passengerl'}+callisto`}
+      <NavLink tag={RRNavLink} to={`/${menuF ? 'freightl' : 'passengerl'}+callisto`}
         className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
         onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut}>Callisto
         {menuF ? ` (${this.state.freightRocketInfo.Callisto != null ? this.state.freightRocketInfo.Callisto.length : ''})`
           : ` (${this.state.passengerRocketInfo.Callisto != null ? this.state.passengerRocketInfo.Callisto.length : ''})`}</NavLink>
 
-      <NavLink tag={RRNavLink} to={`${menuF ? 'freightl' : 'passengerl'}+titan`}
+      <NavLink tag={RRNavLink} to={`/${menuF ? 'freightl' : 'passengerl'}+titan`}
         className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
         onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut}>Titan
         {menuF ? ` (${this.state.freightRocketInfo.Titan != null ? this.state.freightRocketInfo.Titan.length : ''})`
           : ` (${this.state.passengerRocketInfo.Titan != null ? this.state.passengerRocketInfo.Titan.length : ''})`}</NavLink>
 
-      <NavLink tag={RRNavLink} to={`${menuF ? 'freightl' : 'passengerl'}+rhea`}
+      <NavLink tag={RRNavLink} to={`/${menuF ? 'freightl' : 'passengerl'}+rhea`}
         className='destinationItem' onMouseEnter={menuF ? this.destinationF : this.destinationP}
         onMouseLeave={menuF ? this.destinationFOut : this.destinationPOut}>Rhea
         {menuF ? ` (${this.state.freightRocketInfo.Rhea != null ? this.state.freightRocketInfo.Rhea.length : ''})`
