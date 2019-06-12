@@ -11,7 +11,7 @@ namespace PorterAndMoon.Models.Order
         public bool IsRefunded { get; set; }
         public bool IsCompleted { get; set; }
         public int CustomerId { get; set; }
-        public int PaymentId { get; set; }
+        public int? PaymentId { get; set; }
         public DateTime Date { get; set; }
     }
 }

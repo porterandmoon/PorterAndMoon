@@ -132,6 +132,7 @@ namespace PorterAndMoon.Connections
             {
                 newOrder.Date = DateTime.Now;
                 newOrder.IsRefunded = false;
+                newOrder.PaymentId = null;
                 var queryString = @"Insert into [Order] (CustomerId, PaymentId, Date, IsRefunded, IsCompleted)
                                     Output inserted.*
                                     Values (@CustomerId, @PaymentId, @Date, @IsRefunded, @IsCompleted)";
