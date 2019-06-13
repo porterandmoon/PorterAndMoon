@@ -57,13 +57,6 @@ namespace PorterAndMoon.Controllers
         CustomerId - int
         */
 
-        [HttpPost]
-        public ActionResult PostOrder(Order newOrder)
-        {
-            var order = _connections.AddOrder(newOrder);
-            return Accepted(order);
-        }
-
         [HttpPut("paid/{Id}")]
         public ActionResult FinalizeOrder(int Id)
         {
