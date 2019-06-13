@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputGroup, Input, Dropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap';
+import { InputGroup, Input, Dropdown, DropdownMenu, DropdownToggle, DropdownItem , Button} from 'reactstrap';
 import getData from '../../data/PortAndMoonFactory/Search';
 import './SearchBar.scss';
 
@@ -7,7 +7,6 @@ import './SearchBar.scss';
 class SearchBar extends React.Component {
     state = {
         value: "",
-        data: [],
         dropdownOpen: false,
         searchParams: "Search in"
     };
@@ -68,7 +67,6 @@ class SearchBar extends React.Component {
         return (
             <div className="searchForm">
                 <InputGroup>
-                    <Input className="input" type="text" value={this.state.value} onKeyDown={this.chooseSearch} onChange={this.handleChange} placeholder="Search..." />
                     <Dropdown group isOpen={this.state.dropdownOpen} size="sm" toggle={this.toggle}>
                         <DropdownToggle caret>
                             {this.state.searchParams}
@@ -78,6 +76,8 @@ class SearchBar extends React.Component {
                             <DropdownItem id="products" onClick={this.updateSearch}>Search Products</DropdownItem>
                         </DropdownMenu>
                         </Dropdown>
+                        <Input className="input" type="text" value={this.state.value} onKeyDown={this.chooseSearch} onChange={this.handleChange} placeholder="Search..." />
+                        <button><i class="fas fa-search"></i></button>
                 </InputGroup>
             </div>
         );

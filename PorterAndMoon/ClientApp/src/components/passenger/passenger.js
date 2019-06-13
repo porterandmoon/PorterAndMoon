@@ -1,5 +1,4 @@
 import React from 'react';
-import NavbarC from '../navbar/navbarC';
 import { Link } from 'react-router-dom';
 import passengerData from '../../data/PortAndMoonFactory/passengerData';
 import './passenger.scss';
@@ -41,10 +40,6 @@ class passenger extends React.Component {
       parsedPath = parsedPath.replace('+', '');
       this.setState({ chosenDestination: parsedPath, path }, () => {this.mounterCallBack()});
     }
-  }
-
-  historyPusher = (path) => {
-    this.props.history.push(path);
   }
 
   cardBuilderPart2_3OrMore = (dest) => {
@@ -155,7 +150,6 @@ class passenger extends React.Component {
   render() {
     return(
       <div className='passenger'>
-        <NavbarC historyPusher={this.historyPusher}/>
         <h4 className='passengerTitle'>Available passenger Rockets</h4>
         {this.rocketCardBuilder()}
       </div>

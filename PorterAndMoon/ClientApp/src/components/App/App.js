@@ -14,6 +14,8 @@ import Passenger from '../passenger/passenger';
 import OrderHistory from '../OrderHistory/OrderHistory';
 import Seller from '../seller/seller';
 import RocketDetail from '../rocketDetail/rocketDetail';
+import NavbarC from '../navbar/navbarC';
+import SearchResults from '../SearchResults/SearchResults';
 import './app.scss';
 
 connection();
@@ -41,6 +43,7 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, ...rest 
     id: undefined,
     lastName: undefined,
     userName: undefined,
+    searchData: []
   }
 
   componentDidMount() {
@@ -51,6 +54,7 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, ...rest 
           pendingUser: false,
         });
 
+        
         ProfileCalls.currentUserInfo(user.uid)
         .then(profileInfo => {
           const content = profileInfo.data
@@ -94,8 +98,8 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, ...rest 
     }
 
     return (
-      <div>
         <BrowserRouter>
+          <NavbarC searchData={this.state.searchData}/>
           <React.Fragment>
             <Switch>
               <PublicRoute path='/register' exact component={Register} loginStatus={this.state.loginStatus}/>
@@ -107,13 +111,13 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, ...rest 
               <PrivateRoute path='/homel' component={Home} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PublicRoute path='/home' exact component={Home} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/profile' exact component={Profile} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
-              <PrivateRoute path='/seller/*' component={Seller} loginStatus={this.state.loginStatus}/>
+              <PrivateRoute path='/seller/*' exact component={Seller} loginStatus={this.state.loginStatus}/>
             `<PrivateRoute path='/detail/*' component={RocketDetail} loginStatus={this.state.loginStatus}/>  
               <PrivateRoute path='/order-history' exact component={OrderHistory} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
+              <PrivateRoute path='/search-results' exact component={SearchResults} loginStatus={this.state.loginStatus}/>
             </Switch>
           </React.Fragment>
         </BrowserRouter>
-      </div>
     );
   }
 }

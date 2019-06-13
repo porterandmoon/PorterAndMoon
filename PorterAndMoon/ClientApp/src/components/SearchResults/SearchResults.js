@@ -2,13 +2,15 @@ import React from 'react';
 
 
 class SearchResults extends React.Component {
-render() {
+    render() {
 
-    return(
-        <div>
+        return(
+            <div className="resultsContainer">
 
-        </div>
+            </div>
 
-    );
+        );
+    }
 }
-}
+
+export default SearchResults;
