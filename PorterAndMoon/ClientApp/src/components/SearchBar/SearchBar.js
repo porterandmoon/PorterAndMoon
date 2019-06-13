@@ -62,6 +62,10 @@ class SearchBar extends React.Component {
         }));
       }
 
+    getToSearchHistory = () => {
+        this.props.history.push("/search-history")
+    }
+
     render() {
 
         return (
@@ -76,8 +80,8 @@ class SearchBar extends React.Component {
                             <DropdownItem id="products" onClick={this.updateSearch}>Search Products</DropdownItem>
                         </DropdownMenu>
                         </Dropdown>
-                        <Input className="input" type="text" value={this.state.value} onKeyDown={this.chooseSearch} onChange={this.handleChange} placeholder="Search..." />
-                        <button><i class="fas fa-search"></i></button>
+                        <Input className="input" type="text" value={this.state.value} onChange={this.handleChange} placeholder="Search..." />
+                        <Button onClick={this.getToSearchHistory}><i className="fas fa-search"></i></Button>
                 </InputGroup>
             </div>
         );
