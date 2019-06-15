@@ -11,11 +11,9 @@ const currentProduct = (searchParam) => new Promise((Resolve,Reject) => {
 
 const addProductToCart = (userId, productId, quantOrdered) => new Promise((Resolve, Reject) => {
  axios.post(`${baseUrl}/cart`, { 
-   data: {
-      UserId: userId,
-      ProductId: productId,
-      OrderQuantity: quantOrdered,
-    }
+    UserId: userId,
+    ProductId: productId,
+    OrderQuantity: quantOrdered,
   })
     .then((res) => Resolve(res))
     .catch((err) => Reject(err));

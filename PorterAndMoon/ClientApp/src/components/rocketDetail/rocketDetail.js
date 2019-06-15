@@ -24,6 +24,7 @@ class rocketDetail extends React.Component {
   }
 
   handleSubmit = (event) => {
+    this.AddProduct();
     event.preventDefault();
   }
 
@@ -46,10 +47,9 @@ class rocketDetail extends React.Component {
   }
 
   AddProduct = () => {
-    if(this.state.value > 0 && !isNaN(this.state.value) && this.state.product.quantity > this.state.value){
+    if(this.state.value > 0 && !isNaN(this.state.value) && this.state.product.quantity >= this.state.value){
       var requestedQuantity = this.state.value;
       ShoppingCart.addProductToCart(this.props.currentUser.id, this.state.product.id, requestedQuantity)
-      
     }
   }
   
@@ -59,7 +59,7 @@ class rocketDetail extends React.Component {
     return(
       <div className='rocketDetail'>
         <h1>ROCKET DETAIL PAGE</h1>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <label>
           number to add
             <svg onClick={this.subtractFromInput} className="minus-icon-background" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
