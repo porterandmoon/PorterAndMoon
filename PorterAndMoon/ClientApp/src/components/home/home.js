@@ -14,7 +14,6 @@ class home extends React.Component {
     homeData.getMostRecentRockets()
       .then((rocketInfo) => {
         this.setState({ rocketInfo });
-        debugger;
       });
   }
 
