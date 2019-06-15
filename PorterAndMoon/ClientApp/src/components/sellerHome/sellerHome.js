@@ -3,7 +3,7 @@ import sellerHomeData from '../../data/PortAndMoonFactory/sellerHomeData';
 import RocketSpace from './rocketSpace/rocketSpace';
 import SalesHistory from './salesHistory/salesHistory';
 import AddFlight from './addFlight/addFlight';
-import { Button } from 'reactstrap';
+import Dashboard from './dashboard/dashboard';
 import './sellerHome.scss';
 
 class sellerHome extends React.Component {
@@ -44,7 +44,7 @@ class sellerHome extends React.Component {
           </div>
         </div>
         <div className='dashboard'>
-          <p>dashboard</p>
+          <Dashboard userId={this.props.currentUser.id}/>
           <div className='sellerBtnDiv'>
             <AddFlight userId={this.props.currentUser.id}/>
             <SalesHistory userId={this.props.currentUser.id}/>
