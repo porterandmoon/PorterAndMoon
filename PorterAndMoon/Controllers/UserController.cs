@@ -79,5 +79,19 @@ namespace PorterAndMoon.Controllers
             var sellerInfo = _repository.GetSeller(id);
             return Ok(sellerInfo);
         }
+
+        [HttpGet("dashboard/{id}")]
+        public ActionResult GetMyOrders(int id)
+        {
+            var orders = _repository.GetSellerOrders(id);
+            return Accepted(orders);
+        }
+
+        [HttpGet("history/{id}")]
+        public ActionResult GetSellerHistory(int id)
+        {
+            var orders = _repository.GetSellerHistory(id);
+            return Accepted(orders);
+        }
     }
 }

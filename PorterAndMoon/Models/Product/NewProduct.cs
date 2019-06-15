@@ -14,5 +14,9 @@ namespace PorterAndMoon.Models
         public decimal Price { get; set; }
         public string Title { get; set; }
         public DateTime TimePosted { get; set; }
+        public DateTime Departure { get; set; }
+        public DateTime Arrival { get; set; }
+        public string Destination { get; set; }
+        public string Origin { get; set; }
     }
 }
