@@ -15,7 +15,7 @@ namespace PorterAndMoon.Controllers
             _connections = connections;
         }
 
-        [HttpPost("cart")]
+        [HttpPost]
         public ActionResult FinalizeOrder(CartAdd Id)
         {
             var order = _connections.AddItemToCart(Id);

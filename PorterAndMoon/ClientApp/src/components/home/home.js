@@ -96,10 +96,6 @@ class home extends React.Component {
   render() {
     return(<div className='home'>
       {this.rocketCardBuilder()}
-      <button onClick={this.logOut}>Log out</button>
-      <button onClick={this.getToProfile}>Profile</button>
-      <a href="/order-history">click me</a>
-
     </div>);
   }
 }

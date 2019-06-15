@@ -109,7 +109,7 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, ...rest 
               <PublicRoute path='/home' exact component={Home} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/profile' exact component={Profile} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/seller/*' component={Seller} loginStatus={this.state.loginStatus}/>
-              <PrivateRoute path='/detail/*' component={RocketDetail} loginStatus={this.state.loginStatus}/>  
+              <PrivateRoute path='/detail/*' component={RocketDetail} loginStatus={this.state.loginStatus} currentUser={currentUser}/>  
               <PrivateRoute path='/order-history' exact component={OrderHistory} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
             </Switch>
           </React.Fragment>

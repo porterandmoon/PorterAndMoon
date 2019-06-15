@@ -9,11 +9,19 @@ const currentProduct = (searchParam) => new Promise((Resolve,Reject) => {
     .catch((rej) => Reject(rej));
 });
 
-const addProductToCart = (product) => new Promise((Resolve, Reject) => {
- axios.post(`${baseUrl}/order${product}`,
- { data: {
-  
- }})
+const addProductToCart = (userId, productId, quantOrdered) => new Promise((Resolve, Reject) => {
+ axios.post(`${baseUrl}/cart`, { 
+   data: {
+      UserId: userId,
+      ProductId: productId,
+      OrderQuantity: quantOrdered,
+    }
+  })
+    .then((res) => Resolve(res))
+    .catch((err) => Reject(err));
 });
 
-export default { currentProduct };
+export default { 
+  currentProduct,
+  addProductToCart,
+};
