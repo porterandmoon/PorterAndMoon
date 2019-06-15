@@ -1,0 +1,49 @@
+.purchasesTable {
+  background-color: black;
+  color: white;
+  border: 2px solid white;
+  border-radius: 3px;
+  width: 40%;
+  position: relative;
+  left: 42px;
+}
+
+.rocketSpaceProductHeader {
+  display: flex;
+  background-color: black;
+  color: white;
+  border: 2px solid white;
+  border-radius: 3px;
+  width: 80%;
+}
+
+.plusMinusButton {
+  border: none;
+  color: white;
+  background: none;
+  font-size: 1.3em;
+  width: 40px;
+}
+
+.rocketSpaceProduct {
+  margin-top: 4%;
+  margin-left: 2%;
+}
+
+.rocketSpaceNum {
+  display: flex;
+  background-color: black;
+  color: white;
+  border: 2px solid white;
+  border-radius: 3px;
+  width: 28%;
+}
+
+.rocketSpaceNumText {
+  margin-top: 10%;
+}
+
+.rocketSpaceC {
+  margin-left: 4%;
+  margin-bottom: 2%;
+}
