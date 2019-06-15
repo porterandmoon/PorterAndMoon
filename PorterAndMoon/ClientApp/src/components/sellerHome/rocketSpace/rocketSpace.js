@@ -46,15 +46,16 @@ class rocketSpace extends React.Component {
     return(
       <div className='rocketSpaceC'>
         <div className='rocketSpaceProductHeader'>
-          
           <p className='rocketSpaceProduct'>Flight #: {this.props.productTitle}</p>
           <p className='rocketSpaceProduct'>Total Quantity: {this.props.productQty}</p>
           <p className='rocketSpaceProduct'>Remaining Quantity: {this.props.remainingQty}</p>
           <p className='rocketSpaceProduct'>Price: {this.props.price}</p>
         </div>
-        <div className='rocketSpaceNum'>
+        <div className={this.props.purchases[0].purchasedQty !== 0 ? 'rocketSpaceNum' : 'empty'}>
+          {this.props.purchases[0].purchasedQty !== 0 ? <div>
           <button onClick={this.plusMinus} className='plusMinusButton'>{this.state.expanded ? '-' : '+'}</button>
-          <p className='rocketSpaceNumText'>{this.props.numPurchases} Total Purchases</p>
+          <p className='rocketSpaceNumText'>{this.props.numPurchases} Total Purchases</p></div>
+            : null}
         </div>
         {this.state.expanded ? this.purchasesBuilder() : null}
       </div>
