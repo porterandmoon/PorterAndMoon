@@ -14,6 +14,7 @@ class home extends React.Component {
     homeData.getMostRecentRockets()
       .then((rocketInfo) => {
         this.setState({ rocketInfo });
+        debugger;
       });
   }
 
@@ -29,6 +30,7 @@ class home extends React.Component {
     const renderArray = [];
     this.state.rocketInfo[dest].forEach((rocket) => {
       renderArray.push(<tr key={rocket.id}>
+        
         <th scope="row"><Link to={`/detail/${rocket.title}/?Id=${rocket.id}`}>{rocket.title}</Link></th>
         <td><Link to={`/seller/${rocket.sellerId}`}>{rocket.username}</Link></td>
         <td>{rocket.destination}</td>
@@ -45,7 +47,6 @@ class home extends React.Component {
     const renderArray = [];
     if (this.state.rocketInfo !== null) {
       Object.keys(this.state.rocketInfo).forEach((destination) => {
-         
           renderArray.push(<div key={destination}><h4 className='topFlightsTitle'>
             Recent flights to {destination} ({this.state.rocketInfo[destination].length} Total)</h4>
           <table className="table table-striped table-dark flightTable">
