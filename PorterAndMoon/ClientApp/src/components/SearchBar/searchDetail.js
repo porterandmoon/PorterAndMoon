@@ -7,29 +7,18 @@ class SearchDetail extends React.Component {
         const renderSearch = () => {
             if (searchData.username !== 'null') {
                 return <h3>{searchData.username}</h3>
-            }
-            else {
-                return (
-                    <div className="col">
-                        <h3>{searchData.title}</h3>
-                        <p>{searchData.description}</p>
-                        <p>{searchData.price}</p>
-                        <p>{searchData.quantitiy}</p>
+            } else if (searchData.title !== 'null') {
+                return <div>
+                    <h3>{searchData.title}</h3>
+                    <p>{searchData.description}</p>
+                    <p>{searchData.price}</p>
+                    <p>{searchData.quantitiy}</p>
                     </div>
-                );
-            }
-        }
+            } else {
+                return ''
+            };   
+        };
 
-            // const getSearchClass = () => {
-            //     switch (this.props.searchParams) {
-            //         case 'users':
-            //             return 'usersSearchDetails';
-            //         case 'products': 
-            //             return 'productsSearchDetails';
-            //         default:
-            //             return '';
-            //     }
-            // }
         return (
             <div className="searchDetail">
                 <div className="container">
