@@ -187,6 +187,7 @@ class navbarC extends React.Component {
   }
 
   render() {
+    const { searchData } = this.props;
     return(
       <div className='navbar'>
         <Navbar color="dark" dark expand="md">
@@ -197,7 +198,7 @@ class navbarC extends React.Component {
           <NavbarToggler onClick={this.toggle} />
             <Nav className="ml-auto" navbar>
               <NavItem className='navLinks'>
-              <SearchBar className="searchBar" searchData={this.props.searchData}/>
+              <SearchBar className="searchBar" searchData={searchData}/>
                 <NavLink onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut} onClick={this.linkClicked} id='homeLink'></NavLink>
                 <NavLink tag={RRNavLink} to='/homel' onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut}>
                   <i className="fas fa-home"></i> Home

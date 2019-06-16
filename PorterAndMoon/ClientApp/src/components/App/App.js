@@ -27,9 +27,9 @@ const PublicRoute = ({ component: Component, loginStatus, ...rest }) => {
   return <Route {...rest} render={props => routeChecker(props)} />;
 };
 
-const PrivateRoute = ({ component: Component, loginStatus, currentUser, ...rest }) => {
+const PrivateRoute = ({ component: Component, loginStatus, currentUser, searchData, ...rest }) => {
   const routeChecker = props => (loginStatus === true
-    ? (<Component { ...props } loginStatus={loginStatus} currentUser={currentUser}/>)
+    ? (<Component { ...props } loginStatus={loginStatus} currentUser={currentUser} searchData={searchData}/>)
     : (<Redirect to={{ pathname: '/register', state: { from: props.location } } } />));
   return <Route {...rest} render={props => routeChecker(props)} />;
 };
@@ -44,6 +44,10 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, ...rest 
     lastName: undefined,
     userName: undefined,
     searchData: []
+  }
+
+  setSearchData = (response) => {
+    this.setState({ searchData: response })
   }
 
   componentDidMount() {
@@ -99,7 +103,7 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, ...rest 
 
     return (
         <BrowserRouter>
-          <NavbarC searchData={this.state.searchData}/>
+          <NavbarC searchData={this.setSearchData}/>
           <React.Fragment>
             <Switch>
               <PublicRoute path='/register' exact component={Register} loginStatus={this.state.loginStatus}/>
@@ -114,7 +118,7 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, ...rest 
               <PrivateRoute path='/seller/*' exact component={Seller} loginStatus={this.state.loginStatus}/>
             `<PrivateRoute path='/detail/*' component={RocketDetail} loginStatus={this.state.loginStatus}/>  
               <PrivateRoute path='/order-history' exact component={OrderHistory} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
-              <PrivateRoute path='/search-results' exact component={SearchResults} loginStatus={this.state.loginStatus}/>
+              <PrivateRoute path='/search-results' exact component={SearchResults} loginStatus={this.state.loginStatus} searchData={this.state.searchData}/>
             </Switch>
           </React.Fragment>
         </BrowserRouter>

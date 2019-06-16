@@ -1,5 +1,6 @@
 import React from 'react';
 import { InputGroup, Input, Dropdown, DropdownMenu, DropdownToggle, DropdownItem , Button} from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 import getData from '../../data/PortAndMoonFactory/Search';
 import './SearchBar.scss';
 
@@ -40,7 +41,7 @@ class SearchBar extends React.Component {
     const input = this.state.value;
     getData.getSearchData(input)
     .then((responseData) => {
-        this.setState({ data: responseData });
+        this.props.searchData(responseData);
     })
     .catch(err => console.error('error with search GET', err))
     }
@@ -50,7 +51,7 @@ class SearchBar extends React.Component {
         const input = this.state.value;
         getData.getProductsSearchData(input)
         .then((responseData) => {
-            this.setState({ data: responseData });
+            this.props.searchData(responseData);
         })
         .catch(err => console.error('error with search GET', err))
     }
@@ -61,10 +62,6 @@ class SearchBar extends React.Component {
           dropdownOpen: !prevState.dropdownOpen
         }));
       }
-
-    getToSearchHistory = () => {
-        this.props.history.push("/search-history")
-    }
 
     render() {
 
@@ -81,7 +78,7 @@ class SearchBar extends React.Component {
                         </DropdownMenu>
                         </Dropdown>
                         <Input className="input" type="text" value={this.state.value} onChange={this.handleChange} placeholder="Search..." />
-                        <Button onClick={this.getToSearchHistory}><i className="fas fa-search"></i></Button>
+                        <Button className="btn"><NavLink to="/search-results"><i className="fas fa-search" onClick={this.chooseSearch}></i></NavLink></Button>
                 </InputGroup>
             </div>
         );
