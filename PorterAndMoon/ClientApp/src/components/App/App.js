@@ -16,6 +16,7 @@ import Seller from '../seller/seller';
 import RocketDetail from '../rocketDetail/rocketDetail';
 import SellerHome from '../sellerHome/sellerHome';
 import NavbarC from '../navbar/navbarC';
+import Cart from '../Cart/Cart';
 import './app.scss';
 
 connection();
@@ -113,6 +114,7 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, ...rest 
               <PrivateRoute path='/detail/*' component={RocketDetail} loginStatus={this.state.loginStatus} currentUser={currentUser}/>  
               <PrivateRoute path='/sellerhome' component={SellerHome} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/order-history' exact component={OrderHistory} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
+              <PrivateRoute path='/cart' exact component={Cart} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
             </Switch>
           </React.Fragment>
         </BrowserRouter>
