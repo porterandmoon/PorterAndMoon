@@ -7,7 +7,7 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
-import { NavLink as RRNavLink } from 'react-router-dom';
+import { NavLink as RRNavLink, Link } from 'react-router-dom';
 import firebase from 'firebase/app';
 import navbarData from '../../data/PortAndMoonFactory/navbarData';
 import 'firebase/auth';
@@ -202,7 +202,7 @@ class navbarC extends React.Component {
                 <NavLink tag={RRNavLink} to="/order-history" onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut}>Order History</NavLink>
                 <NavLink tag={RRNavLink} to="/sellerhome" onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut}>Seller Dashboard</NavLink>
                 <div>
-                  <NavLink tag={RRNavLink} onMouseEnter={this.dropDown} onMouseLeave={this.dropDownOut} className={this.state.rocketMenu ? 'hovered' : null} id='rocketLink'>
+                  <NavLink tag={Link} onMouseEnter={this.dropDown} onMouseLeave={this.dropDownOut} className={this.state.rocketMenu ? 'hovered' : null} id='rocketLink'>
                   <i className="fas fa-home"></i> Find A Rocket
                 <div id='dropdownMenuDiv'>
                 {this.state.destinationMenuF ? this.destinationMenu(true) : null}
@@ -211,7 +211,7 @@ class navbarC extends React.Component {
                 </div>
                 </NavLink>
                 </div>
-                <NavLink tag={RRNavLink} onClick={this.logoutClicked}
+                <NavLink tag={Link} onClick={this.logoutClicked}
                   onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut}>
                   <i className="fas fa-sign-out-alt"></i> Logout
                 </NavLink>

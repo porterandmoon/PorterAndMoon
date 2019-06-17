@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using PorterAndMoon.Models.Dashboard;
+using PorterAndMoon.Models;
 
 namespace PorterAndMoon.Connections
 {
@@ -76,6 +77,36 @@ namespace PorterAndMoon.Connections
                 return total;
             }
             throw new Exception("Could not get total");
+        }
+
+        public Dictionary<DateTime, List<Products>> GetDepartures(int id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var queryString = @"Select *
+                                    From Product
+                                    Where sellerId = 1";
+                var departures = connection.Query<Products>(queryString, new { id });
+                var datedDepartures = departures.GroupBy(rocket => rocket.Departure);
+
+                return datedDepartures.ToDictionary(x => x.Key, x => x.ToList());
+            }
+            throw new Exception("Could not get departures");
+        }
+
+        public Dictionary<DateTime, List<Products>> GetArrivals(int id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var queryString = @"Select *
+                                    From Product
+                                    Where sellerId = 1";
+                var arrivals = connection.Query<Products>(queryString, new { id });
+                var datedArrivals = arrivals.GroupBy(rocket => rocket.Arrival);
+
+                return datedArrivals.ToDictionary(x => x.Key, x => x.ToList());
+            }
+            throw new Exception("Could not get arrivals");
         }
     }
 }

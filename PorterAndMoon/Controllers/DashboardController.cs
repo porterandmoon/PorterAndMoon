@@ -46,5 +46,19 @@ namespace PorterAndMoon.Controllers
             var total = _connections.GetNumRocketsMonth(id);
             return Accepted(total);
         }
+
+        [HttpGet("{id}/departures")]
+        public ActionResult GetDepartures(int id)
+        {
+            var total = _connections.GetDepartures(id);
+            return Accepted(total);
+        }
+
+        [HttpGet("{id}/arrivals")]
+        public ActionResult GetArrivals(int id)
+        {
+            var total = _connections.GetArrivals(id);
+            return Accepted(total);
+        }
     }
 }
