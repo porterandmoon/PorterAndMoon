@@ -58,9 +58,9 @@ namespace PorterAndMoon.Controllers
              }
          */
         [HttpPost]
-        public ActionResult AddNewProduct(NewProduct newProduct)
+        public ActionResult AddNewProduct(Products newProduct)
         {
-            var product = _connections.AddNewProduct(newProduct);
+            var product = _connections.AddRocket(newProduct);
             return Accepted(product);
         }
 
@@ -74,7 +74,7 @@ namespace PorterAndMoon.Controllers
 
         // pass {"quantity": "", "id" : ""} in body
 
-    [HttpPut]
+        [HttpPut]
         public ActionResult updateQuantity(ProductQuantity updatedProduct)
         {
             var product = _connections.UpdateQuantity(updatedProduct);

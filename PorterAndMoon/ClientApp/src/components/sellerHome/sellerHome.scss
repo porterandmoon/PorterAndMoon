@@ -1,0 +1,41 @@
+.rocketSpaceHeader {
+  background-color: black;
+  color: white;
+  border: 2px solid white;
+  border-radius: 3px;
+  width: 50%;
+  padding: 5px;
+  margin-top: 2%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.currentRockets {
+  border: 2px solid white;
+  border-radius: 3px;
+  color: white;
+  background-color: rgba(25, 25, 112, 0.5);
+  margin-top: 2%;
+  margin-left: 2%;
+  width: 50%;
+}
+
+.dashboard {
+  border: 2px solid white;
+  border-radius: 3px;
+  color: white;
+  background-color: rgba(25, 25, 112, 0.5);
+  margin-top: 2%;
+  margin-left: 2%;
+  width: 45%;
+}
+
+.sellerHome {
+  display: flex;
+}
+
+.sellerBtnDiv {
+  display: flex;
+  justify-content: space-around;
+}

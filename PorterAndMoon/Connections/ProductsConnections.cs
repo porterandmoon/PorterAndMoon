@@ -183,5 +183,48 @@ namespace PorterAndMoon.Connections
             }
             throw new Exception("Could not find rockets");
         }
+
+        public Products AddRocket(Products newRocket)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                newRocket.RemainingQty = newRocket.Quantity;
+                newRocket.TimePosted = DateTime.Now;
+                var sellerId = newRocket.SellerId;
+                var rando = new Random();
+                var title = rando.Next(1000, 10000);
+                var currentTime = DateTime.Now;
+                var initQueryString = @"Select Title
+                                        From Product
+                                        Where SellerId = @SellerId AND Departure > @CurrentTime";
+                var flightStrings = connection.Query<string>(initQueryString, new { sellerId, currentTime });
+                var flightNums = flightStrings.Select(flightNum => Int32.Parse(flightNum)).ToList();
+                newRocket.Title = titleChecker(title, flightNums).ToString();
+                var queryString = @"Insert into Product(Type, Description, Quantity, SellerId, Price, RemainingQty,
+                                        Title, TimePosted, Destination, Origin, Departure, Arrival)
+                                    Output inserted.* 
+                                    Values(@Type, @Description, @Quantity, @SellerId, @Price, @RemainingQty,
+                                        @Title, @TimePosted, @Destination, @Origin, @Departure, @Arrival)"; ;
+                var rocket = connection.QueryFirstOrDefault<Products>(queryString, newRocket);
+                if (rocket != null)
+                {
+                    return rocket;
+                }
+            }
+            throw new Exception("Could not add rocket");
+        }
+
+        private int titleChecker(int title, List<int> flightNums)
+        {
+            if (flightNums.Contains(title))
+            {
+                var rando = new Random();
+                var newTitle = rando.Next(1000, 10000);
+                return titleChecker(newTitle, flightNums);
+            } else
+            {
+                return title;
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using System.Data.SqlClient;
 using PorterAndMoon.Models.Customer;
 using PorterAndMoon.Interface;
+using PorterAndMoon.Models.Order;
 
 namespace PorterAndMoon.Connections
 {
@@ -153,6 +154,44 @@ namespace PorterAndMoon.Connections
             }
             throw new Exception("Could not find user");
 
+        }
+
+        public Dictionary<int, List<SellerOrder>> GetSellerOrders(int id)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var currentTime = DateTime.Now;
+                var queryString = @"Select [type], [description], product.quantity, price, title, destination, origin, timePosted, remainingQty,
+	                                    OrderProduct.quantity as purchasedQty, isRefunded, [date], firstName, lastName, username, productId
+                                    From Product
+                                    Left Join OrderProduct ON ProductId = Product.Id
+                                    Left Join [Order] ON [Order].Id = orderId 
+                                    Left Join Customer ON Customer.Id = CustomerId
+                                    Where sellerId = 1 AND (isCompleted IS NULL OR isCompleted = 1) AND departure > @CurrentTime";
+                var orders = db.Query<SellerOrder>(queryString, new { id, currentTime });
+                var groupedOrders = orders.GroupBy(order => order.ProductId);
+                return groupedOrders.ToDictionary(x => x.Key, x => x.ToList());
+            }
+            throw new Exception("Could not find orders");
+        }
+
+        public Dictionary<int, List<SellerOrder>> GetSellerHistory(int id)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var currentTime = DateTime.Now;
+                var queryString = @"Select [type], [description], product.quantity, price, title, destination, origin, timePosted, remainingQty,
+	                                    OrderProduct.quantity as purchasedQty, isRefunded, [date], firstName, lastName, username, productId
+                                    From Product
+                                    Join OrderProduct ON ProductId = Product.Id
+                                    Join [Order] ON [Order].Id = orderId 
+                                    Join Customer ON Customer.Id = CustomerId
+                                    Where sellerId = 1 AND isCompleted = 1 AND departure < @CurrentTime";
+                var orders = db.Query<SellerOrder>(queryString, new { id, currentTime });
+                var groupedOrders = orders.GroupBy(order => order.ProductId);
+                return groupedOrders.ToDictionary(x => x.Key, x => x.ToList());
+            }
+            throw new Exception("Could not find orders");
         }
     }
 }
