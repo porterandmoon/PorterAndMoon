@@ -3,7 +3,6 @@ import sellerHomeData from '../../data/PortAndMoonFactory/sellerHomeData';
 import RocketSpace from './rocketSpace/rocketSpace';
 import SalesHistory from './salesHistory/salesHistory';
 import AddFlight from './addFlight/addFlight';
-import { Button } from 'reactstrap';
 import './sellerHome.scss';
 
 class sellerHome extends React.Component {

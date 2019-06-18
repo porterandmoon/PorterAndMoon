@@ -21,5 +21,12 @@ namespace PorterAndMoon.Controllers
             var order = _connections.AddItemToCart(Id);
             return Accepted(order);
         }
+
+        [HttpGet]
+        public ActionResult CheckCart(int Id)
+        {
+            var cart = _connections.ViewCart(Id);
+            return Ok(cart);
+        }
     }
 }
