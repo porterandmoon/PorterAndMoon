@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  BrowserRouter, Route, Redirect, Switch, browser
+  BrowserRouter, Route, Redirect, Switch,
 } from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -17,6 +17,7 @@ import RocketDetail from '../rocketDetail/rocketDetail';
 import SellerHome from '../sellerHome/sellerHome';
 import SellerRockets from '../sellerRockets/sellerRockets';
 import NavbarC from '../navbar/navbarC';
+import Cart from '../Cart/Cart';
 import SearchResults from '../SearchResults/SearchResults';
 import './app.scss';
 
@@ -122,6 +123,7 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, searchDa
               <PrivateRoute path='/sellerhome/rockets+*' component={SellerRockets} loginStatus={this.state.loginStatus} currentUser={currentUser}/>  
               <PrivateRoute path='/detail/*' component={RocketDetail} loginStatus={this.state.loginStatus}/>  
               <PrivateRoute path='/order-history' exact component={OrderHistory} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
+              <PrivateRoute path='/cart' exact component={Cart} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/search-results' exact component={SearchResults} loginStatus={this.state.loginStatus} searchData={this.state.searchData}/>
             </Switch>
           </React.Fragment>

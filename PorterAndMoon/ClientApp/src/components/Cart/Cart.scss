@@ -1,0 +1,50 @@
+.toast-header *{
+  color: #6c757d;
+}
+
+.toast-body *{
+  color: initial;
+}
+
+.toast {
+  width: 100%;
+  max-width: 100%;
+}
+
+.cart-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 75%;
+  margin: 0 auto;
+}
+
+.cart-item-body {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 84%;
+  margin: 0 auto;
+  div {
+    margin-top: 3px;
+    margin-bottom: 3px;
+  }
+}
+
+.toast-header {
+  display: block;
+}
+
+.toast-body {
+  display: block;
+}
+
+.cart-item-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cart-item-title {
+  text-align: center;
+}

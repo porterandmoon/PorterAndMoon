@@ -19,7 +19,18 @@ const addProductToCart = (userId, productId, quantOrdered) => new Promise((Resol
     .catch((err) => Reject(err));
 });
 
+const getCartItems = (userId) => new Promise((Resolve, Reject) => {
+  axios.get(`${baseUrl}/cart`, {
+    params: {
+      Id: userId
+    }
+  })
+    .then((res) => Resolve(res))
+    .catch((err) => Reject(err));
+})
+
 export default { 
   currentProduct,
   addProductToCart,
+  getCartItems,
 };

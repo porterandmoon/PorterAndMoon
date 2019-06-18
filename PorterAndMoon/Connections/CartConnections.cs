@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using PorterAndMoon.Models.Cart;
 using PorterAndMoon.Models.Order;
 using PorterAndMoon.Models.OrderProduct;
+using PorterAndMoon.Validation;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -24,7 +25,7 @@ namespace PorterAndMoon.Connections
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                var cartId = GetCartId(connection, newOrderProduct.UserId);
+                var cart = GetCartId(connection, newOrderProduct.UserId);
 
                 var queryString = @"Insert into OrderProduct(ProductId, OrderId, Quantity)
                                         Output inserted.* 
@@ -32,7 +33,7 @@ namespace PorterAndMoon.Connections
                 var parameters = new
                 {
                     ProductId = newOrderProduct.ProductId,
-                    OrderId = cartId,
+                    OrderId = cart.Id,
                     Quantity = newOrderProduct.OrderQuantity
                 };
 
@@ -45,27 +46,27 @@ namespace PorterAndMoon.Connections
             throw new Exception("Can't add a new order product");
         }
 
-        public int GetCartId(SqlConnection connection, int userId)
+        public Order GetCartId(SqlConnection connection, int userId)
         {
-            var queryString = @"SELECT o.ID
+            var queryString = @"SELECT o.*
                                 FROM [Order] as o
                                 WHERE (o.isCompleted = 0) and (o.customerId = @UserId) ";
             var parameters = new { UserId = userId };
 
-            var currentCart = connection.QueryFirstOrDefault<OrderId>(queryString, parameters);
+            var currentCart = connection.QueryFirstOrDefault<Order>(queryString, parameters);
 
             if (currentCart != null)
             {
-                return currentCart.Id;
+                return currentCart;
             }
             else
             {
-                var newCart = AddOrder(connection, userId);
-                return newCart.Id;
+                var newCart = AddOrderForCart(connection, userId);
+                return newCart;
             }
         }
 
-        public Order AddOrder(SqlConnection connection, int userId)
+        public Order AddOrderForCart(SqlConnection connection, int userId)
         {
             NewOrder newOrder = new NewOrder() { CustomerId = userId };
 
@@ -77,7 +78,54 @@ namespace PorterAndMoon.Connections
             {
                 return order;
             }
-            throw new Exception("Uhh uhh uhhh, didn't say the magic word.");
+            throw new Exception("Trouble creating cart for user");
+        }
+
+        public object ViewCart(int userId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var queryString = @"SELECT o.*
+                                FROM [Order] as o
+                                WHERE (o.isCompleted = 0) and (o.customerId = @UserId) ";
+                var parameters = new { UserId = userId };
+                var currentCart = connection.QueryFirstOrDefault<Cart>(queryString, parameters);
+
+
+                if (currentCart != null)
+                {
+                    currentCart.ItemsInCart = GetPendingProducts(connection, currentCart.Id);
+                    return currentCart;
+                }
+                else
+                {
+                    var newCart = AddOrderForCart(connection, userId);
+                    return newCart.Id;
+                }
+            }
+        }
+
+        public List<ItemDetail> GetPendingProducts(SqlConnection connection, int orderId)
+        {
+            var queryString = @"SELECT op.quantity, p.type, p.Id, p.remainingQty, p.arrival,
+                                    p.departure, p.destination, p.origin, p.title, p.description
+                                FROM OrderProduct as op
+	                                join Product as p on op.productId = p.Id
+                                WHERE orderId = @OrderId";
+            var parameters = new { OrderId = orderId };
+
+            var pendingProducts = connection.Query<ItemDetail>(queryString, parameters);
+
+
+            if (pendingProducts != null)
+            {
+                foreach (var product in pendingProducts)
+                {
+                    product.IsAvailable = new CheckSystem().VerifyDate(product.Departure);
+                }
+                return pendingProducts.ToList();
+            }
+            throw new Exception("Trouble getting user's cart products");
         }
     }
 }
