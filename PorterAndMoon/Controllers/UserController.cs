@@ -39,6 +39,16 @@ namespace PorterAndMoon.Controllers
             return Ok(users);
         }
 
+        // query users
+        // localhost:####/api/user/customer?input=
+        [HttpGet("customer")]
+        public ActionResult SearchCustomers(string input)
+        {
+            var output = _repository.SearchCustomers(input);
+
+            return Ok(output);
+        }
+
         /* === Register a new user ===
          * Must pass: 
          *   * "UserName" - string
