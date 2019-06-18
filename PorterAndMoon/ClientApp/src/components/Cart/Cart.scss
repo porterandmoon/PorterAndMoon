@@ -15,14 +15,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 75%;
+  margin: 0 auto;
 }
 
 .cart-item-body {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
-  align-items: center;
+  flex-direction: column;
+  width: 84%;
+  margin: 0 auto;
+  div {
+    margin-top: 3px;
+    margin-bottom: 3px;
+  }
 }
 
 .toast-header {
@@ -31,4 +37,14 @@
 
 .toast-body {
   display: block;
+}
+
+.cart-item-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cart-item-title {
+  text-align: center;
 }

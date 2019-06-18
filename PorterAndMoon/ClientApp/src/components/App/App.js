@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  BrowserRouter, Route, Redirect, Switch, browser
+  BrowserRouter, Route, Redirect, Switch,
 } from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/auth';
