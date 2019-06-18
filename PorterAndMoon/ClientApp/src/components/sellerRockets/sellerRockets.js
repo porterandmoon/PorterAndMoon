@@ -48,7 +48,7 @@ class sellerRockets extends React.Component {
 
           const flights = this.state.departures[day];
           flights.forEach((flight) => {
-            flightList.push(<Link to={`/detail/${flight.id}`} key={flight.id} className='calendarFlight'>{flight.title}</Link>);
+            flightList.push(<Link to={`/detail/${flight.title}/?Id=${flight.id}`} key={flight.id} className='calendarFlight'>{flight.title}</Link>);
           });
         }
       });

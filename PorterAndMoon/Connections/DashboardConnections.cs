@@ -27,7 +27,7 @@ namespace PorterAndMoon.Connections
                                     From Product
                                     Join OrderProduct on productId = Product.Id
                                     Join [Order] on orderId = [Order].Id
-                                    Where sellerId = 1 AND DATEPART(M, [Order].date) = DATEPART(M, GETDATE())";
+                                    Where sellerId = @Id AND DATEPART(M, [Order].date) = DATEPART(M, GETDATE())";
                 var sales = connection.Query<Sales>(queryString, new { id });
                 var groupedSales = sales.GroupBy(sale => sale.ProductId);
                 return groupedSales.ToDictionary(x => x.Key, x => x.ToList()); 
@@ -43,7 +43,7 @@ namespace PorterAndMoon.Connections
                                     From Product
                                     Join OrderProduct on productId = Product.Id
                                     Join [Order] on orderId = [Order].Id
-                                    Where sellerId = 1";
+                                    Where sellerId = @Id";
                 var sales = connection.Query<Sales>(queryString, new { id });
                 var groupedSales = sales.GroupBy(sale => sale.ProductId);
                 return groupedSales.ToDictionary(x => x.Key, x => x.ToList());
@@ -57,7 +57,7 @@ namespace PorterAndMoon.Connections
             {
                 var queryString = @"Select Count(*)
                                     From Product
-                                    Where sellerId = 1";
+                                    Where sellerId = @Id";
                 var total = connection.QueryFirst<int>(queryString, new { id });
                 return total;
             }
@@ -72,7 +72,7 @@ namespace PorterAndMoon.Connections
                                     From Product
                                     Join OrderProduct on productId = Product.Id
                                     Join [Order] on orderId = [Order].Id
-                                    Where sellerId = 1 AND DATEPART(M, [Order].date) = DATEPART(M, GETDATE())";
+                                    Where sellerId = @Id AND DATEPART(M, [Order].date) = DATEPART(M, GETDATE())";
                 var total = connection.QueryFirst<int>(queryString, new { id });
                 return total;
             }
@@ -85,7 +85,7 @@ namespace PorterAndMoon.Connections
             {
                 var queryString = @"Select *
                                     From Product
-                                    Where sellerId = 1";
+                                    Where sellerId = @Id";
                 var departures = connection.Query<Products>(queryString, new { id });
                 var datedDepartures = departures.GroupBy(rocket => rocket.Departure);
 
@@ -100,7 +100,7 @@ namespace PorterAndMoon.Connections
             {
                 var queryString = @"Select *
                                     From Product
-                                    Where sellerId = 1";
+                                    Where sellerId = @Id";
                 var arrivals = connection.Query<Products>(queryString, new { id });
                 var datedArrivals = arrivals.GroupBy(rocket => rocket.Arrival);
 

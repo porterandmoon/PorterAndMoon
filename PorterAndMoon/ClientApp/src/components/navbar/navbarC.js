@@ -208,7 +208,7 @@ class navbarC extends React.Component {
                 <NavLink tag={RRNavLink} to="/sellerhome" onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut}>Seller Dashboard</NavLink>
                 <div>
                   <NavLink tag={Link} onMouseEnter={this.dropDown} onMouseLeave={this.dropDownOut} className={this.state.rocketMenu ? 'hovered' : null} id='rocketLink'>
-                  <i className="fas fa-home"></i> Find A Rocket
+                   Find A Rocket
                 <div id='dropdownMenuDiv'>
                 {this.state.destinationMenuF ? this.destinationMenu(true) : null}
                 {this.state.destinationMenuP ? this.destinationMenu(false) : null}  
