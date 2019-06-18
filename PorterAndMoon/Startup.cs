@@ -54,6 +54,7 @@ namespace PorterAndMoon
             services.AddTransient<ProductTypeRepo>();
             services.AddTransient<ProductsConnections>();
             services.AddTransient<OrderProductConnections>();
+            services.AddTransient<DashboardConnections>();
             services.AddTransient<CartConnections>();
             services.AddTransient<ISingleCustomer>(builder => builder.GetService<SingleCustomer>());
 

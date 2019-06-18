@@ -7,7 +7,7 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
-import { NavLink as RRNavLink } from 'react-router-dom';
+import { NavLink as RRNavLink, Link } from 'react-router-dom';
 import firebase from 'firebase/app';
 import navbarData from '../../data/PortAndMoonFactory/navbarData';
 import 'firebase/auth';
@@ -205,21 +205,22 @@ class navbarC extends React.Component {
                 </NavLink>
                 <NavLink tag={RRNavLink} to="/profile" onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut}>User Info</NavLink>
                 <NavLink tag={RRNavLink} to="/order-history" onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut}>Order History</NavLink>
+                <NavLink tag={RRNavLink} to="/cart" onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut}>Cart</NavLink>
                 <NavLink tag={RRNavLink} to="/sellerhome" onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut}>Seller Dashboard</NavLink>
                 <div>
-                  <NavLink tag={RRNavLink} onMouseEnter={this.dropDown} onMouseLeave={this.dropDownOut} className={this.state.rocketMenu ? 'hovered' : null} id='rocketLink'>
-                      Find A Rocket
-                    <div id='dropdownMenuDiv'>
-                    {this.state.destinationMenuF ? this.destinationMenu(true) : null}
-                    {this.state.destinationMenuP ? this.destinationMenu(false) : null}  
-                    {this.state.rocketMenu ? this.rocketMenu() : null}
-                    </div>
-                  </NavLink>
+                  <div onMouseEnter={this.dropDown} onMouseLeave={this.dropDownOut} className={this.state.rocketMenu ? 'nav-link hovered' : 'nav-link'} id='rocketLink'>
+                   Find A Rocket
+                <div id='dropdownMenuDiv'>
+                {this.state.destinationMenuF ? this.destinationMenu(true) : null}
+                {this.state.destinationMenuP ? this.destinationMenu(false) : null}  
+                {this.state.rocketMenu ? this.rocketMenu() : null}
                 </div>
-                <NavLink tag={RRNavLink} onClick={this.logoutClicked}
+                </div>
+                </div>
+                <p onClick={this.logoutClicked} className='nav-link'
                   onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut}>
                   <i className="fas fa-sign-out-alt"></i> Logout
-                </NavLink>
+                </p>
               </NavItem>
             </Nav>
         </Navbar>

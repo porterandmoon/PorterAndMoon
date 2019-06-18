@@ -3,6 +3,8 @@ import sellerHomeData from '../../data/PortAndMoonFactory/sellerHomeData';
 import RocketSpace from './rocketSpace/rocketSpace';
 import SalesHistory from './salesHistory/salesHistory';
 import AddFlight from './addFlight/addFlight';
+import Dashboard from './dashboard/dashboard';
+import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import './sellerHome.scss';
 
@@ -30,10 +32,6 @@ class sellerHome extends React.Component {
     }
   }
 
-  viewHistory = () => {
-
-  }
-
   render() {
     return(
       <div className='sellerHome'>
@@ -44,8 +42,9 @@ class sellerHome extends React.Component {
           </div>
         </div>
         <div className='dashboard'>
-          <p>dashboard</p>
+          <Dashboard userId={this.props.currentUser.id}/>
           <div className='sellerBtnDiv'>
+            <Button className='btn btn-sm btn-info' tag={Link} to={`/sellerhome/rockets+${this.props.currentUser.id}`}>Rocket Schedule</Button>
             <AddFlight userId={this.props.currentUser.id}/>
             <SalesHistory userId={this.props.currentUser.id}/>
           </div>
