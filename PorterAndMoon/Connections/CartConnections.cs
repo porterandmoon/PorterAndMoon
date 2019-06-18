@@ -127,5 +127,21 @@ namespace PorterAndMoon.Connections
             }
             throw new Exception("Trouble getting user's cart products");
         }
+
+        /*public object RemoveCartItem(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var queryString = @"SELECT op.quantity, p.type, p.Id, p.remainingQty, p.arrival,
+                                        p.departure, p.destination, p.origin, p.title, p.description
+                                    FROM OrderProduct as op
+	                                    join Product as p on op.productId = p.Id
+                                    WHERE Id = @OrderProductId";
+                var parameters = new { OrderProductId = id };
+
+                var deletedItem = connection.QueryFirstOrDefault<ItemDetail>(queryString, parameters);
+
+            }
+        }*/
     }
 }
