@@ -16,7 +16,11 @@ import Seller from '../seller/seller';
 import RocketDetail from '../rocketDetail/rocketDetail';
 import SellerHome from '../sellerHome/sellerHome';
 import NavbarC from '../navbar/navbarC';
+<<<<<<< HEAD
 import Cart from '../Cart/Cart';
+=======
+import SearchResults from '../SearchResults/SearchResults';
+>>>>>>> master
 import './app.scss';
 
 connection();
@@ -28,9 +32,9 @@ const PublicRoute = ({ component: Component, loginStatus, ...rest }) => {
   return <Route {...rest} render={props => routeChecker(props)} />;
 };
 
-const PrivateRoute = ({ component: Component, loginStatus, currentUser, ...rest }) => {
+const PrivateRoute = ({ component: Component, loginStatus, currentUser, searchData, ...rest }) => {
   const routeChecker = props => (loginStatus === true
-    ? (<Component { ...props } loginStatus={loginStatus} currentUser={currentUser}/>)
+    ? (<Component { ...props } loginStatus={loginStatus} currentUser={currentUser} searchData={searchData}/>)
     : (<Redirect to={{ pathname: '/register', state: { from: props.location } } } />));
   return <Route {...rest} render={props => routeChecker(props)} />;
 };
@@ -44,6 +48,11 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, ...rest 
     id: undefined,
     lastName: undefined,
     userName: undefined,
+    searchData: []
+  }
+
+  setSearchData = (response) => {
+    this.setState({ searchData: response })
   }
 
   componentDidMount() {
@@ -54,6 +63,7 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, ...rest 
           pendingUser: false,
         });
 
+        
         ProfileCalls.currentUserInfo(user.uid)
         .then(profileInfo => {
           const content = profileInfo.data
@@ -98,7 +108,7 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, ...rest 
 
     return (
         <BrowserRouter>
-          <NavbarC/>
+          <NavbarC searchData={this.setSearchData}/>
           <React.Fragment>
             <Switch>
               <PublicRoute path='/register' exact component={Register} loginStatus={this.state.loginStatus}/>
@@ -114,7 +124,11 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, ...rest 
               <PrivateRoute path='/detail/*' component={RocketDetail} loginStatus={this.state.loginStatus} currentUser={currentUser}/>  
               <PrivateRoute path='/sellerhome' component={SellerHome} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/order-history' exact component={OrderHistory} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
+<<<<<<< HEAD
               <PrivateRoute path='/cart' exact component={Cart} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
+=======
+              <PrivateRoute path='/search-results' exact component={SearchResults} loginStatus={this.state.loginStatus} searchData={this.state.searchData}/>
+>>>>>>> master
             </Switch>
           </React.Fragment>
         </BrowserRouter>

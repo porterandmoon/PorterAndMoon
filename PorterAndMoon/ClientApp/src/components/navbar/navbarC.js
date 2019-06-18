@@ -14,6 +14,8 @@ import 'firebase/auth';
 import './navbarC.scss';
 import logo from '../../images/moon.png';
 
+import SearchBar from '../SearchBar/SearchBar';
+
 class navbarC extends React.Component {
   state = {
     rocketMenu: false,
@@ -185,6 +187,7 @@ class navbarC extends React.Component {
   }
 
   render() {
+    const { searchData } = this.props;
     return(
       <div className='navbar'>
         <Navbar color="dark" dark expand="md">
@@ -194,7 +197,9 @@ class navbarC extends React.Component {
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
             <Nav className="ml-auto" navbar>
-              <NavItem className='navLink'>
+              <NavItem className='navLinks'>
+              <SearchBar className="searchBar" searchData={searchData}/>
+                <NavLink onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut} onClick={this.linkClicked} id='homeLink'></NavLink>
                 <NavLink tag={RRNavLink} to='/homel' onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut}>
                   <i className="fas fa-home"></i> Home
                 </NavLink>
@@ -204,13 +209,13 @@ class navbarC extends React.Component {
                 <NavLink tag={RRNavLink} to="/sellerhome" onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut}>Seller Dashboard</NavLink>
                 <div>
                   <NavLink tag={RRNavLink} onMouseEnter={this.dropDown} onMouseLeave={this.dropDownOut} className={this.state.rocketMenu ? 'hovered' : null} id='rocketLink'>
-                  <i className="fas fa-home"></i> Find A Rocket
-                <div id='dropdownMenuDiv'>
-                {this.state.destinationMenuF ? this.destinationMenu(true) : null}
-                {this.state.destinationMenuP ? this.destinationMenu(false) : null}  
-                {this.state.rocketMenu ? this.rocketMenu() : null}
-                </div>
-                </NavLink>
+                      Find A Rocket
+                    <div id='dropdownMenuDiv'>
+                    {this.state.destinationMenuF ? this.destinationMenu(true) : null}
+                    {this.state.destinationMenuP ? this.destinationMenu(false) : null}  
+                    {this.state.rocketMenu ? this.rocketMenu() : null}
+                    </div>
+                  </NavLink>
                 </div>
                 <NavLink tag={RRNavLink} onClick={this.logoutClicked}
                   onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut}>

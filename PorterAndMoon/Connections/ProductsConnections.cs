@@ -91,6 +91,26 @@ namespace PorterAndMoon.Connections
             throw new Exception("Could not update product quantity");
         }
 
+        public IEnumerable<Products> SearchProducts(string input)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                string selectQuery = @"SELECT *
+                                       FROM Product
+                                       WHERE title
+                                       LIKE '%' + @input + '%'";
+                var parameters = new { input = input };
+
+                var products = db.Query<Products>(selectQuery, parameters).ToList();
+
+                if (products != null)
+                {
+                    return products;
+                }
+            }
+            throw new Exception("Something went wrong searching the products");
+        }
+
         public Dictionary<string, List<Products>> GetRocketsOfType(int type)
         {
             using (var connection = new SqlConnection(ConnectionString))

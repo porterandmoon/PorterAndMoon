@@ -37,13 +37,22 @@ namespace PorterAndMoon.Controllers
             return Accepted(product);
         }
 
+        // query products
+        // localhost:####/api/product/product?input=
+        [HttpGet("product")]
+        public ActionResult SearchProducts(string input)
+        {
+            var output = _connections.SearchProducts(input);
+
+            return Ok(output);
+        }
+
         [HttpGet]
         public ActionResult GetProductDetail(int Id)
         {
             var product = _connections.GetSingleProduct(Id);
             return Accepted(product);
         }
-
 
         /* in body
          * {
