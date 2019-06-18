@@ -18,7 +18,7 @@ namespace PorterAndMoon.Connections
             ConnectionString = dbConfig.Value.ConnectionString;
         }
 
-        public IEnumerable<OrderInfo> test(int id)
+        public IEnumerable<OrderInfo> PurchasedOrders(int id)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
@@ -29,58 +29,72 @@ namespace PorterAndMoon.Connections
 	                                    and (O.isCompleted = 1)";
                 var parameters = new { Id = id };
 
-
-
                 var matchedOrders = connection.Query<OrderId>(queryString, parameters);
 
                 if (matchedOrders != null)
                 {
-                    List<OrderInfo> finalOrders = new List<OrderInfo>();
+                    SeparateOrders(connection, matchedOrders);
 
-                    var UserOrders = matchedOrders.GroupBy(order => order.Id);
+                    return SeparateOrders(connection, matchedOrders);
+                }
+                throw new Exception("Unable to find matched, completed orders");
+            }
+        }
 
-                    foreach (var group in UserOrders)
+        public IEnumerable<OrderInfo> SeparateOrders(SqlConnection connection, IEnumerable<OrderId> completedOrders)
+        {
+            List<OrderInfo> finalOrders = new List<OrderInfo>();
+
+            var UserOrders = completedOrders.GroupBy(order => order.Id);
+
+            foreach (var group in UserOrders)
+            {
+                var payid = group.ToList()[0].PaymentId;
+
+                var orderQuery = @"SELECT o.id, o.isRefunded, o.date, 
+                                pay.type as [paymentType], pay.cardNumber, pay.bankAccountNumber,
+                                pay.name as [CardHolderName], pay.payPalAuth as [paypalReference]
+                                FROM[Order] as O
+                                    join Payment as pay on pay.id = o.paymentId
+                                WHERE(pay.id = @PayId)
+                                and (O.isCompleted = 1)";
+                var orderParameters = new { PayId = payid };
+
+                var orderInfo = connection.QueryFirstOrDefault<OrderInfo>(orderQuery, orderParameters);
+
+                if (orderInfo != null)
+                {
+                    foreach (var product in group)
                     {
-                        var payid = group.ToList()[0].PaymentId;
+                        var productInfo = ProductDetail(connection, product);
 
+                        orderInfo.ProductDetail.Add(productInfo);
+                    }
+                    finalOrders.Add(orderInfo);
+                }
+            }
+            return finalOrders;
+        }
 
-                        var orderQuery = @"SELECT o.id, o.isRefunded, o.date, 
-                                    pay.type as [paymentType], pay.cardNumber, pay.bankAccountNumber,
-                                    pay.name as [CardHolderName], pay.payPalAuth as [paypalReference]
-                                    FROM[Order] as O
-                                        join Payment as pay on pay.id = o.paymentId
-                                    WHERE(pay.id = @PayId)
-                                    and (O.isCompleted = 1)";
-                        var orderParameters = new { PayId = payid };
-
-                        var orderInfo = connection.QueryFirstOrDefault<OrderInfo>(orderQuery, orderParameters);
-
-                        foreach (var product in group)
-                        {
-                            var productQuery = @"
+        public OrderProductInfo ProductDetail(SqlConnection connection, OrderId product)
+        {
+            var productQuery = @"
                             SELECT op.quantity as [quantityOrdered], p.description, p.price,
                                     p.title, pt.name as [type], c.username as [seller]
                             FROM OrderProduct as OP
-                               join Product as P on OP.productId = P.Id
-                               join productType as PT on P.type = PT.Id
-                               join Customer as c on C.id = P.sellerId
+                                join Product as P on OP.productId = P.Id
+                                join productType as PT on P.type = PT.Id
+                                join Customer as c on C.id = P.sellerId
                             WHERE(op.Id = @OrdProdId)";
-                            var productParams = new { OrdProdId = product.OPid };
+            var productParams = new { OrdProdId = product.OPid };
 
-                            var productDetail = connection.QueryFirstOrDefault<OrderProductInfo>(productQuery, productParams);
+            var productDetail = connection.QueryFirstOrDefault<OrderProductInfo>(productQuery, productParams);
 
-                            if (productDetail != null)
-                            {
-                                orderInfo.ProductDetail.Add(productDetail);
-                            }
-                        }
-
-                        finalOrders.Add(orderInfo);
-                    }
-                    return finalOrders;
-                }
+            if (productDetail != null)
+            {
+                return productDetail;
             }
-            throw new Exception("Unable to find matched, completed orders");
+            throw new Exception("Trouble with Product detail in your order");
         }
 
 
@@ -112,23 +126,6 @@ namespace PorterAndMoon.Connections
         }
 
 
-        public Order AddOrder(Order newOrder)
-        {
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                newOrder.Date = DateTime.Now;
-                newOrder.IsRefunded = false;
-                var queryString = @"Insert into [Order] (CustomerId, PaymentId, Date, IsRefunded, IsCompleted)
-                                    Output inserted.*
-                                    Values (@CustomerId, @PaymentId, @Date, @IsRefunded, @IsCompleted)";
-                var order = connection.QueryFirstOrDefault<Order>(queryString, newOrder);
-                if (order != null)
-                {
-                    return order;
-                }
-                throw new Exception("Uhh uhh uhhh, didn't say the magic word.");
-            }
-        }
 
         //public Order RemoveOrder(int id)
         //{
