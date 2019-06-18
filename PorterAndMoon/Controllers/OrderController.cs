@@ -27,7 +27,7 @@ namespace PorterAndMoon.Controllers
             return Accepted(orders);
         }
 
-        [HttpGet("{Id}")]
+        [HttpGet]
         public ActionResult GetOrder(int Id)
         {
             var order = _connections.GetSingleOrder(Id);
@@ -37,7 +37,7 @@ namespace PorterAndMoon.Controllers
         [HttpGet("my-orders")]
         public ActionResult GetUserOrders(int userid)
         {
-            var myOrders = _connections.test(userid);
+            var myOrders = _connections.PurchasedOrders(userid);
 
             return Ok(myOrders);
         }
@@ -56,13 +56,6 @@ namespace PorterAndMoon.Controllers
         PaymentId - int,
         CustomerId - int
         */
-
-        [HttpPost]
-        public ActionResult PostOrder(Order newOrder)
-        {
-            var order = _connections.AddOrder(newOrder);
-            return Accepted(order);
-        }
 
         [HttpPut("paid/{Id}")]
         public ActionResult FinalizeOrder(int Id)

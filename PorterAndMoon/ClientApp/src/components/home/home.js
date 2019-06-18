@@ -29,7 +29,8 @@ class home extends React.Component {
     const renderArray = [];
     this.state.rocketInfo[dest].forEach((rocket) => {
       renderArray.push(<tr key={rocket.id}>
-        <th scope="row"><Link to={`/detail/${rocket.title}`}>{rocket.title}</Link></th>
+        
+        <th scope="row"><Link to={`/detail/${rocket.title}/?Id=${rocket.id}`}>{rocket.title}</Link></th>
         <td><Link to={`/seller/${rocket.sellerId}`}>{rocket.username}</Link></td>
         <td>{rocket.destination}</td>
         <td>{rocket.origin}</td>
@@ -45,7 +46,6 @@ class home extends React.Component {
     const renderArray = [];
     if (this.state.rocketInfo !== null) {
       Object.keys(this.state.rocketInfo).forEach((destination) => {
-         
           renderArray.push(<div key={destination}><h4 className='topFlightsTitle'>
             Recent flights to {destination} ({this.state.rocketInfo[destination].length} Total)</h4>
           <table className="table table-striped table-dark flightTable">
@@ -96,10 +96,6 @@ class home extends React.Component {
   render() {
     return(<div className='home'>
       {this.rocketCardBuilder()}
-      <button onClick={this.logOut}>Log out</button>
-      <button onClick={this.getToProfile}>Profile</button>
-      <a href="/order-history">click me</a>
-
     </div>);
   }
 }
