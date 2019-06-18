@@ -55,8 +55,8 @@ namespace PorterAndMoon.Connections
                 {
                     return product;
                 }
-                throw new Exception("Can't add a new order product");
             }
+                throw new Exception("Can't add a new order product");
         }
 
         public OrderProduct DeleteOrderProduct(int id)

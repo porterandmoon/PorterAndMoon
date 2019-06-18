@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using PorterAndMoon.Models;
+using PorterAndMoon.Validation;
 
 namespace PorterAndMoon.Connections
 {
@@ -27,16 +28,17 @@ namespace PorterAndMoon.Connections
             return products;
         }
 
-        public Products GetSingleProduct(int id)
+        public AvailableProduct GetSingleProduct(int id)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
                 var queryString = @"Select *
                                     From [Product]
                                     Where Id = @Id";
-                var product = connection.QueryFirstOrDefault<Products>(queryString, new { id });
+                var product = connection.QueryFirstOrDefault<AvailableProduct>(queryString, new { id });
                 if (product != null)
                 {
+                    product.Available = new CheckSystem().VerifyDate(product.Departure);
                     return product;
                 }
                 throw new Exception("Error getting single product");
@@ -159,9 +161,10 @@ namespace PorterAndMoon.Connections
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
-                var queryString = @"Select top(20) *
-                                    From product
-                                    Join customer on sellerId = customer.id
+                var queryString = @"Select top(20) p.arrival, p.departure, p.[description], p.destination, p.Id, p.origin, p.price, p.quantity, p.remainingQty,
+	                                    p.sellerId, p.timePosted, p.title, p.[type], c.username
+                                    From product as p
+	                                    Join customer as c on p. sellerId = c.id
                                     Order by timePosted desc";
                 var rockets = connection.Query<Products>(queryString);
                 var sortedRockets = rockets.GroupBy(rocket => rocket.Destination);

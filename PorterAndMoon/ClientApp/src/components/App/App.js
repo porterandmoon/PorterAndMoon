@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  BrowserRouter, Route, Redirect, Switch,
+  BrowserRouter, Route, Redirect, Switch, browser
 } from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -116,14 +116,9 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, searchDa
               <PrivateRoute path='/homel' component={Home} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PublicRoute path='/home' exact component={Home} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/profile' exact component={Profile} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
-<<<<<<< HEAD
-              <PrivateRoute path='/seller/*' exact component={Seller} loginStatus={this.state.loginStatus}/>
-            `<PrivateRoute path='/detail/*' component={RocketDetail} loginStatus={this.state.loginStatus}/>  
-=======
               <PrivateRoute path='/seller/*' component={Seller} loginStatus={this.state.loginStatus}/>
+              <PrivateRoute path='/detail/*' component={RocketDetail} loginStatus={this.state.loginStatus} currentUser={currentUser}/>  
               <PrivateRoute path='/sellerhome' component={SellerHome} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
-              <PrivateRoute path='/detail/*' component={RocketDetail} loginStatus={this.state.loginStatus}/>  
->>>>>>> master
               <PrivateRoute path='/order-history' exact component={OrderHistory} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/search-results' exact component={SearchResults} loginStatus={this.state.loginStatus} searchData={this.state.searchData}/>
             </Switch>
