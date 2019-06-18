@@ -2,6 +2,8 @@ import React from 'react';
 import ShoppingCart from '../../data/PortAndMoonFactory/ShoppingCart';
 import './rocketDetail.scss';
 
+import Freight from '../freight/freight';
+
 class rocketDetail extends React.Component {
   state = {
     value: "",
@@ -58,7 +60,8 @@ class rocketDetail extends React.Component {
     //if(){
     return(
       <div className='rocketDetail'>
-        <h1>ROCKET DETAIL PAGE</h1>
+        <Freight 
+        />
         <form onSubmit={this.handleSubmit}>
           <label>
           number to add
