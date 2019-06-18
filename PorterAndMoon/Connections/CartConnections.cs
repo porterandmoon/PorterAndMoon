@@ -91,10 +91,10 @@ namespace PorterAndMoon.Connections
                 var parameters = new { UserId = userId };
                 var currentCart = connection.QueryFirstOrDefault<Cart>(queryString, parameters);
 
-                currentCart.ItemsInCart = GetPendingProducts(connection, currentCart.Id);
 
                 if (currentCart != null)
                 {
+                    currentCart.ItemsInCart = GetPendingProducts(connection, currentCart.Id);
                     return currentCart;
                 }
                 else
