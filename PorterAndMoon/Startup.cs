@@ -54,11 +54,8 @@ namespace PorterAndMoon
             services.AddTransient<ProductTypeRepo>();
             services.AddTransient<ProductsConnections>();
             services.AddTransient<OrderProductConnections>();
-<<<<<<< HEAD
             services.AddTransient<DashboardConnections>();
-=======
             services.AddTransient<CartConnections>();
->>>>>>> master
             services.AddTransient<ISingleCustomer>(builder => builder.GetService<SingleCustomer>());
 
             // In production, the React files will be served from this directory
