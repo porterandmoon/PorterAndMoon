@@ -115,9 +115,10 @@ namespace PorterAndMoon.Connections
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
-                var queryString = @"Select *
-                                    From product
-                                    Join customer on sellerId = customer.id
+                var queryString = @"Select p.arrival, p.departure, p.[description], p.destination, p.Id, p.origin, p.price, p.quantity, p.remainingQty,
+	                                    p.sellerId, p.timePosted, p.title, p.[type], c.username
+                                    From product as p
+	                                Join customer as c on p. sellerId = c.id
                                     Where type = @type";
                 var rockets = connection.Query<Products>(queryString, new { type });
                 var sortedRockets = rockets.GroupBy(rocket => rocket.Destination);                
