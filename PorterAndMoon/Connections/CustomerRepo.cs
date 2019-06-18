@@ -167,7 +167,7 @@ namespace PorterAndMoon.Connections
                                     Left Join OrderProduct ON ProductId = Product.Id
                                     Left Join [Order] ON [Order].Id = orderId 
                                     Left Join Customer ON Customer.Id = CustomerId
-                                    Where sellerId = 1 AND (isCompleted IS NULL OR isCompleted = 1) AND departure > @CurrentTime";
+                                    Where sellerId = @Id AND (isCompleted IS NULL OR isCompleted = 1) AND departure > @CurrentTime";
                 var orders = db.Query<SellerOrder>(queryString, new { id, currentTime });
                 var groupedOrders = orders.GroupBy(order => order.ProductId);
                 return groupedOrders.ToDictionary(x => x.Key, x => x.ToList());
@@ -186,7 +186,7 @@ namespace PorterAndMoon.Connections
                                     Join OrderProduct ON ProductId = Product.Id
                                     Join [Order] ON [Order].Id = orderId 
                                     Join Customer ON Customer.Id = CustomerId
-                                    Where sellerId = 1 AND isCompleted = 1 AND departure < @CurrentTime";
+                                    Where sellerId = @Id AND isCompleted = 1 AND departure < @CurrentTime";
                 var orders = db.Query<SellerOrder>(queryString, new { id, currentTime });
                 var groupedOrders = orders.GroupBy(order => order.ProductId);
                 return groupedOrders.ToDictionary(x => x.Key, x => x.ToList());
