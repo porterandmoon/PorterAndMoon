@@ -77,16 +77,10 @@ class rocketDetail extends React.Component {
   }
 
   render() {
-      return(
-        <div className='rocketDetail'>
-          <h1>ROCKET DETAIL PAGE</h1>
-          {this.CheckAvailability()}
-        </div>
-      );
-    
-
     return(
       <div className='rocketDetail'>
+        <h1>ROCKET DETAIL PAGE</h1>
+        {this.CheckAvailability()}
       </div>
     );
   }
