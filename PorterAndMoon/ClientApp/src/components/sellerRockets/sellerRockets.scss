@@ -1,4 +1,23 @@
 .sellerCalendar {
   margin-left: 5%;
   margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.react-calendar__tile {
+  min-height: 100px;
+}
+
+.react-calendar {
+  width: 800px;
+}
+
+.calendarArrivalTitle {
+  margin-top: 5px;
+  color: blue;
+}
+
+.calendarDepartureTitle {
+  margin-top: 5px;
+  color: green;
 }
