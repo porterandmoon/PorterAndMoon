@@ -24,6 +24,7 @@ class rocketDetail extends React.Component {
   }
 
   handleSubmit = (event) => {
+    debugger;
     this.AddProduct();
     event.preventDefault();
   }
