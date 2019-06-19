@@ -2,7 +2,7 @@ import React from 'react';
 import ShoppingCart from '../../data/PortAndMoonFactory/ShoppingCart';
 import './rocketDetail.scss';
 
-import Freight from '../freight/freight';
+import ProductDetail from '../productDetail/productDetail'
 
 class rocketDetail extends React.Component {
   state = {
@@ -81,7 +81,10 @@ class rocketDetail extends React.Component {
   render() {
     return(
       <div className='rocketDetail'>
-        <h1>ROCKET DETAIL PAGE</h1>
+        <ProductDetail 
+        // id={id}
+        // value={value}
+        />
         {this.CheckAvailability()}
       </div>
     );
