@@ -27,10 +27,21 @@ const getCartItems = (userId) => new Promise((Resolve, Reject) => {
   })
     .then((res) => Resolve(res))
     .catch((err) => Reject(err));
-})
+});
+
+const removeCartItem = (ordProdId) => new Promise((Resolve, Reject) => {
+  axios.delete(`${baseUrl}/cart`,{
+    params: {
+      Id: ordProdId,
+    }
+  })
+    .then((res) => Resolve(res))
+    .catch((err) => Reject(err));
+});
 
 export default { 
   currentProduct,
   addProductToCart,
   getCartItems,
+  removeCartItem,
 };
