@@ -6,6 +6,11 @@
 
 .react-calendar__tile {
   min-height: 100px;
+  display: flex;
+  flex-flow: column;
+  border: 1px solid white !important;
+  background-color: midnightblue;
+  color: white;
 }
 
 .react-calendar {
@@ -15,9 +20,47 @@
 .calendarArrivalTitle {
   margin-top: 5px;
   color: blue;
+  background-color: lightblue;
+  padding-top: 4px;
+  margin: 0;
+  width: 90px;
+  font-size: 0.8em;
 }
 
 .calendarDepartureTitle {
   margin-top: 5px;
-  color: green;
+  color: blue;
+  background-color: orange;
+  padding-top: 4px;
+  margin: 0;
+  width: 90px;
+  font-size: 0.8em;
+}
+
+.calendarFlightD {
+  background-color: orange;
+  padding-top: 4px;
+  margin: 0;
+  width: 90px;
+  font-size: 0.8em;
+}
+
+.calendarFlightA {
+  background-color: lightblue;
+  padding-top: 4px;
+  margin: 0;
+  width: 90px;
+  font-size: 0.8em;
+}
+
+.calendarIcon {
+  text-align: center;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  background-color: orange;
+  border: 0.5px solid black;
+  border-radius: 100px;
+  position: relative;
+  left: 75px;
+  top: -18px;
 }

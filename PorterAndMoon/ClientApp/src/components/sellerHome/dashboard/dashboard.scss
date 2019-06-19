@@ -6,3 +6,21 @@
 .monthlyTitle {
   text-align: center;
 }
+
+.monthlyDataTitle {
+  width: 175px;
+}
+
+.monthlyData {
+  width: 50px;
+}
+
+.currentMonthDataDiv {
+  border-bottom: 2px solid white;
+  font-size: 0.9em;
+}
+
+.totalDataDiv {
+  margin-top: 5px;
+  font-size: 0.9em;
+}

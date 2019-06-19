@@ -48,7 +48,7 @@ class sellerRockets extends React.Component {
 
           const flights = this.state.departures[day];
           flights.forEach((flight) => {
-            flightList.push(<Link to={`/detail/${flight.title}/?Id=${flight.id}`} key={flight.id} className='calendarFlight'>{flight.title}</Link>);
+            flightList.push(<Link to={`/detail/${flight.title}/?Id=${flight.id}`} key={flight.id} className='calendarFlightD'>{flight.title}</Link>);
           });
         }
       });
@@ -85,7 +85,7 @@ class sellerRockets extends React.Component {
 
           const flights = this.state.arrivals[day];
           flights.forEach((flight) => {
-            flightList.push(<Link to={`/detail/${flight.id}`} key={flight.id} className='calendarFlight'>{flight.title}</Link>);
+            flightList.push(<Link to={`/detail/${flight.id}`} key={flight.id} className='calendarFlightA'>{flight.title}</Link>);
           });
         }
       });
@@ -96,12 +96,14 @@ class sellerRockets extends React.Component {
   }
 
   flightCombiner = (date, view) => {
+    const icon = [];
+    icon.push(<i className="fas fa-rocket calendarIcon"></i>);
     const departures = this.departureMatcher(date, view);
     const arrivals = this.arrivalMatcher(date, view);
     if (departures) {
-      return departures.concat(arrivals);
+      return icon.concat(departures.concat(arrivals))
     } else {
-      return arrivals;
+      return icon.concat(arrivals);
     }
   }
 

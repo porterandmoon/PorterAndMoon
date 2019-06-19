@@ -38,7 +38,7 @@ class salesHistory extends React.Component {
   render() {
     return(
       <div className='salesHistory'>
-        <Button className='btn btn-info btn-sm' onClick={this.toggle}>Sales History</Button>
+        <Button className='btn btn-info btn-sm sellerButton' onClick={this.toggle}><i className="fas fa-archive"></i> Sales History</Button>
         <Modal className='salesHistoryModal' isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader className='salesHistoryM' toggle={this.toggle}>
             Sales History

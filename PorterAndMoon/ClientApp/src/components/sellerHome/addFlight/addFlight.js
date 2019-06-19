@@ -63,44 +63,52 @@ class addFlight extends React.Component {
   render() {
     return(
       <div className='addFlight'>
-        <Button className='btn btn-info btn-sm' onClick={this.toggle}>Add Flight</Button>
+        <Button className='btn btn-info btn-sm sellerButton' onClick={this.toggle}><i className="fas fa-rocket"></i> Add Flight</Button>
         <Modal className='addFlightModal' isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader className='addFlightM' toggle={this.toggle}>
             Register A Flight
           </ModalHeader>
           <ModalBody className='addFlightM'>
-            <form>
+            <form className='addFlightForm'>
               <div class="form-group">
                 <label for="departureDateInput">Departure Time</label>
-                <input type="date" class="form-control" id="departureDateInput" onChange={this.select}/>
-                <input type="time" class="form-control" id="departureTimeInput" onChange={this.select}/>
-              </div>
-              <div class="form-group">
-                <label for="destinationInput">Destination</label>
-                <Menu menuSelector={this.selectorD}/>
-              </div>
-              <div class="form-group">
-                <label for="originInput">Origin</label>
-                <Menu menuSelector={this.selectorO}/>
+                <div className='timeInputs'>
+                  <input type="date" className="form-control addFlightInput dateInput" id="departureDateInput" onChange={this.select}/>
+                  <input type="time" className="form-control addFlightInput" id="departureTimeInput" onChange={this.select}/>
+                </div>
               </div>
               <div class="form-group">
                 <label for="arrivalDateInput">Arrival Time</label>
-                <input type="date" class="form-control" id="arrivalDateInput" onChange={this.select}/>
-                <input type="time" class="form-control" id="arrivalTimeInput" onChange={this.select}/>
+                <div className='timeInputs'>
+                  <input type="date" className="form-control addFlightInput dateInput" id="arrivalDateInput" onChange={this.select}/>
+                  <input type="time" className="form-control addFlightInput" id="arrivalTimeInput" onChange={this.select}/>
+                </div>
               </div>
-              <div class="form-group">
-                <label for="priceInput">Price</label>
-                <input type="number" class="form-control" id="priceInput" onChange={this.select}/>
-              </div>
-              <div class="form-group">
-                <label for="quantityInput">Quantity</label>
-                <input type="number" class="form-control" id="quantityInput" onChange={this.select}/>
+              <div className='addFlightRouteDiv'>
+                <div class="form-group menuDiv">
+                  <label for="destinationInput" className='menuLabel'>Destination: </label>
+                  <Menu menuSelector={this.selectorD}/>
+                </div>
+                <div class="form-group menuDiv">
+                  <label for="originInput" className='menuLabel'>Origin: </label>
+                  <Menu menuSelector={this.selectorO}/>
+                </div>
+              </div>            
+              <div className='addFlightNumbersDiv'>
+                <div class="form-group">
+                  <label for="priceInput">Price</label>
+                  <input type="number" className="form-control addFlightInput" id="priceInput" onChange={this.select}/>
+                </div>
+                <div class="form-group">
+                  <label for="quantityInput">Quantity</label>
+                  <input type="number" className="form-control addFlightInput" id="quantityInput" onChange={this.select}/>
+                </div>
               </div>
               <div class="form-group">
                 <label for="descriptionInput">Description</label>
-                <input type="text" class="form-control" id="descriptionInput" onChange={this.select}/>
+                <input type="text" className="form-control" id="descriptionInput" onChange={this.select}/>
               </div>
-              <button type="submit" class="btn btn-primary" onClick={this.newFlight}>Submit</button>
+              <button type="submit" className="btn btn-primary" onClick={this.newFlight}>Submit</button>
             </form>
           </ModalBody>
         </Modal>
