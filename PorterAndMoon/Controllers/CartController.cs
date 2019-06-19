@@ -29,11 +29,12 @@ namespace PorterAndMoon.Controllers
             return Ok(cart);
         }
 
-        /*[HttpDelete]
+        [HttpDelete]
         public ActionResult RemoveItemFromCart(int Id)
         {
             var removedItem = _connections.RemoveCartItem(Id);
+            // returns HTTP code 204 and no content is sent back
             return NoContent();
-        }*/
+        }
     }
 }
