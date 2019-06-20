@@ -17,40 +17,15 @@
   width: 800px;
 }
 
-.calendarArrivalTitle {
-  margin-top: 5px;
-  color: blue;
-  background-color: lightblue;
-  padding-top: 4px;
+
+.tileFlights {
   margin: 0;
   width: 90px;
   font-size: 0.8em;
-}
-
-.calendarDepartureTitle {
-  margin-top: 5px;
   color: blue;
   background-color: orange;
-  padding-top: 4px;
-  margin: 0;
-  width: 90px;
-  font-size: 0.8em;
-}
-
-.calendarFlightD {
-  background-color: orange;
-  padding-top: 4px;
-  margin: 0;
-  width: 90px;
-  font-size: 0.8em;
-}
-
-.calendarFlightA {
-  background-color: lightblue;
-  padding-top: 4px;
-  margin: 0;
-  width: 90px;
-  font-size: 0.8em;
+  border-radius: 20px;
+  padding: 2px;
 }
 
 .calendarIcon {
@@ -63,4 +38,8 @@
   position: relative;
   left: 75px;
   top: -18px;
+}
+
+.calendarArrivalTitle, .calendarDepartureTitle {
+  margin-bottom: 0;
 }

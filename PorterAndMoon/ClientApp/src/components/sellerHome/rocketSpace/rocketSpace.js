@@ -6,9 +6,29 @@ class rocketSpace extends React.Component {
     expanded: false
   }
 
+  hovered = (event) => {
+    event.preventDefault();
+    const link = event.currentTarget;
+    if (link.className.includes(' hovered') === false) {
+      link.className += ' hovered';
+    }
+  }
+
+  hoveredOut = (event) => {
+    event.preventDefault();
+    const link = event.currentTarget;
+    if (link.className.includes(' hovered')) {
+      link.className = link.className.replace(' hovered', '');
+    }
+  }
+
   plusMinus = (event) => {
     event.preventDefault();
     this.setState({ expanded: !this.state.expanded });
+  }
+
+  orderDetails = (event) => {
+    
   }
 
   purchasesBuilder = () => {
@@ -31,11 +51,11 @@ class rocketSpace extends React.Component {
   purchaseUnitBuilder = () => {
     const renderArray = [];
     this.props.purchases.forEach((purchase) => {
-      renderArray.push(<tr key={purchase.username}>
+      renderArray.push(<tr key={purchase.username} onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut} onClick={this.orderDetails}>
         <th scope="col">{purchase.username}</th>
         <th scope="col">{purchase.firstName} {purchase.lastName}</th>
         <th scope="col">{purchase.purchasedQty}</th>
-        <th scope="col">{purchase.date}</th>
+        <th scope="col">{purchase.date.replace('T00:00:00', '')}</th>
         <th scope="col">{purchase.isRefunded ? 'Refunded' : 'Not Refunded'}</th>
       </tr>);
     })
@@ -46,16 +66,13 @@ class rocketSpace extends React.Component {
     return(
       <div className='rocketSpaceC'>
         <div className='rocketSpaceProductHeader'>
+          {this.props.purchases[0].purchasedQty !== 0 ? 
+          <button onClick={this.plusMinus} className='plusMinusButton'>{this.state.expanded ? '-' : '+'}</button> : <div className='placeholder'></div>}
           <p className='rocketSpaceProduct'>Flight #: {this.props.productTitle}</p>
-          <p className='rocketSpaceProduct'>Total Quantity: {this.props.productQty}</p>
-          <p className='rocketSpaceProduct'>Remaining Quantity: {this.props.remainingQty}</p>
+          <p className='rocketSpaceProductQty'>Total Quantity: {this.props.productQty}</p>
+          <p className='rocketSpaceProductQty'>Remaining Quantity: {this.props.remainingQty}</p>
           <p className='rocketSpaceProduct'>Price: {this.props.price}</p>
-        </div>
-        <div className={this.props.purchases[0].purchasedQty !== 0 ? 'rocketSpaceNum' : 'empty'}>
-          {this.props.purchases[0].purchasedQty !== 0 ? <div>
-          <button onClick={this.plusMinus} className='plusMinusButton'>{this.state.expanded ? '-' : '+'}</button>
-          <p className='rocketSpaceNumText'>{this.props.numPurchases} Total Purchases</p></div>
-            : null}
+          <p className='rocketSpaceProduct'>{this.props.numPurchases} Purchases</p>
         </div>
         {this.state.expanded ? this.purchasesBuilder() : null}
       </div>

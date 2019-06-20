@@ -161,11 +161,13 @@ namespace PorterAndMoon.Connections
             using (var db = new SqlConnection(_connectionString))
             {
                 var queryString = @"Select [type], [description], product.quantity, price, title, destination, origin, timePosted, remainingQty,
-	                                    OrderProduct.quantity as purchasedQty, isRefunded, [date], firstName, lastName, username, productId
+	                                    OrderProduct.quantity as purchasedQty, isRefunded, [date], firstName, lastName, username, productId,
+                                        Payment.type AS PayType, expirationDate, cardNumber, securityNumber, routingNumber, bankAccountNumber, payPalAuth
                                     From Product
                                     Left Join OrderProduct ON ProductId = Product.Id
                                     Left Join [Order] ON [Order].Id = orderId 
                                     Left Join Customer ON Customer.Id = CustomerId
+                                    Left Join Payment ON Payment.Id = paymentId
                                     Where sellerId = @Id AND (isCompleted IS NULL OR isCompleted = 1) AND departure > GetDate()";
                 var orders = db.Query<SellerOrder>(queryString, new { id });
                 var groupedOrders = orders.GroupBy(order => order.ProductId);

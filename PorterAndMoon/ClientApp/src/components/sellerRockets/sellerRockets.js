@@ -101,9 +101,9 @@ class sellerRockets extends React.Component {
     const departures = this.departureMatcher(date, view);
     const arrivals = this.arrivalMatcher(date, view);
     if (departures) {
-      return icon.concat(departures.concat(arrivals))
+      return icon.concat(<div className='tileFlights'>{departures.concat(arrivals)}</div>);
     } else {
-      return icon.concat(arrivals);
+      return icon.concat(<div className='tileFlights'>{arrivals}</div>);
     }
   }
 
