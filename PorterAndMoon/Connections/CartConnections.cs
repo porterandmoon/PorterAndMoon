@@ -27,9 +27,16 @@ namespace PorterAndMoon.Connections
             {
                 var cart = GetCartId(connection, newOrderProduct.UserId);
 
-                var queryString = @"Insert into OrderProduct(ProductId, OrderId, Quantity)
-                                        Output inserted.* 
-                                        Values(@ProductId, @OrderId, @Quantity)";
+                var queryString = @"MERGE OrderProduct AS Target
+                                    USING (SELECT @ProductId ProductId, @OrderId OrderId, @Quantity Quantity) AS Source
+                                    ON Target.ProductId = Source.ProductId and Target.Orderid = Source.OrderId
+                                    WHEN MATCHED THEN
+                                       UPDATE SET 
+                                           Target.Quantity = Target.Quantity + Source.Quantity
+                                    WHEN NOT MATCHED THEN
+                                       INSERT (ProductId, OrderId, Quantity)
+                                       VALUES (Source.ProductId, Source.OrderId, Source.Quantity)
+                                    OUTPUT inserted.*;";
                 var parameters = new
                 {
                     ProductId = newOrderProduct.ProductId,
@@ -48,7 +55,7 @@ namespace PorterAndMoon.Connections
 
         public Order GetCartId(SqlConnection connection, int userId)
         {
-            var queryString = @"SELECT o.*
+            var queryString = @"SELECT o.Id
                                 FROM [Order] as o
                                 WHERE (o.isCompleted = 0) and (o.customerId = @UserId) ";
             var parameters = new { UserId = userId };
