@@ -160,5 +160,50 @@ namespace PorterAndMoon.Connections
             }
             throw new Exception("Failure to delete item from cart");
         }
+
+        public OrderProduct FinalizeOrder(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var currentCart = GetCartId(connection, id);
+
+                var queryString = @"Update [Order]
+                                    Set IsCompleted = 1
+                                    Output inserted.*
+                                    Where Id = @Id";
+                var parameters = new { OrderProductId = currentCart.Id };
+
+                var deletedItem = connection.QueryFirstOrDefault<OrderProduct>(queryString, parameters);
+
+                if (deletedItem != null)
+                {
+                    return deletedItem;
+                }
+            }
+            throw new Exception("Failure to delete item from cart");
+        }
+
+        public List<ItemDetail> GetPendingProductsLite(SqlConnection connection, int orderId)
+        {
+            var queryString = @"SELECT op.quantity as OrderQuantity, p.remainingQty, p.Quantity
+                                FROM OrderProduct as op
+	                                join Product as p on op.productId = p.Id
+                                WHERE orderId = @OrderId";
+            var parameters = new { OrderId = orderId };
+
+            var pendingProducts = connection.Query<ItemDetail>(queryString, parameters);
+
+
+            if (pendingProducts != null)
+            {
+                foreach (var product in pendingProducts)
+                {
+                    product.IsAvailable = new CheckSystem().VerifyDate(product.Departure);
+                }
+                return pendingProducts.ToList();
+            }
+            throw new Exception("Trouble getting user's cart products");
+        }
+
     }
 }
