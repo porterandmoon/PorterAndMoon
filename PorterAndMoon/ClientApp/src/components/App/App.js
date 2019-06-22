@@ -46,7 +46,7 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, searchDa
     id: undefined,
     lastName: undefined,
     userName: undefined,
-    searchData: []
+    searchData: [],
   }
 
   setSearchData = (response) => {
@@ -121,7 +121,7 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, searchDa
               <PrivateRoute path='/seller/*' component={Seller} loginStatus={this.state.loginStatus}/>
               <PrivateRoute path='/sellerhome' exact component={SellerHome} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/sellerhome/rockets+*' component={SellerRockets} loginStatus={this.state.loginStatus} currentUser={currentUser}/>  
-              <PrivateRoute path='/detail/*' component={RocketDetail} loginStatus={this.state.loginStatus}/>  
+              <PrivateRoute path='/detail/*' component={RocketDetail} loginStatus={this.state.loginStatus} currentUser={currentUser}/>  
               <PrivateRoute path='/order-history' exact component={OrderHistory} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/cart' exact component={Cart} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/search-results' exact component={SearchResults} loginStatus={this.state.loginStatus} searchData={this.state.searchData}/>

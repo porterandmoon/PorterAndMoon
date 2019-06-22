@@ -1,20 +1,20 @@
 .purchasesTable {
   background-color: black;
   color: white;
-  border: 2px solid white;
-  border-radius: 3px;
-  width: 40%;
+  border: 1.5px solid white;
+  width: 91.7%;
   position: relative;
   left: 42px;
+  font-size: 0.8em;
 }
 
 .rocketSpaceProductHeader {
   display: flex;
   background-color: black;
   color: white;
-  border: 2px solid white;
-  border-radius: 3px;
-  width: 80%;
+  border: 1.5px solid white;
+  width: 98%;
+  font-size: 0.8em;
 }
 
 .plusMinusButton {
@@ -25,25 +25,36 @@
   width: 40px;
 }
 
-.rocketSpaceProduct {
+.rocketSpaceProduct, .rocketSpaceProductQty {
   margin-top: 4%;
   margin-left: 2%;
+  width: 15%;
+}
+
+.rocketSpaceProductQty {
+  width: 25%;
 }
 
 .rocketSpaceNum {
   display: flex;
   background-color: black;
   color: white;
-  border: 2px solid white;
-  border-radius: 3px;
+  border: 1.5px solid white;
   width: 28%;
-}
-
-.rocketSpaceNumText {
-  margin-top: 10%;
+  border-top: none;
 }
 
 .rocketSpaceC {
   margin-left: 4%;
-  margin-bottom: 2%;
+  margin-bottom: 0;
+  min-height: 90%;
+}
+
+.plusMinusDiv {
+  display: flex;
+  font-size: 0.8em;
+}
+
+.placeholder {
+  width: 40px;
 }

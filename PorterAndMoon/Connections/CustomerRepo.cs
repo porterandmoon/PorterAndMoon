@@ -160,15 +160,16 @@ namespace PorterAndMoon.Connections
         {
             using (var db = new SqlConnection(_connectionString))
             {
-                var currentTime = DateTime.Now;
-                var queryString = @"Select [type], [description], product.quantity, price, title, destination, origin, timePosted, remainingQty,
-	                                    OrderProduct.quantity as purchasedQty, isRefunded, [date], firstName, lastName, username, productId
+                var queryString = @"Select product.[type], [description], product.quantity, price, title, destination, origin, timePosted, remainingQty,
+	                                    OrderProduct.quantity as purchasedQty, isRefunded, [date], firstName, lastName, username, productId, payment.name as PayName,
+                                        Payment.[type] AS PayType, expirationDate, cardNumber, securityNumber, routingNumber, bankAccountNumber, payPalAuth
                                     From Product
                                     Left Join OrderProduct ON ProductId = Product.Id
                                     Left Join [Order] ON [Order].Id = orderId 
                                     Left Join Customer ON Customer.Id = CustomerId
-                                    Where sellerId = @Id AND (isCompleted IS NULL OR isCompleted = 1) AND departure > @CurrentTime";
-                var orders = db.Query<SellerOrder>(queryString, new { id, currentTime });
+                                    Left Join Payment ON Payment.Id = paymentId
+                                    Where sellerId = @Id AND (isCompleted IS NULL OR isCompleted = 1) AND departure > GetDate()";
+                var orders = db.Query<SellerOrder>(queryString, new { id });
                 var groupedOrders = orders.GroupBy(order => order.ProductId);
                 return groupedOrders.ToDictionary(x => x.Key, x => x.ToList());
             }
@@ -179,15 +180,14 @@ namespace PorterAndMoon.Connections
         {
             using (var db = new SqlConnection(_connectionString))
             {
-                var currentTime = DateTime.Now;
                 var queryString = @"Select [type], [description], product.quantity, price, title, destination, origin, timePosted, remainingQty,
 	                                    OrderProduct.quantity as purchasedQty, isRefunded, [date], firstName, lastName, username, productId
                                     From Product
-                                    Join OrderProduct ON ProductId = Product.Id
-                                    Join [Order] ON [Order].Id = orderId 
-                                    Join Customer ON Customer.Id = CustomerId
-                                    Where sellerId = @Id AND isCompleted = 1 AND departure < @CurrentTime";
-                var orders = db.Query<SellerOrder>(queryString, new { id, currentTime });
+                                    Left Join OrderProduct ON ProductId = Product.Id
+                                    Left Join [Order] ON [Order].Id = orderId 
+                                    Left Join Customer ON Customer.Id = CustomerId
+                                    Where sellerId = @id AND (isCompleted IS NULL OR isCompleted = 1) AND departure < GETDATE()";
+                var orders = db.Query<SellerOrder>(queryString, new { id });
                 var groupedOrders = orders.GroupBy(order => order.ProductId);
                 return groupedOrders.ToDictionary(x => x.Key, x => x.ToList());
             }

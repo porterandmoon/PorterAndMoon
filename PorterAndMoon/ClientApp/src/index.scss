@@ -2,9 +2,34 @@ input {
     color: #000;
 }
 
+html {
+    overflow-y: scroll;
+}
+
 @media (max-width: 767px) {
     /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
     body {
         padding-top: 50px;
     }
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    background: midnightblue;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+    background: orange;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+    background: midnightblue;
+}
+
+th {
+    font-weight: normal;
 }

@@ -25,7 +25,6 @@
   border: 2px solid white;
   border-radius: 3px;
   color: white;
-  background-color: rgba(25, 25, 112, 0.5);
   margin-top: 2%;
   margin-left: 2%;
   width: 45%;
@@ -37,5 +36,12 @@
 
 .sellerBtnDiv {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  margin-top: 3px;
+  background-color: whitesmoke;
+  margin-top: 0;
+}
+
+.sellerButton {
+  margin: 10px;
 }

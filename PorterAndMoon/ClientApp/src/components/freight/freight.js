@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import freightData from '../../data/PortAndMoonFactory/freightData';
 import './freight.scss';
 
-class freight extends React.Component {
+class Freight extends React.Component {
   state = {
     rocketInfo: {
       loading: ['loading','loading']
@@ -157,4 +157,4 @@ class freight extends React.Component {
   }
 }
 
-export default freight;
+export default Freight;

@@ -1,0 +1,43 @@
+.addFlightRouteDiv {
+  display: flex;
+  border: 1.5px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  width: 80%;
+  background-color: aquamarine;
+}
+
+.addFlightNumbersDiv {
+  display: flex;
+}
+
+.timeInputs {
+  display: flex;
+}
+
+.addFlightInput {
+  max-width: 120px;
+  margin-right: 10px;
+}
+
+.dateInput {
+  max-width: 180px;
+}
+
+.addFlightMenu {
+  margin-right: 15px;
+}
+
+.menuDiv {
+  display: flex;
+  margin-bottom: 0;
+}
+
+.menuLabel {
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+.addFlightM {
+  background-color: cornflowerblue;
+}
