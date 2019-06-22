@@ -14,7 +14,7 @@ class ProductDetail extends React.Component {
                 <h3>{product.product.title}</h3>
                 <p>{product.product.description}</p>
                 <p>${product.product.price}</p>
-                <p>Qty:{product.product.quantitiy}</p>
+                <p>Qty: {product.product.remainingQty}</p>
                 </div>
             </div>
             </div>
