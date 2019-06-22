@@ -10,7 +10,8 @@ import './sellerHome.scss';
 
 class sellerHome extends React.Component {
   state = {
-    orderInfo: null
+    orderInfo: null,
+    modal: false
   }
   
   componentDidMount() {
@@ -18,6 +19,10 @@ class sellerHome extends React.Component {
       .then((orderInfo) => {
         this.setState({ orderInfo });
       });
+  }
+
+  toggle = () => {
+    this.setState({ modal: !this.state.modal });
   }
 
   rocketSpaceBuilder = () => {

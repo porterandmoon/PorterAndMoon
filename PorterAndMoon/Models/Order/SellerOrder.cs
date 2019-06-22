@@ -30,5 +30,6 @@ namespace PorterAndMoon.Models.Order
         public string PayPalAuth { get; set; }
         public int SecurityNumber { get; set; }
         public DateTime ExpirationDate { get; set; }
+        public string PayName { get; set; }
     }
 }

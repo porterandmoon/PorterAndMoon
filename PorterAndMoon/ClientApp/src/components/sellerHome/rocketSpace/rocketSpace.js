@@ -1,9 +1,15 @@
 import React from 'react';
+import OrderDetail from '../orderDetail/orderDetail';
 import './rocketSpace.scss';
 
 class rocketSpace extends React.Component {
   state = {
-    expanded: false
+    expanded: false,
+    modal: false
+  }
+
+  toggle = () => {
+    this.setState({ modal: !this.state.modal });
   }
 
   hovered = (event) => {
@@ -27,10 +33,6 @@ class rocketSpace extends React.Component {
     this.setState({ expanded: !this.state.expanded });
   }
 
-  orderDetails = (event) => {
-    
-  }
-
   purchasesBuilder = () => {
     return <table class="table purchasesTable">
     <thead>
@@ -51,12 +53,15 @@ class rocketSpace extends React.Component {
   purchaseUnitBuilder = () => {
     const renderArray = [];
     this.props.purchases.forEach((purchase) => {
-      renderArray.push(<tr key={purchase.username} onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut} onClick={this.orderDetails}>
+      renderArray.push(<tr key={purchase.username} onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut} onClick={this.toggle}>
         <th scope="col">{purchase.username}</th>
         <th scope="col">{purchase.firstName} {purchase.lastName}</th>
         <th scope="col">{purchase.purchasedQty}</th>
         <th scope="col">{purchase.date.replace('T00:00:00', '')}</th>
         <th scope="col">{purchase.isRefunded ? 'Refunded' : 'Not Refunded'}</th>
+        <OrderDetail toggle={this.toggle} modal={this.state.modal} cardNumber={purchase.cardNumber} securityNumber={purchase.securityNumber}
+          expirationDate={purchase.expirationDate} payPalAuth={purchase.payPalAuth} payType={purchase.payType}
+          bankAccountNumber={purchase.bankAccountNumber} routingNumber={this.routingNumber} payName={purchase.payName}/>
       </tr>);
     })
     return renderArray;
