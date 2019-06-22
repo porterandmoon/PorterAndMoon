@@ -183,7 +183,7 @@ namespace PorterAndMoon.Connections
             throw new Exception("Failure to delete item from cart");
         }
 
-        public List<PendingOrder> GetPendingProductsLite(SqlConnection connection, int orderId)
+        /*public List<PendingOrder> GetPendingProductsLite(SqlConnection connection, int orderId)
         {
             var validOrder = false;
 
@@ -218,7 +218,7 @@ namespace PorterAndMoon.Connections
                 }
             }
             throw new Exception("Trouble getting user's cart products");
-        }
+        }*/
 
     }
 }

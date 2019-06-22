@@ -22,7 +22,7 @@ namespace PorterAndMoon.Validation
 
         public bool VerifyAddRocket(Products rocket)
         {
-            if (rocket.Departure < DateTime.Now || rocket.Arrival < DateTime.Now || rocket.Departure < rocket.Arrival || 
+            if (rocket.Departure < DateTime.Now || rocket.Arrival < DateTime.Now || rocket.Departure > rocket.Arrival || 
                 rocket.Destination == rocket.Origin || rocket.Price <= 0 || rocket.Quantity <= 0)
             {
                 return true;
