@@ -46,7 +46,7 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, searchDa
     id: undefined,
     lastName: undefined,
     userName: undefined,
-    searchData: []
+    searchData: [],
   }
 
   setSearchData = (response) => {

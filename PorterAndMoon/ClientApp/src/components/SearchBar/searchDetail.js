@@ -3,7 +3,6 @@ import React from 'react';
 class SearchDetail extends React.Component {
     renderSearch = () => {
         const { searchData } = this.props;
-        console.log(searchData);
         if (searchData.username !== null) {
             return <h3>{searchData.username}</h3>
         } else if (searchData.title !== null ) {

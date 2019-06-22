@@ -81,6 +81,9 @@ namespace PorterAndMoon.Connections
             throw new Exception("Trouble creating cart for user");
         }
 
+        /* This gets the order that isn't complete yet. If one isn't 
+         * available, it creates one 
+         */
         public object ViewCart(int userId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -105,9 +108,12 @@ namespace PorterAndMoon.Connections
             }
         }
 
+        /* this gets a list of products that are attached to an
+         * Order that is not settled yet 
+         */
         public List<ItemDetail> GetPendingProducts(SqlConnection connection, int orderId)
         {
-            var queryString = @"SELECT op.quantity, p.type, p.Id, p.remainingQty, p.arrival,
+            var queryString = @"SELECT op.id as OrdProdId, op.quantity, p.type, p.Id, p.remainingQty, p.arrival,
                                     p.departure, p.destination, p.origin, p.title, p.description
                                 FROM OrderProduct as op
 	                                join Product as p on op.productId = p.Id
@@ -126,6 +132,26 @@ namespace PorterAndMoon.Connections
                 return pendingProducts.ToList();
             }
             throw new Exception("Trouble getting user's cart products");
+        }
+
+        public OrderProduct RemoveCartItem(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var queryString = @"DELETE
+                                    FROM OrderProduct
+                                    OUTPUT deleted.*
+                                    WHERE Id = @OrderProductId";
+                var parameters = new { OrderProductId = id };
+
+                var deletedItem = connection.QueryFirstOrDefault<OrderProduct>(queryString, parameters);
+
+                if(deletedItem != null)
+                {
+                    return deletedItem;
+                }
+            }
+            throw new Exception("Failure to delete item from cart");
         }
     }
 }
