@@ -48,3 +48,25 @@
 .cart-item-title {
   text-align: center;
 }
+
+// ======== below this line lies styling for stupid SVG image =========
+.remove-from-cart-icon {
+  width: 25px;
+  height: 25px;
+  fill: red;
+}
+
+.remove-from-cart {
+  display: flex;
+  justify-content: space-between;
+  vertical-align: middle;
+}
+
+.remove-container{
+  cursor: pointer;
+  margin-left: 30px;
+}
+
+.title-destination{
+  margin: auto 0;
+}
