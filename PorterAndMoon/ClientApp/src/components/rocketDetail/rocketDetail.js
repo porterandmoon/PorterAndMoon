@@ -79,15 +79,23 @@ class rocketDetail extends React.Component {
   }
 
   render() {
-    return(
-      <div className='rocketDetail'>
-        <ProductDetail 
-        // id={id}
-        // value={value}
-        />
-        {this.CheckAvailability()}
-      </div>
-    );
+    
+      if(this.state.product !== undefined){
+        const product = this.state.product;
+        return(
+          <div className='rocketDetail'>
+            <div className="container">
+              <div className="col">
+                <ProductDetail 
+                product={product}
+                />
+                {this.CheckAvailability()}
+              </div>
+            </div>
+          </div>
+        )
+      }
+      return <h1>unavailable</h1>;
   }
 }
 

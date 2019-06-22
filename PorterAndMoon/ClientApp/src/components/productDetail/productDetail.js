@@ -1,43 +1,32 @@
 import React from 'react';
-
-import productData from '../../data/PortAndMoonFactory/allProductData';
-
+import './productDetail.scss';
 
 class ProductDetail extends React.Component {
-    state = { 
-        details: '',
+
+    buildProduct = () => {
+        const product = this.props;
+        console.log(product);
+        if (product !== null) {
+        return <div className="productDetails">
+            <div className="container">
+              <div className="col">
+                <h1>Flight Details</h1>
+                <h3>{product.product.title}</h3>
+                <p>{product.product.description}</p>
+                <p>${product.product.price}</p>
+                <p>Qty:{product.product.quantitiy}</p>
+                </div>
+            </div>
+            </div>
+        }
+        else return '';
     }
-
-     executeProductSearch = () => {
-        productData.getProductById()
-        .then((responseData) => {
-            this.setState({ details: responseData})
-            // buildProduct(this.state.details)
-        })
-        .catch((err) => console.error(err));
-    };
-    
-
-    // buildProduct = (details) => {
-    //     if (this.state.details !== null) {
-    //     return <div>
-    //         <h3>{details.title}</h3>
-    //         <p>{details.description}</p>
-    //         <p>{details.price}</p>
-    //         <p>{details.quantitiy}</p>
-    //         </div>
-    //     }
-    // }
 
     render() {
 
         return (
             <div className="productDetail">
-                <h3>{this.state.details.title}</h3>
-                <p>{this.state.details.description}</p>
-                <p>{this.state.details.price}</p>
-                <p>{this.state.details.quantitiy}</p>
-                
+                {this.buildProduct()}
             </div>
         );
     }
