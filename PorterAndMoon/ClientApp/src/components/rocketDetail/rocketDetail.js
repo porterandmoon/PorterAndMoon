@@ -2,6 +2,8 @@ import React from 'react';
 import ShoppingCart from '../../data/PortAndMoonFactory/ShoppingCart';
 import './rocketDetail.scss';
 
+import ProductDetail from '../productDetail/productDetail'
+
 class rocketDetail extends React.Component {
   state = {
     value: "",
@@ -77,12 +79,23 @@ class rocketDetail extends React.Component {
   }
 
   render() {
-    return(
-      <div className='rocketDetail'>
-        <h1>ROCKET DETAIL PAGE</h1>
-        {this.CheckAvailability()}
-      </div>
-    );
+    
+      if(this.state.product !== undefined){
+        const product = this.state.product;
+        return(
+          <div className='rocketDetail'>
+            <div className="container">
+              <div className="col">
+                <ProductDetail 
+                product={product}
+                />
+                {this.CheckAvailability()}
+              </div>
+            </div>
+          </div>
+        )
+      }
+      return <h1>unavailable</h1>;
   }
 }
 
