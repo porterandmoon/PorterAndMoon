@@ -16,7 +16,7 @@ namespace PorterAndMoon.Controllers
         }
 
         [HttpPost]
-        public ActionResult FinalizeOrder(CartAdd Id)
+        public ActionResult AddItem(CartAdd Id)
         {
             var order = _connections.AddItemToCart(Id);
             return Accepted(order);
@@ -27,6 +27,14 @@ namespace PorterAndMoon.Controllers
         {
             var cart = _connections.ViewCart(Id);
             return Ok(cart);
+        }
+
+        [HttpDelete]
+        public ActionResult RemoveItemFromCart(int Id)
+        {
+            var removedItem = _connections.RemoveCartItem(Id);
+            // returns HTTP code 204 and no content is sent back
+            return NoContent();
         }
     }
 }
