@@ -27,9 +27,16 @@ namespace PorterAndMoon.Connections
             {
                 var cart = GetCartId(connection, newOrderProduct.UserId);
 
-                var queryString = @"Insert into OrderProduct(ProductId, OrderId, Quantity)
-                                        Output inserted.* 
-                                        Values(@ProductId, @OrderId, @Quantity)";
+                var queryString = @"MERGE OrderProduct AS Target
+                                    USING (SELECT @ProductId ProductId, @OrderId OrderId, @Quantity Quantity) AS Source
+                                    ON Target.ProductId = Source.ProductId and Target.Orderid = Source.OrderId
+                                    WHEN MATCHED THEN
+                                       UPDATE SET 
+                                           Target.Quantity = Target.Quantity + Source.Quantity
+                                    WHEN NOT MATCHED THEN
+                                       INSERT (ProductId, OrderId, Quantity)
+                                       VALUES (Source.ProductId, Source.OrderId, Source.Quantity)
+                                    OUTPUT inserted.*;";
                 var parameters = new
                 {
                     ProductId = newOrderProduct.ProductId,
@@ -48,7 +55,7 @@ namespace PorterAndMoon.Connections
 
         public Order GetCartId(SqlConnection connection, int userId)
         {
-            var queryString = @"SELECT o.*
+            var queryString = @"SELECT o.Id
                                 FROM [Order] as o
                                 WHERE (o.isCompleted = 0) and (o.customerId = @UserId) ";
             var parameters = new { UserId = userId };
@@ -153,5 +160,65 @@ namespace PorterAndMoon.Connections
             }
             throw new Exception("Failure to delete item from cart");
         }
+
+        public OrderProduct FinalizeOrder(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var currentCart = GetCartId(connection, id);
+
+                var queryString = @"Update [Order]
+                                    Set IsCompleted = 1
+                                    Output inserted.*
+                                    Where Id = @Id";
+                var parameters = new { OrderProductId = currentCart.Id };
+
+                var deletedItem = connection.QueryFirstOrDefault<OrderProduct>(queryString, parameters);
+
+                if (deletedItem != null)
+                {
+                    return deletedItem;
+                }
+            }
+            throw new Exception("Failure to delete item from cart");
+        }
+
+        /*public List<PendingOrder> GetPendingProductsLite(SqlConnection connection, int orderId)
+        {
+            var validOrder = false;
+
+            var queryString = @"SELECT op.quantity as OrderQuantity, p.remainingQty,
+                                    p.Quantity, p.departure
+                                FROM OrderProduct as op
+	                                join Product as p on op.productId = p.Id
+                                WHERE orderId = @OrderId";
+            var parameters = new { OrderId = orderId };
+
+            var pendingProducts = connection.Query<PendingOrder>(queryString, parameters);
+
+
+            if (pendingProducts != null)
+            {
+                validOrder = true;
+                foreach (var product in pendingProducts)
+                {
+                    var validQuantity = (product.Quantity >= product.RemainingQty);
+                    var validOrderQuantity = (product.RemainingQty >= product.OrderQuantity);
+                    var hasntLeft = new CheckSystem().VerifyDate(product.Departure);
+
+                    if (!validOrderQuantity || !validQuantity || !hasntLeft)
+                    {
+                        validOrder = false;
+                        break;
+                    }
+                }
+                if (validOrder)
+                {
+                    return pendingProducts.ToList();
+                }
+            }
+            throw new Exception("Trouble getting user's cart products");
+        }*/
+
     }
 }

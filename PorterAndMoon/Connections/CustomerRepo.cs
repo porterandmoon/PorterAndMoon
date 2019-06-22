@@ -161,7 +161,7 @@ namespace PorterAndMoon.Connections
             using (var db = new SqlConnection(_connectionString))
             {
                 var queryString = @"Select product.[type], [description], product.quantity, price, title, destination, origin, timePosted, remainingQty,
-	                                    OrderProduct.quantity as purchasedQty, isRefunded, [date], firstName, lastName, username, productId, payment.name as PayName,
+	                                    OrderProduct.quantity as purchasedQty, isRefunded, [date], firstName, lastName, username, product.id as productId, payment.name as PayName,
                                         Payment.[type] AS PayType, expirationDate, cardNumber, securityNumber, routingNumber, bankAccountNumber, payPalAuth
                                     From Product
                                     Left Join OrderProduct ON ProductId = Product.Id
