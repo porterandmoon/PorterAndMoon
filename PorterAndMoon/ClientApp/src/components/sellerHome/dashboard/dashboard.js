@@ -32,31 +32,31 @@ class dashboard extends React.Component {
   currentMonthBuilder = () => {
     if (this.state.currentMonthSales != null) {
       const sales = this.monthTotalizer();
-      return <div>
+      return <div className='currentMonthDataDiv'>
         <h5 className='monthlyTitle'>Monthly Sales</h5>
         <div className='monthlyUnit'>   
-          <p>Total Sales:</p>
-          <p>{sales.total}</p>
+          <p className='monthlyDataTitle'>Total Sales:</p>
+          <p className='monthlyData'>{sales.total}</p>
         </div>
         <div className='monthlyUnit'>
-          <p>Number of Purchases:</p>
-          <p>{sales.quantity}</p>
+          <p className='monthlyDataTitle'>Number of Purchases:</p>
+          <p className='monthlyData'>{sales.quantity}</p>
         </div>
         <div className='monthlyUnit'>
-          <p>Average per Flight:</p>
-          <p>{sales.total / this.state.numRocketsMonth}</p>
+          <p className='monthlyDataTitle'>Average per Flight:</p>
+          <p className='monthlyData'>{(sales.total / this.state.numRocketsMonth).toFixed(2)}</p>
         </div>
         <div className='monthlyUnit'>
-          <p>Number of Customers:</p>
-          <p>{sales.customers.length}</p>
+          <p className='monthlyDataTitle'>Number of Customers:</p>
+          <p className='monthlyData'>{sales.customers.length}</p>
         </div>
         <div className='monthlyUnit'>
-          <p>Average Purchase:</p>
-          <p>{sales.total / sales.quantity}</p>
+          <p className='monthlyDataTitle'>Average Purchase:</p>
+          <p className='monthlyData'>{(sales.total / sales.quantity).toFixed(2)}</p>
         </div>
         <div className='monthlyUnit'>
-          <p>Average per Customer:</p>
-          <p>{sales.total / sales.customers.length}</p>
+          <p className='monthlyDataTitle'>Average per Customer:</p>
+          <p className='monthlyData'>{(sales.total / sales.customers.length).toFixed(2)}</p>
         </div>
       </div>
     }
@@ -84,31 +84,31 @@ class dashboard extends React.Component {
   totalSalesBuiler = () => {
     if (this.state.totalSales != null) {
       const sales = this.totalizer();
-      return <div>
+      return <div className='totalDataDiv'>
         <h5 className='monthlyTitle'>Lifetime Totals</h5>
         <div className='monthlyUnit'>   
-          <p>Total Sales:</p>
-          <p>{sales.total}</p>
+          <p className='monthlyDataTitle'>Total Sales:</p>
+          <p className='monthlyData'>{sales.total}</p>
         </div>
         <div className='monthlyUnit'>
-          <p>Number of Purchases:</p>
-          <p>{sales.quantity}</p>
+          <p className='monthlyDataTitle'>Number of Purchases:</p>
+          <p className='monthlyData'>{sales.quantity}</p>
         </div>
         <div className='monthlyUnit'>
-          <p>Average per Flight:</p>
-          <p>{sales.total / this.state.numRockets}</p>
+          <p className='monthlyDataTitle'>Average per Flight:</p>
+          <p className='monthlyData'>{(sales.total / this.state.numRockets).toFixed(2)}</p>
         </div>
         <div className='monthlyUnit'>
-          <p>Number of Customers:</p>
-          <p>{sales.customers.length}</p>
+          <p className='monthlyDataTitle'>Number of Customers:</p>
+          <p className='monthlyData'>{sales.customers.length}</p>
         </div>
         <div className='monthlyUnit'>
-          <p>Average Purchase:</p>
-          <p>{sales.total / sales.quantity}</p>
+          <p className='monthlyDataTitle'>Average Purchase:</p>
+          <p className='monthlyData'>{(sales.total / sales.quantity).toFixed(2)}</p>
         </div>
         <div className='monthlyUnit'>
-          <p>Average per Customer:</p>
-          <p>{sales.total / sales.customers.length}</p>
+          <p className='monthlyDataTitle'>Average per Customer:</p>
+          <p className='monthlyData'>{(sales.total / sales.customers.length).toFixed(2)}</p>
         </div>
       </div>
     }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PorterAndMoon.Connections;
 using PorterAndMoon.Models;
+using PorterAndMoon.Validation;
 
 namespace PorterAndMoon.Controllers
 {
@@ -67,8 +68,15 @@ namespace PorterAndMoon.Controllers
         [HttpPost]
         public ActionResult AddNewProduct(Products newProduct)
         {
-            var product = _connections.AddRocket(newProduct);
-            return Accepted(product);
+            if (!new CheckSystem().VerifyAddRocket(newProduct))
+            {
+                var product = _connections.AddRocket(newProduct);
+                return Accepted(product);
+            } else
+            {
+                return BadRequest();
+            }
+                
         }
 
         // pass id in body
