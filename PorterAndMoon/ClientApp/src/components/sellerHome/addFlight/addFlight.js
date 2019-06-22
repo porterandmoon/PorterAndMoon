@@ -48,8 +48,8 @@ class addFlight extends React.Component {
 
   newFlight = (event) => {
     event.preventDefault();
-    this.validator()
-      .then(() => {
+    // this.validator()
+    //   .then(() => {
         if (!this.state.error) {
           const departure = `${this.state.departureDate}T${this.state.departureTime}Z`;
           const arrival = `${this.state.arrivalDate}T${this.state.arrivalTime}Z`;
@@ -70,7 +70,7 @@ class addFlight extends React.Component {
               this.toggle();
             });
         }
-      });
+      // });
   }
 
   selectorD = (selection) => {
