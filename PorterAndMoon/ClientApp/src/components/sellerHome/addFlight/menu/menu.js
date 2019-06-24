@@ -20,7 +20,7 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap
 
   render() {
     return (
-      <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+      <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} className='addFlightMenu'>
         <DropdownToggle caret>
           {this.state.selection}
         </DropdownToggle>

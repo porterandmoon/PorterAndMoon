@@ -10,7 +10,8 @@ import './sellerHome.scss';
 
 class sellerHome extends React.Component {
   state = {
-    orderInfo: null
+    orderInfo: null,
+    modal: false
   }
   
   componentDidMount() {
@@ -18,6 +19,10 @@ class sellerHome extends React.Component {
       .then((orderInfo) => {
         this.setState({ orderInfo });
       });
+  }
+
+  toggle = () => {
+    this.setState({ modal: !this.state.modal });
   }
 
   rocketSpaceBuilder = () => {
@@ -44,7 +49,8 @@ class sellerHome extends React.Component {
         <div className='dashboard'>
           <Dashboard userId={this.props.currentUser.id}/>
           <div className='sellerBtnDiv'>
-            <Button className='btn btn-sm btn-info' tag={Link} to={`/sellerhome/rockets+${this.props.currentUser.id}`}>Rocket Schedule</Button>
+            <Button className='btn btn-sm btn-info sellerButton' tag={Link} to={`/sellerhome/rockets+${this.props.currentUser.id}`}>
+            <i className="fas fa-calendar-alt"></i> Rocket Schedule</Button>
             <AddFlight userId={this.props.currentUser.id}/>
             <SalesHistory userId={this.props.currentUser.id}/>
           </div>

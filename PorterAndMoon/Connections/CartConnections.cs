@@ -183,27 +183,42 @@ namespace PorterAndMoon.Connections
             throw new Exception("Failure to delete item from cart");
         }
 
-        public List<ItemDetail> GetPendingProductsLite(SqlConnection connection, int orderId)
+        /*public List<PendingOrder> GetPendingProductsLite(SqlConnection connection, int orderId)
         {
-            var queryString = @"SELECT op.quantity as OrderQuantity, p.remainingQty, p.Quantity
+            var validOrder = false;
+
+            var queryString = @"SELECT op.quantity as OrderQuantity, p.remainingQty,
+                                    p.Quantity, p.departure
                                 FROM OrderProduct as op
 	                                join Product as p on op.productId = p.Id
                                 WHERE orderId = @OrderId";
             var parameters = new { OrderId = orderId };
 
-            var pendingProducts = connection.Query<ItemDetail>(queryString, parameters);
+            var pendingProducts = connection.Query<PendingOrder>(queryString, parameters);
 
 
             if (pendingProducts != null)
             {
+                validOrder = true;
                 foreach (var product in pendingProducts)
                 {
-                    product.IsAvailable = new CheckSystem().VerifyDate(product.Departure);
+                    var validQuantity = (product.Quantity >= product.RemainingQty);
+                    var validOrderQuantity = (product.RemainingQty >= product.OrderQuantity);
+                    var hasntLeft = new CheckSystem().VerifyDate(product.Departure);
+
+                    if (!validOrderQuantity || !validQuantity || !hasntLeft)
+                    {
+                        validOrder = false;
+                        break;
+                    }
                 }
-                return pendingProducts.ToList();
+                if (validOrder)
+                {
+                    return pendingProducts.ToList();
+                }
             }
             throw new Exception("Trouble getting user's cart products");
-        }
+        }*/
 
     }
 }

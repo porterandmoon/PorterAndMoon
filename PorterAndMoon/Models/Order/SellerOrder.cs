@@ -23,5 +23,13 @@ namespace PorterAndMoon.Models.Order
         public string LastName { get; set; }
         public string Username { get; set; }
         public int ProductId { get; set; }
+        public string PayType { get; set; }
+        public string CardNumber { get; set; }
+        public string BankAccountNumber { get; set; }
+        public string RoutingNumber { get; set; }
+        public string PayPalAuth { get; set; }
+        public int SecurityNumber { get; set; }
+        public DateTime ExpirationDate { get; set; }
+        public string PayName { get; set; }
     }
 }
