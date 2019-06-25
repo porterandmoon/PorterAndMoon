@@ -7,5 +7,10 @@ namespace PorterAndMoon.Models.Cart
 {
     public class PendingOrder
     {
+        public int Id { get; set; }
+        public decimal OrderQuantity { get; set; }
+        public decimal RemainingQty { get; set; }
+        public decimal Quantity { get; set; }
+        public DateTime Departure { get; set; }
     }
 }

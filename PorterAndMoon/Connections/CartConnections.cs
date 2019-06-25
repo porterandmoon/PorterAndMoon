@@ -153,7 +153,7 @@ namespace PorterAndMoon.Connections
 
                 var deletedItem = connection.QueryFirstOrDefault<OrderProduct>(queryString, parameters);
 
-                if(deletedItem != null)
+                if (deletedItem != null)
                 {
                     return deletedItem;
                 }
@@ -167,58 +167,100 @@ namespace PorterAndMoon.Connections
             {
                 var currentCart = GetCartId(connection, id);
 
-                var queryString = @"Update [Order]
-                                    Set IsCompleted = 1
-                                    Output inserted.*
-                                    Where Id = @Id";
-                var parameters = new { OrderProductId = currentCart.Id };
+                var productsUpdated = GetPendingProductsLite(connection, currentCart.Id);
 
-                var deletedItem = connection.QueryFirstOrDefault<OrderProduct>(queryString, parameters);
-
-                if (deletedItem != null)
+                if (productsUpdated)
                 {
-                    return deletedItem;
+                    var queryString = @"Update [Order]
+                                        Set IsCompleted = 1
+                                        Output inserted.*
+                                        Where Id = @Id";
+                    var parameters = new { Id = currentCart.Id };
+
+                    var completedOrder = connection.QueryFirstOrDefault<OrderProduct>(queryString, parameters);
+
+                    if (completedOrder != null)
+                    {
+                        return completedOrder;
+                    }
                 }
             }
-            throw new Exception("Failure to delete item from cart");
+            throw new Exception("Failure to complete Order");
         }
 
-        /*public List<PendingOrder> GetPendingProductsLite(SqlConnection connection, int orderId)
+        public bool GetPendingProductsLite(SqlConnection connection, int cartId)
         {
             var validOrder = false;
 
-            var queryString = @"SELECT op.quantity as OrderQuantity, p.remainingQty,
-                                    p.Quantity, p.departure
+            var queryString = @"SELECT p.Id, op.quantity as OrderQuantity, p.remainingQty,
+                                    p.Quantity, p.departure 
                                 FROM OrderProduct as op
 	                                join Product as p on op.productId = p.Id
                                 WHERE orderId = @OrderId";
-            var parameters = new { OrderId = orderId };
+            var parameters = new { OrderId = cartId };
 
             var pendingProducts = connection.Query<PendingOrder>(queryString, parameters);
 
 
             if (pendingProducts != null)
             {
-                validOrder = true;
-                foreach (var product in pendingProducts)
+                var validItems = validateItems(pendingProducts, validOrder);
+                if (validItems)
                 {
-                    var validQuantity = (product.Quantity >= product.RemainingQty);
-                    var validOrderQuantity = (product.RemainingQty >= product.OrderQuantity);
-                    var hasntLeft = new CheckSystem().VerifyDate(product.Departure);
-
-                    if (!validOrderQuantity || !validQuantity || !hasntLeft)
-                    {
-                        validOrder = false;
-                        break;
-                    }
+                    var updated = UpdateRemainingProductQty(connection, pendingProducts);
+                    return updated;
                 }
-                if (validOrder)
-                {
-                    return pendingProducts.ToList();
-                }
+                return false;
             }
             throw new Exception("Trouble getting user's cart products");
-        }*/
+        }
 
+        public bool validateItems(IEnumerable<PendingOrder> pendingProducts, bool validOrder)
+        {
+            validOrder = true;
+            foreach (var product in pendingProducts)
+            {
+                var validQuantity = (product.Quantity >= product.RemainingQty);
+                var validOrderQuantity = (product.RemainingQty >= product.OrderQuantity);
+                var hasntLeft = new CheckSystem().VerifyDate(product.Departure);
+
+                if (!validOrderQuantity || !validQuantity || !hasntLeft)
+                {
+                    validOrder = false;
+                    return validOrder;
+                }
+            }
+            return validOrder;
+        }
+
+
+        public bool UpdateRemainingProductQty(SqlConnection connection, IEnumerable<PendingOrder> pendingProducts)
+        {
+            var updatesSuccessful = false;
+
+            foreach (var product in pendingProducts)
+            {
+                var exeOrder = @"Update Product
+                                 Set remainingQty = @NewRemQty
+                                 Where Id = @Id";
+                var exeParams = new
+                {
+                    NewRemQty = product.RemainingQty - product.OrderQuantity,
+                    Id = product.Id
+                };
+                var response = connection.QueryFirstOrDefault<int>(exeOrder, exeParams);
+
+                if (response != null)
+                {
+                    updatesSuccessful = true;
+                }
+                else
+                {
+                    updatesSuccessful = false;
+                    return updatesSuccessful;
+                }
+            }
+            return updatesSuccessful;
+        }
     }
 }
