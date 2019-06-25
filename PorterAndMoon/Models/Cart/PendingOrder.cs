@@ -12,5 +12,6 @@ namespace PorterAndMoon.Models.Cart
         public decimal RemainingQty { get; set; }
         public decimal Quantity { get; set; }
         public DateTime Departure { get; set; }
+        public decimal Price { get; set; }
     }
 }

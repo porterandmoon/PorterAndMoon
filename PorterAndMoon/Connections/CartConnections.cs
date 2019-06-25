@@ -161,15 +161,21 @@ namespace PorterAndMoon.Connections
             throw new Exception("Failure to delete item from cart");
         }
 
-        public OrderProduct FinalizeOrder(int id)
+        public ValidProductWithPrice FinalizeOrder(int id)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
+                //Pass the User Id to get the cart Id
                 var currentCart = GetCartId(connection, id);
 
+                //Pass the cart Id to get a list of products in cart that aren't ordered,
+                //Run validation to ensure the products are still available,
+                //Then update the Products to reflect the remainingQty in the DB.
+                //Returns true or false to indicate if the products updated or not
                 var productsUpdated = GetPendingProductsLite(connection, currentCart.Id);
 
-                if (productsUpdated)
+                //if the Products updated
+                if (productsUpdated.updateSuccessful)
                 {
                     var queryString = @"Update [Order]
                                         Set IsCompleted = 1
@@ -179,21 +185,22 @@ namespace PorterAndMoon.Connections
 
                     var completedOrder = connection.QueryFirstOrDefault<OrderProduct>(queryString, parameters);
 
+                    //returns order info
                     if (completedOrder != null)
                     {
-                        return completedOrder;
+                        return productsUpdated;
                     }
                 }
             }
             throw new Exception("Failure to complete Order");
         }
 
-        public bool GetPendingProductsLite(SqlConnection connection, int cartId)
+        public ValidProductWithPrice GetPendingProductsLite(SqlConnection connection, int cartId)
         {
             var validOrder = false;
 
             var queryString = @"SELECT p.Id, op.quantity as OrderQuantity, p.remainingQty,
-                                    p.Quantity, p.departure 
+                                    p.Quantity, p.departure, p.price
                                 FROM OrderProduct as op
 	                                join Product as p on op.productId = p.Id
                                 WHERE orderId = @OrderId";
@@ -210,7 +217,6 @@ namespace PorterAndMoon.Connections
                     var updated = UpdateRemainingProductQty(connection, pendingProducts);
                     return updated;
                 }
-                return false;
             }
             throw new Exception("Trouble getting user's cart products");
         }
@@ -234,8 +240,9 @@ namespace PorterAndMoon.Connections
         }
 
 
-        public bool UpdateRemainingProductQty(SqlConnection connection, IEnumerable<PendingOrder> pendingProducts)
+        public ValidProductWithPrice UpdateRemainingProductQty(SqlConnection connection, IEnumerable<PendingOrder> pendingProducts)
         {
+            var productOrderWithTotal = new ValidProductWithPrice();
             var updatesSuccessful = false;
 
             foreach (var product in pendingProducts)
@@ -253,14 +260,16 @@ namespace PorterAndMoon.Connections
                 if (response != null)
                 {
                     updatesSuccessful = true;
+                    productOrderWithTotal.Total = productOrderWithTotal.Total + (product.Price * product.OrderQuantity);
                 }
                 else
                 {
                     updatesSuccessful = false;
-                    return updatesSuccessful;
+                    break;
                 }
             }
-            return updatesSuccessful;
+            productOrderWithTotal.updateSuccessful = updatesSuccessful;
+            return productOrderWithTotal;
         }
     }
 }
