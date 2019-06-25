@@ -1,6 +1,7 @@
 import React from 'react';
 import ShoppingCart from '../../data/PortAndMoonFactory/ShoppingCart';
 import ItemInCart from './ItemInCart';
+import Payment from './Payment/Payment';
 import './Cart.scss';
 
 class Cart extends React.Component {
@@ -45,6 +46,7 @@ class Cart extends React.Component {
             onClick={this.PurchaseClick}>
               Purchase
           </button>
+          <Payment currentUser={this.props.currentUser} />
           {this.state.cart.itemsInCart
             .map(cartItem => <ItemInCart
                 cartItem={cartItem}
