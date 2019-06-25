@@ -46,9 +46,17 @@ const removeCartItem = (ordProdId) => new Promise((Resolve, Reject) => {
     .catch((err) => Reject(err));
 });
 
+const purchaseItemsInCart = (userId) => new Promise((Resolve, Reject) => {
+  const x = { Id: userId }
+  axios.put(`${baseUrl}/cart`,x)
+    .then((res) => Resolve(res))
+    .catch((err) => Reject(err));
+});
+
 export default { 
   currentProduct,
   addProductToCart,
   getCartItems,
   removeCartItem,
+  purchaseItemsInCart,
 };

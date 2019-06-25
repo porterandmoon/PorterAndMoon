@@ -6,7 +6,7 @@ import './Cart.scss';
 class Cart extends React.Component {
   state = {
     cart: {
-      itemsInCart: [],
+      itemsInCart: {},
     },
   }
 
@@ -24,16 +24,35 @@ class Cart extends React.Component {
     this.CheckCart();
   }
 
+  PurchaseClick = (e) => {
+    var x = this.props.currentUser.id;
+    console.log(x);
+    ShoppingCart.purchaseItemsInCart(x)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.error(err));
+    e.preventDefault();
+  }
+
   // loops over each product and displays them separately
   ShowItems = () => {
-    if(this.state.cart.itemsInCart.length > 0){
-      return this.state.cart.itemsInCart
-        .map(cartItem => <ItemInCart
-            cartItem={cartItem}
-            key={cartItem.ordProdId}
-            RemoveItem={this.RemoveItem}
-            CheckCart={this.CheckCart}
-          />);
+    if(this.state.cart.itemsInCart.length > 0 ){
+      return (
+        <div>
+          <button
+            className="btn btn-outline-warning" 
+            onClick={this.PurchaseClick}>
+              Purchase
+          </button>
+          {this.state.cart.itemsInCart
+            .map(cartItem => <ItemInCart
+                cartItem={cartItem}
+                key={cartItem.ordProdId}
+                RemoveItem={this.RemoveItem}
+                CheckCart={this.CheckCart}
+            />)}
+        </div>)
     } else {
       return <h2>Your cart it empty!</h2>
     }
