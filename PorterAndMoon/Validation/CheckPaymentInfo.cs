@@ -23,12 +23,12 @@ namespace PorterAndMoon.Validation
 
             if(payment.CustomerId != null)
             {
-                if(payment.Type != null && payment.ExpirationDate != null &&
+                if(payment.Type != null && payment.ExpirationDate.HasValue() &&
                     payment.CardNumber != null && payment.SecurityNumber != null && payment.Name != null
                 )
                 {
-                    var y = payment.ExpirationDate;
-                    var x = new DateTime(y.year)
+                    var y = (DateTime)payment.ExpirationDate;
+                    var x = new DateTime(y.Year, y.Month, 1).AddMonths(1);
                     if(CardTypes.Contains(payment.Type) && VerifyDate(payment.ExpirationDate))
                     {
                         payment.IsExpired = false;
