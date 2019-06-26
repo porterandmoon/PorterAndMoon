@@ -4,11 +4,12 @@ import './seatSelector.scss';
 
 class seatSelector extends React.Component {
   state = {
-    seatInfo: null
+    seatInfo: null,
+    path: window.location.href.slice(window.location.href.search('/?Id=') + 3)  
   }
 
   componentDidMount() {
-    seatsData.getSeats()
+    seatsData.getSeats(this.state.path)
       .then((seatInfo) => {
         this.setState({ seatInfo });
       });
@@ -17,7 +18,7 @@ class seatSelector extends React.Component {
   render() {
     return(
       <div className='seatSelector'>
-
+        
       </div>
     );
   }

@@ -19,6 +19,7 @@ import SellerRockets from '../sellerRockets/sellerRockets';
 import NavbarC from '../navbar/navbarC';
 import Cart from '../Cart/Cart';
 import SearchResults from '../SearchResults/SearchResults';
+import Seat from '../seatSelector/seatSelector';
 import './app.scss';
 
 connection();
@@ -118,13 +119,14 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, searchDa
               <PrivateRoute path='/homel' component={Home} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PublicRoute path='/home' exact component={Home} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/profile' exact component={Profile} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
-              <PrivateRoute path='/seller/*' component={Seller} loginStatus={this.state.loginStatus}/>
+              <PrivateRoute path='/seller/*' component={Seller} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/sellerhome' exact component={SellerHome} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/sellerhome/rockets+*' component={SellerRockets} loginStatus={this.state.loginStatus} currentUser={currentUser}/>  
               <PrivateRoute path='/detail/*' component={RocketDetail} loginStatus={this.state.loginStatus} currentUser={currentUser}/>  
               <PrivateRoute path='/order-history' exact component={OrderHistory} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/cart' exact component={Cart} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/search-results' exact component={SearchResults} loginStatus={this.state.loginStatus} searchData={this.state.searchData}/>
+              <PrivateRoute path='/seat/*' component={Seat} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
             </Switch>
           </React.Fragment>
         </BrowserRouter>

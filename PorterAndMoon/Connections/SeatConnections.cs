@@ -63,7 +63,7 @@ namespace PorterAndMoon.Connections
 		                                    When n.Number <= @NumPremium Then @Premium
 		                                    Else 1
 	                                    End, 
-	                                    Convert(nvarchar(10), (Floor(n.Number / 5) + 1)) + '-' + Convert(nvarchar(10), (n.Number % 5) + 1)   
+	                                    Convert(nvarchar(10), (Floor(n.Number / @rowSeats) + 1)) + '-' + Convert(nvarchar(10), (n.Number % @rowSeats) + 1)   
                                     From Seat
                                     Join SeatNumber as n
 	                                    On n.Number <= @NumSeats";

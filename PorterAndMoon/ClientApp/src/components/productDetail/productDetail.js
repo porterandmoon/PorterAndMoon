@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './productDetail.scss';
 
 class ProductDetail extends React.Component {
@@ -11,7 +12,7 @@ class ProductDetail extends React.Component {
             <div className="container">
               <div className="col">
                 <h1>Flight Details</h1>
-                <h3>{product.product.title}</h3>
+                <Link to={`/seat/${product.product.title}/?Id=${product.product.id}`}>{product.product.title}</Link>
                 <p>{product.product.description}</p>
                 <p>${product.product.price}</p>
                 <p>Qty: {product.product.remainingQty}</p>
