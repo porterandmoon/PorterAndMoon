@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PorterAndMoon.Connections;
 using PorterAndMoon.Models.Payment;
+using PorterAndMoon.Validation;
 
 namespace PorterAndMoon.Controllers
 {
@@ -41,8 +42,17 @@ namespace PorterAndMoon.Controllers
         [HttpPost]
         public ActionResult PostPaymentType(PaymentType newPayment)
         {
-            var paymentType = _connections.AddPaymentType(newPayment);
-            return Accepted(paymentType);
+            var validator = new CheckPaymentInfo();
+            if (validator.ValidatePayment(newPayment))
+            {
+
+                var paymentType = _connections.AddPaymentType(newPayment);
+                return Accepted(paymentType);
+            }
+            else
+            {
+                return BadRequest("invalid input");
+            }
         }
 
         [HttpDelete("{Id}")]
