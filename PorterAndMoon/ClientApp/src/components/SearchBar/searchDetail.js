@@ -5,7 +5,6 @@ import './searchDetails.scss';
 class SearchDetail extends React.Component {
     renderSearch = () => {
         const { searchData } = this.props;
-        console.log(searchData);
         if (searchData.username !== null) {
             return <div>
                 <h3><Link to={`/seller/${searchData.id}`}>{searchData.username}</Link></h3>
