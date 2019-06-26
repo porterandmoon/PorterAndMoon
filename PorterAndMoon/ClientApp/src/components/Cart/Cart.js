@@ -27,7 +27,7 @@ class Cart extends React.Component {
 
   // loops over each product and displays them separately
   ShowItems = () => {
-    if(this.state.cart !== null && this.state.cart.itemsInCart !== undefined){
+    if(this.state.cart !== null && this.state.cart.itemsInCart !== undefined && this.state.cart.itemsInCart > 0){
       return (
         <div>
           <Payment currentUser={this.props.currentUser} />

@@ -23,13 +23,13 @@ namespace PorterAndMoon.Validation
 
             if(payment.CustomerId != null)
             {
-                if(payment.Type != null && payment.ExpirationDate.HasValue() &&
+                if(payment.Type != null && payment.ExpirationDate.HasValue &&
                     payment.CardNumber != null && payment.SecurityNumber != null && payment.Name != null
                 )
                 {
-                    var y = (DateTime)payment.ExpirationDate;
-                    var x = new DateTime(y.Year, y.Month, 1).AddMonths(1);
-                    if(CardTypes.Contains(payment.Type) && VerifyDate(payment.ExpirationDate))
+                    var nonNullableExpirationDate = (DateTime)payment.ExpirationDate;
+                    var dateCardInvalid = new DateTime(nonNullableExpirationDate.Year, nonNullableExpirationDate.Month, 1).AddMonths(1);
+                    if(CardTypes.Contains(payment.Type) && VerifyDate(dateCardInvalid))
                     {
                         payment.IsExpired = false;
                         valid = true;
@@ -45,7 +45,7 @@ namespace PorterAndMoon.Validation
             return valid;
         }
 
-        public bool VerifyDate(DateTime? expirationDate)
+        public bool VerifyDate(DateTime expirationDate)
         {
             if (DateTime.Now.CompareTo(expirationDate) == -1)
             {
