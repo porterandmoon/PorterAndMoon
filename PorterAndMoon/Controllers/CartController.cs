@@ -38,9 +38,9 @@ namespace PorterAndMoon.Controllers
         }
 
         [HttpPut]
-        public ActionResult FinalizeOrder(CartId cartId)
+        public ActionResult FinalizeOrder(Purchase purchase)
         {
-            var cartCompleted = _connections.FinalizeOrder(cartId.Id);
+            var cartCompleted = _connections.FinalizeOrder(purchase.UserId, purchase.PaymentId);
             return Ok(cartCompleted);
         }
     }

@@ -25,27 +25,11 @@ class Cart extends React.Component {
     this.CheckCart();
   }
 
-  PurchaseClick = (e) => {
-    var x = this.props.currentUser.id;
-    console.log(x);
-    ShoppingCart.purchaseItemsInCart(x)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.error(err));
-    e.preventDefault();
-  }
-
   // loops over each product and displays them separately
   ShowItems = () => {
     if(this.state.cart.itemsInCart.length > 0 ){
       return (
         <div>
-          <button
-            className="btn btn-outline-warning" 
-            onClick={this.PurchaseClick}>
-              Purchase
-          </button>
           <Payment currentUser={this.props.currentUser} />
           {this.state.cart.itemsInCart
             .map(cartItem => <ItemInCart

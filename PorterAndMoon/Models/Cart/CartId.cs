@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace PorterAndMoon.Models.Cart
 {
-    public class CartId
+    public class Purchase
     {
-        public int Id { get; set; }
+        public int UserId { get; set; }
+        public int PaymentId { get; set; }
     }
 }

@@ -161,12 +161,12 @@ namespace PorterAndMoon.Connections
             throw new Exception("Failure to delete item from cart");
         }
 
-        public ValidProductWithPrice FinalizeOrder(int id)
+        public ValidProductWithPrice FinalizeOrder(int userId, int paymentId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 //Pass the User Id to get the cart Id
-                var currentCart = GetCartId(connection, id);
+                var currentCart = GetCartId(connection, userId);
 
                 //Pass the cart Id to get a list of products in cart that aren't ordered,
                 //Run validation to ensure the products are still available,
@@ -178,10 +178,10 @@ namespace PorterAndMoon.Connections
                 if (productsUpdated.updateSuccessful)
                 {
                     var queryString = @"Update [Order]
-                                        Set IsCompleted = 1
+                                        Set IsCompleted = 1, paymentId=@PaymentId
                                         Output inserted.*
                                         Where Id = @Id";
-                    var parameters = new { Id = currentCart.Id };
+                    var parameters = new { Id = currentCart.Id, PaymentId = paymentId };
 
                     var completedOrder = connection.QueryFirstOrDefault<OrderProduct>(queryString, parameters);
 
