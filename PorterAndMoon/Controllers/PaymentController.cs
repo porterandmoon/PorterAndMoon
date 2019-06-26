@@ -30,7 +30,7 @@ namespace PorterAndMoon.Controllers
         [HttpGet("{Id}")]
         public ActionResult GetPaymentType(int Id)
         {
-            var paymentType = _connections.GetSinglePaymentType(Id);
+            var paymentType = _connections.GetUserPayment(Id);
             return Accepted(paymentType);
         }
 
