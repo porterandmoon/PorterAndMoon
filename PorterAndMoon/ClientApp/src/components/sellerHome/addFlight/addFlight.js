@@ -4,6 +4,7 @@ import {
 } from 'reactstrap';
 import Menu from './menu/menu';
 import sellerHomeData from '../../../data/PortAndMoonFactory/sellerHomeData';
+import seatsData from '../../../data/PortAndMoonFactory/seatsData';
 import './addFlight.scss';
 
 class addFlight extends React.Component {
@@ -20,6 +21,10 @@ class addFlight extends React.Component {
     description: '',
     freight: false,
     passenger: true,
+    premiumPrice: null,
+    premiumSeat: null,
+    coachPrice: null,
+    coachSeat: null,
     error: false
   }
 
@@ -60,15 +65,30 @@ class addFlight extends React.Component {
             origin: this.state.origin,
             departure,
             arrival,
-            price: this.state.price,
+            price: this.state.freight ? this.state.price : this.state.coachPrice,
             quantity: this.state.quantity,
             type: this.state.freight ? 1 : 2,
             description: this.state.description,
             sellerId: this.props.userId
           }
+          
           sellerHomeData.addNewFlight(flight)
-            .then(() => {
-              this.toggle();
+            .then((newFlight) => {
+              if (this.state.passenger) {
+                const seats = {
+                  numSeats: this.state.coachSeat + this.state.premiumSeat,
+                  numPremium: this.state.premiumSeat,
+                  premium: this.state.premiumPrice / this.state.coachPrice,
+                  rowSeats: this.state.rowSeats,
+                  productId: newFlight.Id
+                }
+                seatsData.addSeats(seats)
+                  .then(() => {
+                    this.toggle();
+                  });
+              } else {
+                this.toggle();
+              }   
             });
         }
       // });
@@ -169,14 +189,18 @@ class addFlight extends React.Component {
                     <p className='seatsTitle'>Coach Seats</p>
                     <div className='imARow'>
                       <div className="form-group">
-                        <label htmlFor="standardPriceInput">Price</label>
-                        <input type="number" className="form-control addFlightInput" id="standardPriceInput" onChange={this.select}/>
+                        <label htmlFor="coachPriceInput">Price</label>
+                        <input type="number" className="form-control addFlightInput" id="coachPriceInput" onChange={this.select}/>
                       </div>
                       <div className="form-group">
                         <label htmlFor="coachSeatInput">Quantity</label>
                         <input type="number" className="form-control addFlightInput" id="coachSeatInput" onChange={this.select}/>
                       </div>
                     </div>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="rowSeatInput">Seats Per Row</label>
+                    <input type="number" className="form-control addFlightInput" id="rowSeatInput" onChange={this.select}/>
                   </div>
                 </div>}
 

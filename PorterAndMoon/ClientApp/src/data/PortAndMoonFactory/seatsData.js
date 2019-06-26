@@ -13,6 +13,17 @@ const getSeats = (productId) => new Promise((resolve, reject) => {
     });
 });
 
+const addSeats = (seats) => new Promise((resolve, reject) => {
+  axios.post(`${DBURL}/seat`, seats)
+    .then((data) => {
+      resolve(data);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
 export default {
   getSeats,
+  addSeats,
 }

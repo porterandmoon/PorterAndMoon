@@ -18,7 +18,11 @@ class seatSelector extends React.Component {
   render() {
     return(
       <div className='seatSelector'>
-        
+        <h5>Select Your Seats</h5>
+        <div>
+          <p>Number of Seats</p>
+          <input type='number'/>
+        </div>
       </div>
     );
   }
