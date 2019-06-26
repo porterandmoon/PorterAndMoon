@@ -1,16 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import './searchDetails.scss';
 
 class SearchDetail extends React.Component {
     renderSearch = () => {
         const { searchData } = this.props;
         if (searchData.username !== null) {
-            return <h3>{searchData.username}</h3>
+            return <div>
+                <h3><Link to={`/seller/${searchData.id}`}>{searchData.username}</Link></h3>
+                </div>
         } else if (searchData.title !== null ) {
             return <div>
-                <h3>{searchData.title}</h3>
-                <p>{searchData.description}</p>
-                <p>{searchData.price}</p>
-                <p>{searchData.quantitiy}</p>
+                <h3><Link to={`/detail/${searchData.title}/?Id=${searchData.id}`}>{searchData.title}</Link></h3>
                 </div>
         } else {
             return ''
@@ -20,7 +21,7 @@ class SearchDetail extends React.Component {
 
         return (
             <div className="searchDetail">
-                <div className="container">
+                <div className="SearchContainer">
                     <div className="col">
                         {this.renderSearch()}
                     </div>

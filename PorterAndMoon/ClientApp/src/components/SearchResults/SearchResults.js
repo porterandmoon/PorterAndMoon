@@ -1,5 +1,6 @@
 import React from 'react';
 import SearchDetail from '../SearchBar/searchDetail'; 
+import './SearchResults.scss';
 
 
 class SearchResults extends React.Component {
@@ -13,6 +14,7 @@ class SearchResults extends React.Component {
         key={searchData.id}/>)
         return(
             <div className="resultsContainer">
+                <h1>Search results...</h1>
                {listItems}
             </div>
 
