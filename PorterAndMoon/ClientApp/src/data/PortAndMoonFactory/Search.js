@@ -7,7 +7,6 @@ const getSearchData = input => new Promise((resolve, reject) => {
         const searchObject = results.data;
         if (searchObject !== null) {
             Object.keys(searchObject).forEach((resultId) => {
-                searchObject[resultId].id = resultId;
                 resultsArray.push(searchObject[resultId]);
             });
         }
@@ -25,7 +24,6 @@ const getProductsSearchData = input => new Promise((resolve, reject) => {
         const searchObject = results.data;
         if (searchObject !== null) {
             Object.keys(searchObject).forEach((resultId) => {
-                searchObject[resultId].id = resultId;
                 resultsArray.push(searchObject[resultId]);
             });
         }
