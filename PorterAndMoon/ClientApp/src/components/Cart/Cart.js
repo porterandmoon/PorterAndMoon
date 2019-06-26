@@ -7,8 +7,8 @@ import './Cart.scss';
 class Cart extends React.Component {
   state = {
     cart: {
-      itemsInCart: {},
-    },
+      itemsInCart: [],
+    }
   }
 
   // sets state to use current cart and display items in the cart
@@ -27,7 +27,7 @@ class Cart extends React.Component {
 
   // loops over each product and displays them separately
   ShowItems = () => {
-    if(this.state.cart.itemsInCart.length > 0 ){
+    if(this.state.cart !== null && this.state.cart.itemsInCart !== undefined){
       return (
         <div>
           <Payment currentUser={this.props.currentUser} />
