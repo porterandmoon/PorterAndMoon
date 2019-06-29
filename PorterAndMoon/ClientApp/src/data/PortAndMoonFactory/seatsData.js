@@ -4,7 +4,7 @@ import axios from 'axios';
 const DBURL = apiKeys.baseUrl;
 
 const getSeats = (productId) => new Promise((resolve, reject) => {
-  axios.get(`${DBURL}/seat/${productId}`)
+  axios.get(`${DBURL}/seat/seats/${productId}`)
     .then((data) => {
       resolve(data.data);
     })

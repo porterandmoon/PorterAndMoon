@@ -22,8 +22,9 @@ namespace PorterAndMoon.Connections
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
-                var queryString = @"Select *
+                var queryString = @"Select Price, Seat.Id, Seat.ProductId, CustomerId, Premium, SeatNumber, RowLength, IsPurchased, Seat.Type
                                     From Seat
+                                    Join Product on Product.Id = ProductId
                                     Where ProductId = @ProductId";
                 var seats = connection.Query<Seat>(queryString, new { productId });
                 return seats;
@@ -51,7 +52,7 @@ namespace PorterAndMoon.Connections
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
-                var queryString = @"Insert into Seat(productId, isPurchased, [type], premium, seatNumber)
+                var queryString = @"Insert into Seat(productId, isPurchased, [type], premium, seatNumber, rowLength)
                                     Select 
 	                                    @productId, 
 	                                    0, 
@@ -63,7 +64,8 @@ namespace PorterAndMoon.Connections
 		                                    When n.Number <= @NumPremium Then @Premium
 		                                    Else 1
 	                                    End, 
-	                                    Convert(nvarchar(10), (Floor(n.Number / @rowSeats) + 1)) + '-' + Convert(nvarchar(10), (n.Number % @rowSeats) + 1)   
+	                                    Convert(nvarchar(10), (Floor(n.Number / @rowSeats) + 1)) + '-' + Convert(nvarchar(10), (n.Number % @rowSeats) + 1),
+                                        @rowSeats
                                     From Seat
                                     Join SeatNumber as n
 	                                    On n.Number <= @NumSeats";

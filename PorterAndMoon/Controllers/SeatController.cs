@@ -20,7 +20,7 @@ namespace PorterAndMoon.Controllers
             _connections = connections;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("seats/{id}")]
         public ActionResult GetSeats(int id)
         {
             var seats = _connections.GetSeats(id);

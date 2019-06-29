@@ -14,5 +14,7 @@ namespace PorterAndMoon.Models.Product
         public bool IsPurchased { get; set; }
         public decimal Premium { get; set; }
         public string Type { get; set; }
+        public int RowLength { get; set; }
+        public decimal Price { get; set; }
     }
 }

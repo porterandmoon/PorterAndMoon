@@ -1,24 +1,64 @@
 .seatImg {
-  width: 25px;
-  height: 40px;
-  background-image: url('../../images/seat.png');
-  background-size: contain;
+  width: 16px;
+  margin: 2px;
+  z-index: 5;
 }
 
-.seatTakenImg {
-  width: 25px;
-  height: 40px;
-  background-image: url('../../images/seatTaken.png');
-  background-size: contain;
+.rocketSeats {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 10px;
+  width: 140px;
+  background-color: white;
 }
 
-.seatSelectedImg {
-  width: 25px;
-  height: 40px;
-  background-image: url('../../images/seatSelected.png');
-  background-size: contain;
+.rocketImg {
+  z-index: 1;
+  margin-left: 20px;
+  margin-top: 40px
 }
 
-.hoveredSeat {
-  background-image: url('../../images/seatSelected.png');
+.seatsContainer {
+  margin-left: 230px;
+  background-color: white;
+  border: 4px inset blue;
+  border-radius: 100px;
+  box-shadow: 0, 0, 2, 2; 
+}
+
+.seatSelector {
+  color: white;
+}
+
+.numberSeats {
+  display: flex;
+}
+
+.numberSeatsTitle {
+  padding-top: 3px;
+  margin-bottom: 3px;
+}
+
+.numberInput {
+  width: 50px;
+  margin-left: 10px;
+}
+
+.seatDetailUnit {
+  border: 1.5px solid white;
+  background-color: rgba(25, 25, 112, 0.5);
+  width: 200px;
+  margin-left: 20px;
+  margin-top: 5px;
+  padding: 5px;
+}
+
+.containerContainer {
+  display: flex;
+}
+
+.seatDetailsTitle {
+  text-align: center;
+  font-size: 1.2em;
+  margin-top: 10px;
 }
