@@ -84,6 +84,7 @@ class addFlight extends React.Component {
                 }
                 seatsData.addSeats(seats)
                   .then(() => {
+                    this.props.updateAfterAddition();
                     this.toggle();
                   });
               } else {

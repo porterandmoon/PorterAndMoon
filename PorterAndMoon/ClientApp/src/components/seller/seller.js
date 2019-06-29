@@ -104,7 +104,7 @@ class seller extends React.Component {
     this.state.rocketInfo.forEach((rocket) => {
       if (rocket.origin === this.state.listOrigin && rocket.destination === this.state.listDestination && rocket.type === this.state.listType) {
         renderArray.push(<tr key={rocket.id}>
-          <th scope="row"><Link to={`/detail/${rocket.title}`}>{rocket.title}</Link></th>
+          <th scope="row"><Link to={`/detail/${rocket.title}/?Id=${rocket.id}`}>{rocket.title}</Link></th>
           <td>{rocket.price}</td>
           <td>{rocket.quantity}</td>
           <td>{rocket.description}</td>

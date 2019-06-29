@@ -4,6 +4,7 @@ import rocketImg from '../../images/rocketSeats.gif';
 import seatImg from '../../images/seat.png';
 import seatTakenImg from '../../images/seatTaken.png';
 import seatSelectedImg from '../../images/seatSelected.png';
+import { Button } from 'reactstrap';
 import './seatSelector.scss';
 
 class seatSelector extends React.Component {
@@ -76,6 +77,10 @@ class seatSelector extends React.Component {
     this.setState({ numberSeats: event.target.value });
   }
 
+  completeSelection = (event) => {
+    this.props.history.push('/homel');
+  }
+
   render() {
     return(
       <div className='seatSelector'>
@@ -83,6 +88,7 @@ class seatSelector extends React.Component {
         <div className='numberSeats'>
           <p className='numberSeatsTitle'>Number of Seats</p>
           <input type='number' min='1' class='numberInput' value={this.state.numberSeats} onChange={this.updateNumber}/>
+          <Button className='seatComplete' onClick={this.completeSelection}>Complete Selection</Button>
         </div>
         <div className='containerContainer'>
           <div className='seatDetails'>

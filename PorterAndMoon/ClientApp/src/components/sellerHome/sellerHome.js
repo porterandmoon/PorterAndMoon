@@ -20,6 +20,13 @@ class sellerHome extends React.Component {
       });
   }
 
+  updateAfterAddition() {
+    sellerHomeData.getSellerOrders(this.props.currentUser.id)
+      .then((orderInfo) => {
+        this.setState({ orderInfo });
+      });
+  }
+
   rocketSpaceBuilder = () => {
     if (this.state.orderInfo != null) {
       const renderArray = [];
@@ -46,7 +53,7 @@ class sellerHome extends React.Component {
           <div className='sellerBtnDiv'>
             <Button className='btn btn-sm btn-info sellerButton' tag={Link} to={`/sellerhome/rockets+${this.props.currentUser.id}`}>
             <i className="fas fa-calendar-alt"></i> Rocket Schedule</Button>
-            <AddFlight userId={this.props.currentUser.id}/>
+            <AddFlight userId={this.props.currentUser.id} updateAfterAddition={this.updateAfterAddition}/>
             <SalesHistory userId={this.props.currentUser.id}/>
           </div>
         </div>
