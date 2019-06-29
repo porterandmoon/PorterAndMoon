@@ -13,6 +13,7 @@ class UserPayments extends React.Component {
     getUserPayments = () => {
         Payment.getPaymentTypes(this.props.currentUser.id)
         .then((results) => {
+            console.log(results);
             const userPayments = results.data;
             this.setState({ userPayments });
         })
@@ -45,7 +46,7 @@ class UserPayments extends React.Component {
                     <div className="row">
                         <div className="userCards">
                             <h3>Your Saved Payment Methods</h3>
-                            {/* {this.getUserPayments()} */}
+                            {this.getUserPayments()}
                         </div>
                     </div>
                 </div>
@@ -87,8 +88,7 @@ class UserPayments extends React.Component {
                             <Button>Submit</Button>
                         </Form>
                         </div>)
-                     {/* </div>
-                </div>); */}
+                     
     }
 }
 
