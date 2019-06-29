@@ -27,6 +27,13 @@ namespace PorterAndMoon.Controllers
             return Accepted(paymentTypes);
         }
 
+        [HttpGet("{customerId}")]
+        public ActionResult GetAllUserPayments(int customerId)
+        {
+            var userPayments = _connections.GetAllUserPayments(customerId);
+                return Accepted(userPayments);
+        }
+
         [HttpGet("{Id}")]
         public ActionResult GetPaymentType(int Id)
         {
