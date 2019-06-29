@@ -6,7 +6,6 @@ class ProductDetail extends React.Component {
 
     buildProduct = () => {
         const product = this.props;
-        console.log(product);
         if (product !== null) {
         return <div className="productDetails">
             <div className="container">

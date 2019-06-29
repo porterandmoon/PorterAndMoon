@@ -1,0 +1,24 @@
+.seatImg {
+  width: 25px;
+  height: 40px;
+  background-image: url('../../images/seat.png');
+  background-size: contain;
+}
+
+.seatTakenImg {
+  width: 25px;
+  height: 40px;
+  background-image: url('../../images/seatTaken.png');
+  background-size: contain;
+}
+
+.seatSelectedImg {
+  width: 25px;
+  height: 40px;
+  background-image: url('../../images/seatSelected.png');
+  background-size: contain;
+}
+
+.hoveredSeat {
+  background-image: url('../../images/seatSelected.png');
+}
