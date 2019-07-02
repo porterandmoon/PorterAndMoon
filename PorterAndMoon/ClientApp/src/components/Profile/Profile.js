@@ -10,6 +10,10 @@ class Profile extends React.Component {
     this.props.history.push("/order-history")
   }
 
+  getToUserPayments = () => {
+    this.props.history.push("/payment-types")
+  }
+
   render() {
     return (
       <div className="profile-container">
@@ -21,7 +25,7 @@ class Profile extends React.Component {
         <div>
           <Button color="primary" onClick={this.getToOrderHistory}>OrderHistoryButton</Button>
           <Button color="primary">Productbuttonstings</Button>
-          <Button color="primary">PaymentInfoButton</Button>
+          <Button color="primary" onClick={this.getToUserPayments}>PaymentInfoButton</Button>
         </div>
       </div>
     );
