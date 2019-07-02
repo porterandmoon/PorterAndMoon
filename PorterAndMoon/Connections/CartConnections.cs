@@ -28,14 +28,14 @@ namespace PorterAndMoon.Connections
                 var cart = GetCartId(connection, newOrderProduct.UserId);
 
                 var queryString = @"MERGE OrderProduct AS Target
-                                    USING (SELECT @ProductId ProductId, @OrderId OrderId, @Quantity Quantity) AS Source
-                                    ON Target.ProductId = Source.ProductId and Target.Orderid = Source.OrderId
+                                    USING (SELECT @ProductId ProductId, @OrderId OrderId, @Quantity Quantity, @SeatId SeatId) AS Source
+                                    ON Target.ProductId = Source.ProductId and Target.Orderid = Source.OrderId and Target.SeatId = Source.SeatId
                                     WHEN MATCHED THEN
                                        UPDATE SET 
                                            Target.Quantity = Target.Quantity + Source.Quantity
                                     WHEN NOT MATCHED THEN
-                                       INSERT (ProductId, OrderId, Quantity)
-                                       VALUES (Source.ProductId, Source.OrderId, Source.Quantity)
+                                       INSERT (ProductId, OrderId, Quantity, SeatId)
+                                       VALUES (Source.ProductId, Source.OrderId, Source.Quantity, Source.SeatId)
                                     OUTPUT inserted.*;";
                 var parameters = new
                 {
@@ -121,9 +121,10 @@ namespace PorterAndMoon.Connections
         public List<ItemDetail> GetPendingProducts(SqlConnection connection, int orderId)
         {
             var queryString = @"SELECT op.id as OrdProdId, op.quantity, p.type, p.Id, p.remainingQty, p.arrival,
-                                    p.departure, p.destination, p.origin, p.title, p.description
+                                    p.departure, p.destination, p.origin, p.title, p.description, s.seatNumber, s.type as seatType, s.premium
                                 FROM OrderProduct as op
 	                                join Product as p on op.productId = p.Id
+                                    left join Seat as s on op.seatId = seat.Id
                                 WHERE orderId = @OrderId";
             var parameters = new { OrderId = orderId };
 

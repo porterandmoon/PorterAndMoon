@@ -11,7 +11,7 @@ class ProductDetail extends React.Component {
             <div className="container">
               <div className="col">
                 <h1>Flight Details</h1>
-                <Link to={`/seat/${product.product.title}/?Id=${product.product.id}`}>{product.product.title}</Link>
+                <p>{product.product.title}</p>
                 <p>{product.product.description}</p>
                 <p>${product.product.price}</p>
                 <p>Qty: {product.product.remainingQty}</p>

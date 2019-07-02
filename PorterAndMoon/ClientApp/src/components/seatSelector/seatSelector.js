@@ -3,7 +3,9 @@ import seatsData from '../../data/PortAndMoonFactory/seatsData';
 import rocketImg from '../../images/rocketSeats.gif';
 import seatImg from '../../images/seat.png';
 import seatTakenImg from '../../images/seatTaken.png';
+import seatFirstImg from '../../images/seatFirst.png';
 import seatSelectedImg from '../../images/seatSelected.png';
+import shoppingCart from '../../data/PortAndMoonFactory/ShoppingCart';
 import { Button } from 'reactstrap';
 import './seatSelector.scss';
 
@@ -39,9 +41,11 @@ class seatSelector extends React.Component {
     console.log(this.state.selectedSeat);
     if (this.state.selectedSeat.includes(seat.seatNumber)) {
       return seatSelectedImg;
+    } else if (seat.customerId !== 0) {
+      return seatTakenImg;
     } else {
-      return seat.customerId === 0 ? seatImg : seatTakenImg;
-    } 
+      return seat.type === 'First Class' ? seatFirstImg : seatImg;
+    }
   }
 
   selectSeat = (event) => {
@@ -78,6 +82,9 @@ class seatSelector extends React.Component {
   }
 
   completeSelection = (event) => {
+    this.state.selectedSeat.forEach((seat) => {
+      shoppingCart.addProductWithSeatToCart(this.props.currentUser.id, this.state.seatInfo[0].productId, this.state.numberSeats, seat.id);
+    }); 
     this.props.history.push('/homel');
   }
 
@@ -95,7 +102,14 @@ class seatSelector extends React.Component {
             <p className='seatDetailsTitle'>Your Seat Details</p>
             {this.detailsBuilder()}
           </div>
-          <div className='seatsContainer' style={{width: this.state.seatsPerRow * 160, height: this.state.seatsPerRow * 275}}>
+          <div className='seatsContainer' style={{width: this.state.seatsPerRow * 160, height: this.state.seatsPerRow * 320}}>
+            <div className='seatsKey'>
+              <p>Key</p>
+              <div><img className='seatImg' src={seatImg}/> : Open Coach Seat</div>
+              <div><img className='seatImg' src={seatFirstImg}/> : Open First Class Seat</div>
+              <div><img className='seatImg' src={seatTakenImg}/> : Unavailable Seat</div>
+              <div><img className='seatImg' src={seatSelectedImg}/> : Currently Selected Seat</div>
+            </div>
             <img className='rocketImg' src={rocketImg} style={{width: this.state.seatsPerRow * 150}}/>
             <div className='rocketSeats' style={{
               position: 'relative', left: this.state.seatsPerRow * 66,
