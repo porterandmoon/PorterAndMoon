@@ -13,7 +13,7 @@ class UserPayments extends React.Component {
         Payment.getPaymentTypes(this.props.currentUser.id)
         .then((res) => {
             const userPayments = res.data;
-            this.setState({ userPayments });
+            this.setState({ userPayments })
         })
         .catch((err) => console.error(err));
     }
@@ -22,9 +22,10 @@ class UserPayments extends React.Component {
             if (this.state.userPayments !== null) {
                 console.log(this.state.userPayments)
                 const paymentArray = []
-                Object.keys(this.state.userPayments).forEach((payment) => {
+                Object.keys(this.state.userPayments).forEach((paymentId) => {
+                    const payment = this.state.userPayments[paymentId];
                     paymentArray.push(
-                    <div key={payment} className="paymentDetails">
+                    <div key={paymentId} className="paymentDetails">
                         <p>{payment.type}</p>
                         <p>{payment.bankAccountNumber}</p>
                         <p>{payment.cardNumber}</p>
