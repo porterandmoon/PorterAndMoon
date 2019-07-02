@@ -211,13 +211,13 @@ namespace PorterAndMoon.Connections
                 //if the Products updated
                 if (productsUpdated.updateSuccessful)
                 {
+                    UpdateSeats(userId, paymentId);
                     var queryString = @"Update [Order]
                                         Set IsCompleted = 1, paymentId=@PaymentId
                                         Output inserted.*
                                         Where Id = @Id";
                     var parameters = new { Id = currentCart.Id, PaymentId = paymentId };
-                    var completedOrder = connection.QueryFirstOrDefault<OrderProduct>(queryString, parameters);
-                    UpdateSeats(userId, paymentId);
+                    var completedOrder = connection.QueryFirstOrDefault<OrderProduct>(queryString, parameters);                   
                     //returns order info
                     if (completedOrder != null)
                     {
@@ -228,7 +228,7 @@ namespace PorterAndMoon.Connections
             throw new Exception("Failure to complete Order");
         }
 
-        public void UpdateSeats(int userId, int paymentId)
+        public int UpdateSeats(int userId, int paymentId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -246,6 +246,7 @@ namespace PorterAndMoon.Connections
                                         Where op.orderId = @Id";
 
                     var completedSeats = connection.QueryFirstOrDefault<int>(seatQuery, seatParameters);
+                    return completedSeats;
                 }
             }
             throw new Exception("Failure to complete Order");
