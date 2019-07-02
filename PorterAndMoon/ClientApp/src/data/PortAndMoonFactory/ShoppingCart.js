@@ -28,7 +28,7 @@ const addProductWithSeatToCart = (userId, productId, quantOrdered, seatId) => ne
     UserId: userId,
     ProductId: productId,
     OrderQuantity: quantOrdered,
-    seatId,
+    SeatId: seatId,
   })
     .then((res) => Resolve(res))
     .catch((err) => Reject(err));

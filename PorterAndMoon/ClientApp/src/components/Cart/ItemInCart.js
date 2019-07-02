@@ -8,11 +8,11 @@ import {
 
 class ItemInCart extends React.Component {
   seatsBuilder = () => {
-    if (this.props.seatNumber !== null) {
+    if (this.props.cartItem.seatNumber !== null) {
       return <div>
         <p>Your Seat</p>
-        <p>{this.props.seatType}</p>
-        <p>Seat number: {this.props.seatNumber}</p>
+        <p>{this.props.cartItem.seatType}</p>
+        <p>Seat number: {this.props.cartItem.seatNumber}</p>
       </div>;
     }
   }
@@ -70,7 +70,6 @@ class ItemInCart extends React.Component {
               <div>Space Available: {remainingQty}</div>
             </div>
             <div>
-              <p>Your Seats</p>
               {this.seatsBuilder()}
             </div>
           </div>

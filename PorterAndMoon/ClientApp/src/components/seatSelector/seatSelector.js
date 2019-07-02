@@ -82,10 +82,15 @@ class seatSelector extends React.Component {
   }
 
   completeSelection = (event) => {
+    const promiseArray = [];
     this.state.selectedSeat.forEach((seat) => {
-      shoppingCart.addProductWithSeatToCart(this.props.currentUser.id, this.state.seatInfo[0].productId, this.state.numberSeats, seat.id);
-    }); 
-    this.props.history.push('/homel');
+      const seatObj = this.state.seatInfo.find(seatObject => seatObject.seatNumber === seat)
+      promiseArray.push(shoppingCart.addProductWithSeatToCart(this.props.currentUser.id, this.state.seatInfo[0].productId, this.state.numberSeats, seatObj.id));
+    });
+    Promise.all(promiseArray)
+      .then(() => {
+        this.props.history.push('/homel');
+      }); 
   }
 
   render() {
