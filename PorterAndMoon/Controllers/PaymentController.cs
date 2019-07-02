@@ -40,7 +40,7 @@ namespace PorterAndMoon.Controllers
          */
 
         [HttpPost]
-        public ActionResult PostPaymentType(PaymentType newPayment)
+        public ActionResult PostPaymentType(NewPayment newPayment)
         {
             var validator = new CheckPaymentInfo();
             if (validator.ValidatePayment(newPayment))

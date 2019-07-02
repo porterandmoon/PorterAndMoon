@@ -9,6 +9,13 @@ const getPaymentTypes = (userId) => new Promise((Resolve, Reject) => {
     .catch((err) => Reject(err));
 });
 
+const addPayment = (paymentInfo) => new Promise((Resolve, Reject) => {
+  axios.post(`${baseUrl}/payment`, paymentInfo)
+    .then((res) => Resolve(res))
+    .catch((err) => Reject(err));
+});
+
 export default { 
   getPaymentTypes, 
+  addPayment,
 }

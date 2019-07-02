@@ -17,7 +17,7 @@ namespace PorterAndMoon.Validation
             "DINERS INTERNATIONAL"
         };
 
-        public bool ValidatePayment(PaymentType payment)
+        public bool ValidatePayment(NewPayment payment)
         {
             bool valid = false;
 
