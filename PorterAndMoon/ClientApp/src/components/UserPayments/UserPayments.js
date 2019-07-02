@@ -18,6 +18,14 @@ class UserPayments extends React.Component {
         .catch((err) => console.error(err));
     }
 
+    addButtons = () => {
+        const buttons = <div>
+            <button className="btn btn-danger">X</button>
+            <button className="btn btn-warning"><i class="far fa-edit"></i></button>
+            </div>
+        return buttons;
+    }
+
     buildPayment = () => {
             if (this.state.userPayments !== null) {
                 console.log(this.state.userPayments)
@@ -26,7 +34,8 @@ class UserPayments extends React.Component {
                     const payment = this.state.userPayments[paymentId];
                     paymentArray.push(
                     <div key={paymentId} className="paymentDetails">
-                        <p>{payment.type}</p>
+                        {this.addButtons()}
+                        <h5>{payment.type}</h5>
                         <p>{payment.bankAccountNumber}</p>
                         <p>{payment.cardNumber}</p>
                     </div>
@@ -38,51 +47,51 @@ class UserPayments extends React.Component {
 
     render(){
         return(
-            <div>
+            <div className="payments">
                 <div className="container">
                 <div className="row">
-                    <div className="userCards">
-                        <h3>Your Saved Payment Methods</h3>
-                        {this.buildPayment()}
+                        <div className="paymentsCard">
+                            <h3>Your Saved Payment Methods</h3>
+                            {this.buildPayment()}
+                        </div>
+                        <div className="cardForm">
+                            <Form>
+                            <FormGroup>
+                            <Label>Name</Label>
+                            <Input type="text" id="cardName" placeholder="Name on card" />
+                            </FormGroup>
+                            <FormGroup>
+                            <Label>Card Number</Label>
+                            <Input type="text"id="cardName" placeholder="#" />
+                            </FormGroup>
+                            <FormGroup>
+                            <Label>Security Number</Label>
+                            <Input type="text"id="securityNumber" placeholder="#" />
+                            </FormGroup>
+                            <FormGroup>
+                            <Label>Month/Year Expiration</Label>
+                            <Input type="month"id="cardDate" placeholder="" />
+                            </FormGroup>
+                            <FormGroup>
+                            <Label for="exampleSelect">Select Payment Type</Label>
+                            <Input type="select" name="select" id="exampleSelect">
+                                <option>Visa</option>
+                                <option>MasterCard</option>
+                                <option>American Express</option>
+                                <option>Paypal</option>
+                            </Input>
+                            </FormGroup>  
+                            <FormGroup check>
+                            <Label check>
+                                <Input type="checkbox" />
+                                Make my preferred payment type
+                            </Label>
+                            </FormGroup>
+                            <Button>Submit</Button>
+                        </Form>
+                        </div>
                     </div>
                 </div>
-                </div>
-                <div className="cardForm">
-                        <Form>
-                        <FormGroup>
-                        <Label>Name</Label>
-                        <Input type="text" id="cardName" placeholder="Name on card" />
-                        </FormGroup>
-                        <FormGroup>
-                        <Label>Card Number</Label>
-                        <Input type="text"id="cardName" placeholder="#" />
-                        </FormGroup>
-                        <FormGroup>
-                        <Label>Security Number</Label>
-                        <Input type="text"id="securityNumber" placeholder="#" />
-                        </FormGroup>
-                        <FormGroup>
-                        <Label>Month/Year Expiration</Label>
-                        <Input type="month"id="cardDate" placeholder="" />
-                        </FormGroup>
-                        <FormGroup>
-                        <Label for="exampleSelect">Select Payment Type</Label>
-                        <Input type="select" name="select" id="exampleSelect">
-                            <option>Visa</option>
-                            <option>MasterCard</option>
-                            <option>American Express</option>
-                            <option>Paypal</option>
-                        </Input>
-                        </FormGroup>  
-                        <FormGroup check>
-                        <Label check>
-                            <Input type="checkbox" />
-                            Make my preferred payment type
-                        </Label>
-                        </FormGroup>
-                        <Button>Submit</Button>
-                    </Form>
-                    </div>
             </div>
     )}
                      
