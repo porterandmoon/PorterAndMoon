@@ -28,7 +28,6 @@ namespace PorterAndMoon.Connections
                 return payment;
             }
         }
-
         public IEnumerable<PaymentType> GetAllUserPayments(int id)
         {
             using (var connection = new SqlConnection(ConnectionString))
@@ -40,17 +39,16 @@ namespace PorterAndMoon.Connections
                 return payment;
             }
         }
-
-        public PaymentType GetSinglePaymentType(int id)
+        public IEnumerable<PaymentType> GetUserPayment(int id)
         {
             using (var connection = new SqlConnection(ConnectionString)) {
                 var queryString = @"Select *
                                     From Payment
-                                    Where Id = @Id";
-                var payment = connection.QueryFirstOrDefault<PaymentType>(queryString, new { id });
+                                    Where customerId = @Id";
+                var payment = connection.Query<PaymentType>(queryString, new { id });
                 if (payment != null)
                 {
-                    return payment;
+                    return payment.ToList();
                 }
             }
                 throw new Exception("Uhh uhh uhhh, didn't say the magic word.");

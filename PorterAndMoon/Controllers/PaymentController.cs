@@ -34,13 +34,6 @@ namespace PorterAndMoon.Controllers
                 return Accepted(userPayments);
         }
 
-        [HttpGet("{Id}")]
-        public ActionResult GetPaymentType(int Id)
-        {
-            var paymentType = _connections.GetSinglePaymentType(Id);
-            return Accepted(paymentType);
-        }
-
         /*
          Pass new payment info into body of request.
          */
@@ -68,7 +61,7 @@ namespace PorterAndMoon.Controllers
         public ActionResult EditPaymentType(PaymentType changedPayment)
         {
             _connections.UpdatePaymentType(changedPayment);
-            var paymentType = GetPaymentType(changedPayment.Id);
+            var paymentType = _connections.GetUserPayment(changedPayment.Id);
             return Accepted(paymentType);
         }
     }

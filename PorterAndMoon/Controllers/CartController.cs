@@ -36,5 +36,12 @@ namespace PorterAndMoon.Controllers
             // returns HTTP code 204 and no content is sent back
             return NoContent();
         }
+
+        [HttpPut]
+        public ActionResult FinalizeOrder(Purchase purchase)
+        {
+            var cartCompleted = _connections.FinalizeOrder(purchase.UserId, purchase.PaymentId);
+            return Ok(cartCompleted);
+        }
     }
 }
