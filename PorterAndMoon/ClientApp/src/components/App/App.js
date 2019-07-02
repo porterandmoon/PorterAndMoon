@@ -12,6 +12,7 @@ import Home from '../home/home';
 import Freight from '../freight/freight';
 import Passenger from '../passenger/passenger';
 import OrderHistory from '../OrderHistory/OrderHistory';
+import UserPayments from '../UserPayments/UserPayments';
 import Seller from '../seller/seller';
 import RocketDetail from '../rocketDetail/rocketDetail';
 import SellerHome from '../sellerHome/sellerHome';
@@ -123,6 +124,7 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, searchDa
               <PrivateRoute path='/sellerhome/rockets+*' component={SellerRockets} loginStatus={this.state.loginStatus} currentUser={currentUser}/>  
               <PrivateRoute path='/detail/*' component={RocketDetail} loginStatus={this.state.loginStatus} currentUser={currentUser}/>  
               <PrivateRoute path='/order-history' exact component={OrderHistory} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
+              <PrivateRoute path='/payment-types' exact component={UserPayments} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/cart' exact component={Cart} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/search-results' exact component={SearchResults} loginStatus={this.state.loginStatus} searchData={this.state.searchData}/>
             </Switch>

@@ -28,11 +28,11 @@ namespace PorterAndMoon.Controllers
             return Accepted(paymentTypes);
         }
 
-        [HttpGet("{Id}")]
-        public ActionResult GetPaymentType(int Id)
+        [HttpGet("{customerId}")]
+        public ActionResult GetAllUserPayments(int customerId)
         {
-            var paymentType = _connections.GetUserPayment(Id);
-            return Accepted(paymentType);
+            var userPayments = _connections.GetAllUserPayments(customerId);
+                return Accepted(userPayments);
         }
 
         /*
@@ -71,7 +71,7 @@ namespace PorterAndMoon.Controllers
         public ActionResult EditPaymentType(PaymentType changedPayment)
         {
             _connections.UpdatePaymentType(changedPayment);
-            var paymentType = GetPaymentType(changedPayment.Id);
+            var paymentType = _connections.GetUserPayment(changedPayment.Id);
             return Accepted(paymentType);
         }
     }

@@ -28,7 +28,17 @@ namespace PorterAndMoon.Connections
                 return payment;
             }
         }
-
+        public IEnumerable<PaymentType> GetAllUserPayments(int id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var queryString = @"Select *
+                                    From Payment
+                                    Where customerId = @Id";
+                var payment = connection.Query<PaymentType>(queryString, new { id });
+                return payment;
+            }
+        }
         public IEnumerable<PaymentType> GetUserPayment(int id)
         {
             using (var connection = new SqlConnection(ConnectionString)) {
