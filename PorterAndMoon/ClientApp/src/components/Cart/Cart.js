@@ -1,13 +1,14 @@
 import React from 'react';
 import ShoppingCart from '../../data/PortAndMoonFactory/ShoppingCart';
 import ItemInCart from './ItemInCart';
+import Payment from './Payment/Payment';
 import './Cart.scss';
 
 class Cart extends React.Component {
   state = {
     cart: {
       itemsInCart: [],
-    },
+    }
   }
 
   // sets state to use current cart and display items in the cart
@@ -26,14 +27,18 @@ class Cart extends React.Component {
 
   // loops over each product and displays them separately
   ShowItems = () => {
-    if(this.state.cart.itemsInCart.length > 0){
-      return this.state.cart.itemsInCart
-        .map(cartItem => <ItemInCart
-            cartItem={cartItem}
-            key={cartItem.ordProdId}
-            RemoveItem={this.RemoveItem}
-            CheckCart={this.CheckCart}
-          />);
+    if(this.state.cart !== null && this.state.cart.itemsInCart !== undefined){
+      return (
+        <div>
+          <Payment currentUser={this.props.currentUser} />
+          {this.state.cart.itemsInCart
+            .map(cartItem => <ItemInCart
+                cartItem={cartItem}
+                key={cartItem.ordProdId}
+                RemoveItem={this.RemoveItem}
+                CheckCart={this.CheckCart}
+            />)}
+        </div>)
     } else {
       return <h2>Your cart it empty!</h2>
     }

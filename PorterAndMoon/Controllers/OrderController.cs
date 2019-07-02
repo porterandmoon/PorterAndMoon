@@ -57,11 +57,11 @@ namespace PorterAndMoon.Controllers
         CustomerId - int
         */
 
-        [HttpPut("paid/{Id}")]
+        /*[HttpPut("paid/{Id}")]
         public ActionResult FinalizeOrder(int Id)
         {
             var order = _connections.CompleteOrder(Id);
             return Accepted(order);
-        }
+        }*/
     }
 }
