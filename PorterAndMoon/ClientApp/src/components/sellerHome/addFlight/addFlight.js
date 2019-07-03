@@ -67,7 +67,7 @@ class addFlight extends React.Component {
             departure,
             arrival,
             price: this.state.freight ? this.state.price : this.state.coachPrice,
-            quantity: this.state.freight ? this.state.quantity : this.state.coachSeat + this.state.premiumSeat,
+            quantity: this.state.freight ? this.state.quantity : parseInt(this.state.coachSeat, 10)  + parseInt(this.state.premiumSeat, 10),
             remainingQuantity: this.state.freight ? this.state.quantity : parseInt(this.state.coachSeat, 10)  + parseInt(this.state.premiumSeat, 10),
             type: this.state.freight ? 1 : 2,
             description: this.state.description,
