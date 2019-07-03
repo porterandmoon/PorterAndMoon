@@ -53,6 +53,39 @@ namespace PorterAndMoon.Connections
             throw new Exception("Can't add a new order product");
         }
 
+        public OrderProduct AddItemWithSeatToCart(CartAdd newOrderProduct)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var cart = GetCartId(connection, newOrderProduct.UserId);
+
+                var queryString = @"MERGE OrderProduct AS Target
+                                    USING (SELECT @ProductId ProductId, @OrderId OrderId, @Quantity Quantity, @SeatId SeatId) AS Source
+                                    ON Target.ProductId = Source.ProductId and Target.Orderid = Source.OrderId and Target.SeatId = Source.SeatId
+                                    WHEN MATCHED THEN
+                                       UPDATE SET 
+                                           Target.Quantity = Target.Quantity + Source.Quantity
+                                    WHEN NOT MATCHED THEN
+                                       INSERT (ProductId, OrderId, Quantity, SeatId)
+                                       VALUES (Source.ProductId, Source.OrderId, Source.Quantity, Source.SeatId)
+                                    OUTPUT inserted.*;";
+                var parameters = new
+                {
+                    ProductId = newOrderProduct.ProductId,
+                    OrderId = cart.Id,
+                    Quantity = newOrderProduct.OrderQuantity,
+                    SeatId = newOrderProduct.SeatId
+                };
+
+                var product = connection.QueryFirstOrDefault<OrderProduct>(queryString, parameters);
+                if (product != null)
+                {
+                    return product;
+                }
+            }
+            throw new Exception("Can't add a new order product");
+        }
+
         public Order GetCartId(SqlConnection connection, int userId)
         {
             var queryString = @"SELECT o.Id
@@ -121,9 +154,10 @@ namespace PorterAndMoon.Connections
         public List<ItemDetail> GetPendingProducts(SqlConnection connection, int orderId)
         {
             var queryString = @"SELECT op.id as OrdProdId, op.quantity, p.type, p.Id, p.remainingQty, p.arrival,
-                                    p.departure, p.destination, p.origin, p.title, p.description
+                                    p.departure, p.destination, p.origin, p.title, p.description, s.seatNumber, s.type as seatType, s.premium
                                 FROM OrderProduct as op
 	                                join Product as p on op.productId = p.Id
+                                    left join Seat as s on op.seatId = s.Id
                                 WHERE orderId = @OrderId";
             var parameters = new { OrderId = orderId };
 
@@ -177,19 +211,42 @@ namespace PorterAndMoon.Connections
                 //if the Products updated
                 if (productsUpdated.updateSuccessful)
                 {
+                    UpdateSeats(userId, paymentId);
                     var queryString = @"Update [Order]
                                         Set IsCompleted = 1, paymentId=@PaymentId
                                         Output inserted.*
                                         Where Id = @Id";
                     var parameters = new { Id = currentCart.Id, PaymentId = paymentId };
-
-                    var completedOrder = connection.QueryFirstOrDefault<OrderProduct>(queryString, parameters);
-
+                    var completedOrder = connection.QueryFirstOrDefault<OrderProduct>(queryString, parameters);                   
                     //returns order info
                     if (completedOrder != null)
                     {
                         return productsUpdated;
                     }
+                }
+            }
+            throw new Exception("Failure to complete Order");
+        }
+
+        public int UpdateSeats(int userId, int paymentId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var currentCart = GetCartId(connection, userId);
+
+                var productsUpdated = GetPendingProductsLite(connection, currentCart.Id);
+                if (productsUpdated.updateSuccessful)
+                {
+                    var seatParameters = new { CustomerId = userId, Id = currentCart.Id };
+
+                    var seatQuery = @"Update seat
+                                        Set customerId = @customerId
+                                        From OrderProduct as op
+                                        Left Join Seat on op.seatId = seat.id
+                                        Where op.orderId = @Id";
+
+                    var completedSeats = connection.QueryFirstOrDefault<int>(seatQuery, seatParameters);
+                    return completedSeats;
                 }
             }
             throw new Exception("Failure to complete Order");

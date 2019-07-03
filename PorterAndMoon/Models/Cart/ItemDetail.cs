@@ -19,5 +19,8 @@ namespace PorterAndMoon.Models.Cart
         public string Description { get; set; }
         public bool IsAvailable { get; set; }
         public int OrdProdId { get; set; }
+        public decimal Premium { get; set; }
+        public string SeatNumber { get; set; }
+        public string SeatType { get; set; }
     }
 }

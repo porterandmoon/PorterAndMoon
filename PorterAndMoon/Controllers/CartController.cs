@@ -22,6 +22,13 @@ namespace PorterAndMoon.Controllers
             return Accepted(order);
         }
 
+        [HttpPost("passenger")]
+        public ActionResult AddItemWithSeat(CartAdd Id)
+        {
+            var order = _connections.AddItemWithSeatToCart(Id);
+            return Accepted(order);
+        }
+
         [HttpGet]
         public ActionResult CheckCart(int Id)
         {

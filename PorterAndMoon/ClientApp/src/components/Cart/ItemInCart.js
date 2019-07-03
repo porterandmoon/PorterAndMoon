@@ -7,6 +7,16 @@ import {
 } from 'reactstrap';
 
 class ItemInCart extends React.Component {
+  seatsBuilder = () => {
+    if (this.props.cartItem.seatNumber !== null) {
+      return <div>
+        <p>Your Seat</p>
+        <p>{this.props.cartItem.seatType}</p>
+        <p>Seat number: {this.props.cartItem.seatNumber}</p>
+      </div>;
+    }
+  }
+
   render() {
     // some vars aren't used yet. Intend to use them later for stretch goals
     var { 
@@ -21,7 +31,10 @@ class ItemInCart extends React.Component {
       remainingQty,
       title,
       type,
-      ordProdId
+      ordProdId,
+      seatNumber,
+      seatType,
+      premium
     } = this.props.cartItem
     
     return(
@@ -55,6 +68,9 @@ class ItemInCart extends React.Component {
             <div>
               <div>Total Capacity: {quantity}</div>
               <div>Space Available: {remainingQty}</div>
+            </div>
+            <div>
+              {this.seatsBuilder()}
             </div>
           </div>
         </ToastBody>
