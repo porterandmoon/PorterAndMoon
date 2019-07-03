@@ -1,12 +1,13 @@
 import React from 'react';
 import ShoppingCart from '../../data/PortAndMoonFactory/ShoppingCart';
-import './rocketDetail.scss';
-
+import AddedModal from './AddedModal';
 import ProductDetail from '../productDetail/productDetail'
+import './rocketDetail.scss';
 
 class rocketDetail extends React.Component {
   state = {
     value: "",
+    modal: false
   }
 
   componentDidMount(){
@@ -19,6 +20,13 @@ class rocketDetail extends React.Component {
   }
 
 
+  toggle = () => {
+    this.setState(prevState => ({
+      modal: !prevState.modal
+    }));
+  }
+
+
   handleChange = (event) => {
     if(!isNaN(event.target.value)){
       this.setState({ value: event.target.value});
@@ -27,6 +35,7 @@ class rocketDetail extends React.Component {
 
   handleSubmit = (event) => {
     this.AddProduct();
+    this.toggle();
     event.preventDefault();
   }
 
@@ -90,6 +99,7 @@ class rocketDetail extends React.Component {
                 product={product}
                 />
                 {this.CheckAvailability()}
+                <AddedModal toggle={this.toggle} history={this.props.history} modal={this.state.modal}/>
               </div>
             </div>
           </div>
