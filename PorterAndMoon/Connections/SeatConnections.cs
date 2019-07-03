@@ -66,10 +66,10 @@ namespace PorterAndMoon.Connections
 	                                    End, 
 	                                    Convert(nvarchar(10), (Floor(n.Number / @rowSeats) + 1)) + '-' + Convert(nvarchar(10), (n.Number % @rowSeats) + 1),
                                         @rowSeats
-                                    From Seat
-                                    Join SeatNumber as n
-	                                    On n.Number <= @NumSeats";
-                var Seats = connection.Query<int>(queryString, newFlight);
+                                    From SeatNumber as n
+	                                    Where n.Number <= @NumSeats";
+                var Seats = connection.QueryFirstOrDefault<int>(queryString, newFlight);
+                return Seats;
             }
             throw new Exception("Could not create seats");  
         }

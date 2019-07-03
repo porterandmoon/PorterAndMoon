@@ -25,6 +25,7 @@ class addFlight extends React.Component {
     premiumSeat: null,
     coachPrice: null,
     coachSeat: null,
+    rowSeats: null,
     error: false
   }
 
@@ -66,7 +67,8 @@ class addFlight extends React.Component {
             departure,
             arrival,
             price: this.state.freight ? this.state.price : this.state.coachPrice,
-            quantity: this.state.quantity,
+            quantity: this.state.freight ? this.state.quantity : this.state.coachSeat + this.state.premiumSeat,
+            remainingQuantity: this.state.freight ? this.state.quantity : parseInt(this.state.coachSeat, 10)  + parseInt(this.state.premiumSeat, 10),
             type: this.state.freight ? 1 : 2,
             description: this.state.description,
             sellerId: this.props.userId
@@ -76,11 +78,11 @@ class addFlight extends React.Component {
             .then((newFlight) => {
               if (this.state.passenger) {
                 const seats = {
-                  numSeats: this.state.coachSeat + this.state.premiumSeat,
+                  numSeats: parseInt(this.state.coachSeat, 10) + parseInt(this.state.premiumSeat, 10),
                   numPremium: this.state.premiumSeat,
                   premium: this.state.premiumPrice / this.state.coachPrice,
                   rowSeats: this.state.rowSeats,
-                  productId: newFlight.Id
+                  productId: newFlight.id
                 }
                 seatsData.addSeats(seats)
                   .then(() => {
@@ -200,8 +202,8 @@ class addFlight extends React.Component {
                     </div>
                   </div>
                   <div className="form-group">
-                    <label htmlFor="rowSeatInput">Seats Per Row</label>
-                    <input type="number" className="form-control addFlightInput" id="rowSeatInput" onChange={this.select}/>
+                    <label htmlFor="rowSeatsInput">Seats Per Row</label>
+                    <input type="number" className="form-control addFlightInput" id="rowSeatsInput" onChange={this.select}/>
                   </div>
                 </div>}
 
