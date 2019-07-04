@@ -9,6 +9,7 @@
 
 .addFlightNumbersDiv {
   display: flex;
+  flex-flow: column;
 }
 
 .timeInputs {
@@ -40,4 +41,42 @@
 
 .addFlightM {
   background-color: cornflowerblue;
+}
+
+.flightTypeDiv {
+  display: flex;
+  flex-flow: column;
+  margin-bottom: 10px;
+  border: 1.5px solid black;
+  border-radius: 5px;
+  background-color: lightblue;
+  width: 80%;
+  padding: 5px;
+}
+
+.radioLabel {
+  margin-right: 10px;
+}
+
+.flightRadioDiv {
+  display: flex;
+  justify-content: space-around;
+}
+
+.flightTypeTitle {
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.passengerNumbersDiv {
+  display: flex;
+  flex-flow: column;
+}
+
+.imARow {
+  display: flex;
+}
+
+.seatsTitle {
+  font-size: 1.1em;
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './productDetail.scss';
 
 class ProductDetail extends React.Component {

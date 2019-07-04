@@ -9,5 +9,6 @@ namespace PorterAndMoon.Models.Cart
     {
         public int UserId { get; set; }
         public int PaymentId { get; set; }
+        public int ProductId { get; set; }
     }
 }

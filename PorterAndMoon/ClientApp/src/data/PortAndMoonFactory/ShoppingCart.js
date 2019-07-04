@@ -22,6 +22,18 @@ const addProductToCart = (userId, productId, quantOrdered) => new Promise((Resol
     .catch((err) => Reject(err));
 });
 
+const addProductWithSeatToCart = (userId, productId, quantOrdered, seatId) => new Promise((Resolve, Reject) => {
+  // Passes UserId, ProductId, and OrderQuantity as the body of this request
+ axios.post(`${baseUrl}/cart/passenger`, { 
+    UserId: userId,
+    ProductId: productId,
+    OrderQuantity: quantOrdered,
+    SeatId: seatId,
+  })
+    .then((res) => Resolve(res))
+    .catch((err) => Reject(err));
+});
+
 // Gets all cart items of the user
 const getCartItems = (userId) => new Promise((Resolve, Reject) => {
   axios.get(`${baseUrl}/cart`, {
@@ -57,5 +69,6 @@ export default {
   addProductToCart,
   getCartItems,
   removeCartItem,
+  addProductWithSeatToCart,
   purchaseItemsInCart,
 };

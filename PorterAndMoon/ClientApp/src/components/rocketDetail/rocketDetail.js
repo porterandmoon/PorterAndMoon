@@ -60,7 +60,11 @@ class rocketDetail extends React.Component {
   AddProduct = () => {
     if(this.state.value > 0 && !isNaN(this.state.value) && this.state.product.quantity >= this.state.value){
       var requestedQuantity = this.state.value;
-      ShoppingCart.addProductToCart(this.props.currentUser.id, this.state.product.id, requestedQuantity)
+      if (this.state.product.type === 1) {
+        ShoppingCart.addProductToCart(this.props.currentUser.id, this.state.product.id, requestedQuantity);
+      } else if (this.state.product.type === 2) {
+        this.props.history.push(`/seat/${this.state.product.title}/?Id=${this.state.product.id}`);
+      }
     }
   }
   
