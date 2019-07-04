@@ -14,13 +14,10 @@ class ItemInCart extends React.Component {
       departure,
       description,
       destination,
-      isAvailable,
-      id,
       origin,
       quantity,
       remainingQty,
       title,
-      type,
       ordProdId
     } = this.props.cartItem
     

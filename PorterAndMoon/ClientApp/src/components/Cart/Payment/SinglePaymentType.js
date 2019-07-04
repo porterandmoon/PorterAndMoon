@@ -7,6 +7,7 @@ class SinglePaymentType extends React.Component {
   PurchaseClick = (e) => {
     const purchase = { UserId: this.props.currentUser.id, PaymentId: this.props.paymentInfo.id }
     ShoppingCart.purchaseItemsInCart(purchase)
+      .then(() => this.props.checkCart())
       .catch((err) => console.error(err));
     e.preventDefault();
   }

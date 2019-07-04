@@ -13,7 +13,7 @@ class AddPaypal extends React.Component {
     }
     return(
       <Form onSubmit={(e) => this.props.AddPaymentToAcct(e, this.state)}>
-        <img src="http://www.userlogos.org/files/paypal-circle-png.png" onClick={fakePaypal}/>
+        <img src="http://www.userlogos.org/files/paypal-circle-png.png" onClick={fakePaypal} alt="fake PayPal button"/>
         <Button>Submit</Button>
       </Form>
 
