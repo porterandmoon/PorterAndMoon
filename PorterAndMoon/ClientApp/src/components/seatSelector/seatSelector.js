@@ -29,7 +29,7 @@ class seatSelector extends React.Component {
     if (this.state.seatInfo !== null) {
       const renderArray = [];
       this.state.seatInfo.forEach((seat) => {
-        renderArray.push(<img key={seat.id} id={seat.seatNumber} className='seatImg' src={this.seatSourcer(seat)}
+        renderArray.push(<img key={seat.id} id={seat.seatNumber} className='seatImg' alt="seat on rocket" src={this.seatSourcer(seat)}
           value={seat.customerId === 0 ? true : false}
           onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut} onClick={this.selectSeat}/>);
       });
@@ -110,12 +110,12 @@ class seatSelector extends React.Component {
           <div className='seatsContainer' style={{width: this.state.seatsPerRow * 160, height: this.state.seatsPerRow * 320}}>
             <div className='seatsKey'>
               <p>Key</p>
-              <div><img className='seatImg' src={seatImg}/> : Open Coach Seat</div>
-              <div><img className='seatImg' src={seatFirstImg}/> : Open First Class Seat</div>
-              <div><img className='seatImg' src={seatTakenImg}/> : Unavailable Seat</div>
-              <div><img className='seatImg' src={seatSelectedImg}/> : Currently Selected Seat</div>
+              <div><img className='seatImg' src={seatImg} alt="coach seat"/> : Open Coach Seat</div>
+              <div><img className='seatImg' src={seatFirstImg} alt="first class seat"/> : Open First Class Seat</div>
+              <div><img className='seatImg' src={seatTakenImg} alt="unavailable seat"/> : Unavailable Seat</div>
+              <div><img className='seatImg' src={seatSelectedImg} alt="selected seat"/> : Currently Selected Seat</div>
             </div>
-            <img className='rocketImg' src={rocketImg} style={{width: this.state.seatsPerRow * 150}}/>
+            <img className='rocketImg' src={rocketImg} style={{width: this.state.seatsPerRow * 150}} alt="rocket background"/>
             <div className='rocketSeats' style={{
               position: 'relative', left: this.state.seatsPerRow * 66,
               top: this.state.seatsPerRow * -220,

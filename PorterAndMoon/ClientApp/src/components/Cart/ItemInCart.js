@@ -28,11 +28,7 @@ class ItemInCart extends React.Component {
       quantity,
       remainingQty,
       title,
-      type,
       ordProdId,
-      seatNumber,
-      seatType,
-      premium
     } = this.props.cartItem
     
     return(
