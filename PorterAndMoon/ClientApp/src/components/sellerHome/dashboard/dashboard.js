@@ -30,6 +30,7 @@ class dashboard extends React.Component {
   }
 
   currentMonthBuilder = () => {
+    //Renders the sales statistics for the current month based on data returned from api
     if (this.state.currentMonthSales != null) {
       const sales = this.monthTotalizer();
       return <div className='currentMonthDataDiv'>
@@ -63,6 +64,7 @@ class dashboard extends React.Component {
   }
 
   monthTotalizer = () => {
+    //Totalizes sales for the month, gets number of sales, and number of customers, then returns all 3 packaged in an object.
     let sales = {
       total: 0,
       quantity: 0,
@@ -82,6 +84,7 @@ class dashboard extends React.Component {
   }
 
   totalSalesBuiler = () => {
+    //Renders the lifetime sales statistics based on data returned from api
     if (this.state.totalSales != null) {
       const sales = this.totalizer();
       return <div className='totalDataDiv'>
@@ -115,6 +118,7 @@ class dashboard extends React.Component {
   }
 
   totalizer = () => {
+    //Totalizes lifetime sales, gets number of sales, and number of customers, then returns all 3 packaged in an object.
     let sales = {
       total: 0,
       quantity: 0,

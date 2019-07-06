@@ -61,6 +61,7 @@ class addFlight extends React.Component {
           const departure = `${this.state.departureDate}T${this.state.departureTime}Z`;
           const arrival = `${this.state.arrivalDate}T${this.state.arrivalTime}Z`;
       
+          //Creates flight object based on the form inputs
           const flight = {
             destination: this.state.destination,
             origin: this.state.origin,
@@ -74,6 +75,7 @@ class addFlight extends React.Component {
             sellerId: this.props.userId
           }
           
+          //Posts the new flight to the database and then if the new flight is a passenger flight will post the flights seats to the database as well.
           sellerHomeData.addNewFlight(flight)
             .then((newFlight) => {
               if (this.state.passenger) {
@@ -97,6 +99,7 @@ class addFlight extends React.Component {
       // });
   }
 
+  //These selector methods update component state based on the various form inputs.
   selectorD = (selection) => {
     this.setState({ destination: selection });
   }

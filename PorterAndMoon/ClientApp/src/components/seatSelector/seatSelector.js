@@ -26,6 +26,7 @@ class seatSelector extends React.Component {
   }
 
   seatBuilder = () => {
+    //Renders the seat images with their ids and seat numbers based on the data returned from the api
     if (this.state.seatInfo !== null) {
       const renderArray = [];
       this.state.seatInfo.forEach((seat) => {
@@ -38,6 +39,7 @@ class seatSelector extends React.Component {
   }
 
   seatSourcer = (seat) => {
+    //determines the src attribute for the seat images based on the status of the seat (first class, coach, purchased, selected)
     console.log(this.state.selectedSeat);
     if (this.state.selectedSeat.includes(seat.seatNumber)) {
       return seatSelectedImg;
@@ -49,6 +51,8 @@ class seatSelector extends React.Component {
   }
 
   selectSeat = (event) => {
+    //gets the id of the selected seat and then pushes it into the list of selected seats. 
+    //Removes the oldest seat from the list if number of selected seats would exceed the chosen purchase quantity
     const seat = event.target.id;
     if (this.state.selectedSeat.length < this.state.numberSeats && event.target.getAttribute('value')) {
       const updatedState = this.state.selectedSeat;
@@ -63,6 +67,7 @@ class seatSelector extends React.Component {
   }
 
   detailsBuilder = () => {
+    //Renders the details of each selected seat using the array of selected seat ids and finding the relevant seat in the data returned from api
     if (this.state.selectedSeat.length > 0) {
       const renderArray = [];
       this.state.selectedSeat.forEach((seatNum) => {
@@ -82,6 +87,7 @@ class seatSelector extends React.Component {
   }
 
   completeSelection = (event) => {
+    //Adds an item to the users cart for each selected seat and then returns the user to the home page.
     const promiseArray = [];
     this.state.selectedSeat.forEach((seat) => {
       const seatObj = this.state.seatInfo.find(seatObject => seatObject.seatNumber === seat)

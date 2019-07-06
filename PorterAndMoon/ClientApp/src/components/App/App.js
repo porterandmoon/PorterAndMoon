@@ -25,10 +25,10 @@ import './app.scss';
 
 connection();
 
-const PublicRoute = ({ component: Component, loginStatus, ...rest }) => {
+const PublicRoute = ({ component: Component, loginStatus, currentPath, currentUser, ...rest }) => {
   const routeChecker = props => (loginStatus === false
-    ? (<Component { ...props } />)
-    : (<Redirect to={{ pathname: '/homel', state: { from: props.location } } } />));
+    ? (<Component { ...props } currentPath={currentPath} currentUser={currentUser}/>)
+    : (<Redirect to={{ pathname: currentPath, state: { from: props.location } } } />));
   return <Route {...rest} render={props => routeChecker(props)} />;
 };
 
@@ -49,6 +49,7 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, searchDa
     lastName: undefined,
     userName: undefined,
     searchData: [],
+    currentPath: window.location.href.slice(window.location.href.search('/') + 16) 
   }
 
   setSearchData = (response) => {
@@ -58,12 +59,6 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, searchDa
   componentDidMount() {
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.setState({
-          loginStatus: true,
-          pendingUser: false,
-        });
-
-        
         ProfileCalls.currentUserInfo(user.uid)
         .then(profileInfo => {
           const content = profileInfo.data
@@ -72,7 +67,9 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, searchDa
               firstName: content.firstName,
               id: content.id,
               lastName: content.lastName,
-              userName: content.userName
+              userName: content.userName,
+              loginStatus: true,
+              pendingUser: false
             });
           })
         .catch(err => {
@@ -111,14 +108,14 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, searchDa
           <NavbarC searchData={this.setSearchData}/>
           <React.Fragment>
             <Switch>
-              <PublicRoute path='/register' exact component={Register} loginStatus={this.state.loginStatus}/>
+              <PublicRoute path='/register' exact component={Register} currentPath={this.state.currentPath} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/freightl' exact component={Freight} loginStatus={this.state.loginStatus}/>
               <PrivateRoute path='/passengerl' exact component={Passenger} loginStatus={this.state.loginStatus}/>
               <PrivateRoute path='/freightl+*' component={Freight} loginStatus={this.state.loginStatus}/>
               <PrivateRoute path='/passengerl+*' component={Passenger} loginStatus={this.state.loginStatus}/>
-              <PrivateRoute path='/' exact component={Register} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
+              <PrivateRoute path='/' exact component={Home} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/homel' component={Home} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
-              <PublicRoute path='/home' exact component={Home} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
+              <PublicRoute path='/home' exact component={Home} currentPath={this.state.currentPath} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/profile' exact component={Profile} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/seller/*' component={Seller} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/sellerhome' exact component={SellerHome} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
