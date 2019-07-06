@@ -6,6 +6,7 @@ import seatTakenImg from '../../images/seatTaken.png';
 import seatFirstImg from '../../images/seatFirst.png';
 import seatSelectedImg from '../../images/seatSelected.png';
 import shoppingCart from '../../data/PortAndMoonFactory/ShoppingCart';
+import AddedModal from '../rocketDetail/AddedModal';
 import { Button } from 'reactstrap';
 import './seatSelector.scss';
 
@@ -15,7 +16,8 @@ class seatSelector extends React.Component {
     selectedSeat: [],
     seatsPerRow: null,
     numberSeats: 1,
-    path: window.location.href.slice(window.location.href.search('/?Id=') + 3)  
+    path: window.location.href.slice(window.location.href.search('/?Id=') + 3),
+    modal: false
   }
 
   componentDidMount() {
@@ -24,6 +26,13 @@ class seatSelector extends React.Component {
         this.setState({ seatInfo, seatsPerRow: seatInfo[0].rowLength });
       });
   }
+
+  toggle = () => {
+    this.setState(prevState => ({
+      modal: !prevState.modal
+    }));
+  }
+
 
   seatBuilder = () => {
     if (this.state.seatInfo !== null) {
@@ -89,7 +98,7 @@ class seatSelector extends React.Component {
     });
     Promise.all(promiseArray)
       .then(() => {
-        this.props.history.push('/homel');
+        this.toggle();
       }); 
   }
 
@@ -124,6 +133,7 @@ class seatSelector extends React.Component {
             </div>
           </div>
         </div>
+        <AddedModal toggle={this.toggle} history={this.props.history} modal={this.state.modal}/>
       </div>
     );
   }
