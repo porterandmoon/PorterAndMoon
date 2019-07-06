@@ -23,8 +23,8 @@ class SinglePaymentType extends React.Component {
 
     for(var i = 0; i < PaymentKeys.length; i++){
       var PaymentDetail = PaymentKeys[i];
-      if(this.props.paymentInfo[PaymentDetail] !== undefined && this.props.paymentInfo[PaymentDetail] !== null){
-        PaymentHTML.push(<div key={this.props.paymentInfo[PaymentDetail]}>{PaymentDetail}: {this.props.paymentInfo[PaymentDetail]}</div>)
+      if(this.props.paymentInfo[PaymentDetail] !== undefined && this.props.paymentInfo[PaymentDetail] !== null && PaymentDetail !== "id"){
+        PaymentHTML.push(<div className="payment-line-items" key={this.props.paymentInfo[PaymentDetail]}>{PaymentDetail}: {this.props.paymentInfo[PaymentDetail]}</div>)
       }
     }
 
