@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Modal, ModalHeader, ModalBody, Button
+  Modal, ModalHeader, ModalBody
 } from 'reactstrap';
 import './orderDetail.scss';
 
@@ -20,7 +20,7 @@ class orderDetail extends React.Component {
           <p className='orderDetailText'>PayPal Account Holder: </p>
           <p className='orderDetailText'>{this.props.payName}</p>
         </div>
-      </div>; break;
+      </div>;
       case 'BankAccount' : return <div className='orderDetailsDiv'>
         <div className='orderDetailUnit'>
           <p className='orderDetailText'>Payment: </p>
@@ -38,7 +38,7 @@ class orderDetail extends React.Component {
           <p className='orderDetailText'>Routing Number: </p>
           <p className='orderDetailText'>{this.props.routingNumber}</p>
         </div>
-      </div>; break;
+      </div>;
       default : return <div className='orderDetailsDiv'>
         <div className='orderDetailUnit'>
           <p className='orderDetailText'>Payment: </p>
@@ -60,7 +60,7 @@ class orderDetail extends React.Component {
           <p className='orderDetailText'>Security Number: </p>
           <p className='orderDetailText'>{this.props.securityNumber}</p>
         </div>
-      </div>; break;
+      </div>;
     }
   }
 

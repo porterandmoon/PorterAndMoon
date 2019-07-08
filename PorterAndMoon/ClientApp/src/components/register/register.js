@@ -74,10 +74,10 @@ class register extends React.Component {
             <div className='col-6'>
               <div className='logoDiv'>
                 <div className='logoTextDiv'>
-                  <img src={logoText} className='logoText'/>
+                  <img src={logoText} className='logoText' alt="Porter and Moon"/>
                   <p>We've got space... in space</p>
                 </div>              
-                <img src={logo} className='logoR'/>
+                <img src={logo} className='logoR' alt="rocket"/>
               </div> 
             </div>
             <div className='col-4 spacer'></div>

@@ -6,6 +6,7 @@ import seatTakenImg from '../../images/seatTaken.png';
 import seatFirstImg from '../../images/seatFirst.png';
 import seatSelectedImg from '../../images/seatSelected.png';
 import shoppingCart from '../../data/PortAndMoonFactory/ShoppingCart';
+import AddedModal from '../rocketDetail/AddedModal';
 import { Button } from 'reactstrap';
 import './seatSelector.scss';
 
@@ -15,7 +16,8 @@ class seatSelector extends React.Component {
     selectedSeat: [],
     seatsPerRow: null,
     numberSeats: 1,
-    path: window.location.href.slice(window.location.href.search('/?Id=') + 3)  
+    path: window.location.href.slice(window.location.href.search('/?Id=') + 3),
+    modal: false
   }
 
   componentDidMount() {
@@ -25,11 +27,18 @@ class seatSelector extends React.Component {
       });
   }
 
+  toggle = () => {
+    this.setState(prevState => ({
+      modal: !prevState.modal
+    }));
+  }
+
+
   seatBuilder = () => {
     if (this.state.seatInfo !== null) {
       const renderArray = [];
       this.state.seatInfo.forEach((seat) => {
-        renderArray.push(<img key={seat.id} id={seat.seatNumber} className='seatImg' src={this.seatSourcer(seat)}
+        renderArray.push(<img key={seat.id} id={seat.seatNumber} className='seatImg' alt="seat on rocket" src={this.seatSourcer(seat)}
           value={seat.customerId === 0 ? true : false}
           onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut} onClick={this.selectSeat}/>);
       });
@@ -89,7 +98,7 @@ class seatSelector extends React.Component {
     });
     Promise.all(promiseArray)
       .then(() => {
-        this.props.history.push('/homel');
+        this.toggle();
       }); 
   }
 
@@ -110,12 +119,12 @@ class seatSelector extends React.Component {
           <div className='seatsContainer' style={{width: this.state.seatsPerRow * 160, height: this.state.seatsPerRow * 320}}>
             <div className='seatsKey'>
               <p>Key</p>
-              <div><img className='seatImg' src={seatImg}/> : Open Coach Seat</div>
-              <div><img className='seatImg' src={seatFirstImg}/> : Open First Class Seat</div>
-              <div><img className='seatImg' src={seatTakenImg}/> : Unavailable Seat</div>
-              <div><img className='seatImg' src={seatSelectedImg}/> : Currently Selected Seat</div>
+              <div><img className='seatImg' src={seatImg} alt="coach seat"/> : Open Coach Seat</div>
+              <div><img className='seatImg' src={seatFirstImg} alt="first class seat"/> : Open First Class Seat</div>
+              <div><img className='seatImg' src={seatTakenImg} alt="unavailable seat"/> : Unavailable Seat</div>
+              <div><img className='seatImg' src={seatSelectedImg} alt="selected seat"/> : Currently Selected Seat</div>
             </div>
-            <img className='rocketImg' src={rocketImg} style={{width: this.state.seatsPerRow * 150}}/>
+            <img className='rocketImg' src={rocketImg} style={{width: this.state.seatsPerRow * 150}} alt="rocket background"/>
             <div className='rocketSeats' style={{
               position: 'relative', left: this.state.seatsPerRow * 66,
               top: this.state.seatsPerRow * -220,
@@ -124,6 +133,7 @@ class seatSelector extends React.Component {
             </div>
           </div>
         </div>
+        <AddedModal toggle={this.toggle} history={this.props.history} modal={this.state.modal}/>
       </div>
     );
   }

@@ -5,12 +5,40 @@
 }
 
 .profile-container {
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   color: #fff;
+  background-color: rgba(255, 255, 255, 0.103);
 }
 
 .date-time {
   color: #c4c4c4;
+}
+
+.profile-button-container {
+  width:80%;
+  margin-top: 13px;
+  padding-top: 57px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.internal-profile-links{
+  padding: 20px;
+  border-radius: 30px;
+}
+
+html {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+body {
+  height: 100%;
 }

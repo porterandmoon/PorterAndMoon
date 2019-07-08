@@ -8,7 +8,6 @@ const DBURL = apiKeys.baseUrl;
 
 axios.interceptors.request.use((request) => {
   const token = sessionStorage.getItem('token');
-
   if (token != null) {
       request.headers.Authorization = `Bearer ${token}`;
   }

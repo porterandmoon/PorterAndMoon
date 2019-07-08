@@ -24,24 +24,54 @@ class ItemInCart extends React.Component {
       departure,
       description,
       destination,
-      isAvailable,
-      id,
       origin,
       quantity,
       remainingQty,
       title,
-      type,
       ordProdId,
-      seatNumber,
-      seatType,
-      premium
     } = this.props.cartItem
     
+    const dateFormatter = (datetime) => {
+      const date = new Date(datetime);
+      const month = date.getMonth();
+      const day = date.getDate();
+      const year = date.getFullYear();
+
+      const dateString = `${month}/${day}/${year}`;
+
+      return dateString
+    }
+
+    const timeFormatter = (datetime) => {
+      const date = new Date(datetime);
+      let hour = date.getHours();
+      let minute = date.getMinutes();
+      let tod;
+
+      if(hour === 0){
+        hour = 12;
+        tod = "am";
+      } else if(0 < hour < 12) {
+        tod = "am";
+      } else {
+        hour = (hour-12);
+        tod = "pm";
+      }
+
+      if(minute === 0){
+        minute = "00";
+      }
+
+      const dateString = `${hour}:${minute} ${tod}`;
+
+      return dateString
+    }
+
     return(
       <Toast>
         <ToastHeader>
           <div className="cart-item-header">
-            <div>Takeoff: {new Date(departure).toLocaleDateString()} at {new Date(departure).toLocaleTimeString()}</div>
+            <div>Takeoff: {dateFormatter(departure)} at {timeFormatter(departure)}</div>
               <div className="remove-from-cart">
                 <div className="title-destination">Destination Planet: {destination}</div>
                 <span className="remove-container" onClick={() => this.props.RemoveItem(ordProdId)} title="Remove from Cart">
@@ -57,11 +87,11 @@ class ItemInCart extends React.Component {
             <div className="cart-item-title">Flight # {title} :: {description}</div>
             <div className="cart-item-details">
               <div className="cart-item-takeoff">
-                <div>Takeoff: {new Date(departure).toLocaleDateString()} at {new Date(departure).toLocaleTimeString()}</div>
+                <div>Takeoff: {dateFormatter(departure)} at {timeFormatter(departure)}</div>
                 <div>Planet of Origin: {origin}</div>
               </div>
               <div className="cart-item-touchdown">
-                <div>Touchdown: {new Date(arrival).toLocaleDateString()} at approximately {new Date(arrival).toLocaleTimeString()}</div>
+                <div>Touchdown: {dateFormatter(arrival)} at {timeFormatter(arrival)}</div>
                 <div>Destination Planet: {destination} </div>
               </div>
             </div>
