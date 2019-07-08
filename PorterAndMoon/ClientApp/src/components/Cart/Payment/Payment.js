@@ -56,15 +56,16 @@ class Payment extends React.Component{
       if(this.state.paymentTypes.length > 0){
         return (
           <div>
-            <Button color="outline-warning" onClick={this.toggle}>Purchase</Button>
+            <Button color="info" onClick={this.toggle}>Purchase</Button>
             <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-              <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+              <ModalHeader toggle={this.toggle}>Choose Your Payment</ModalHeader>
               <ModalBody>
               {this.state.paymentTypes
                 .map(payment => <SinglePaymentType
                                   toggle={this.toggle}
                                   paymentInfo={payment}
                                   currentUser={this.props.currentUser}
+                                  checkCart={this.props.checkCart}
                                   key={payment.id}/>)}
               </ModalBody>
               <ModalFooter>

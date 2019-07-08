@@ -107,6 +107,7 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, searchDa
         <BrowserRouter>
           <NavbarC searchData={this.setSearchData}/>
           <React.Fragment>
+              <div className="switch-comp">
             <Switch>
               <PublicRoute path='/register' exact component={Register} currentPath={this.state.currentPath} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/freightl' exact component={Freight} loginStatus={this.state.loginStatus}/>
@@ -127,6 +128,7 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, searchDa
               <PrivateRoute path='/search-results' exact component={SearchResults} loginStatus={this.state.loginStatus} searchData={this.state.searchData}/>
               <PrivateRoute path='/seat/*' component={Seat} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
             </Switch>
+              </div>
           </React.Fragment>
         </BrowserRouter>
     );

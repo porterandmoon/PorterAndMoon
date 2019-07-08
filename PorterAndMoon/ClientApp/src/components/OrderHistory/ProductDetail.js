@@ -33,7 +33,7 @@ class ProductDetail extends React.Component {
 
     return (
       <div>
-        <p className="">{
+        <p>{
           orderSummary(
             this.props.detail.quantityOrdered,
             this.props.detail.type,

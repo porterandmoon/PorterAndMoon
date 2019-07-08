@@ -39,13 +39,15 @@ class MyOrder extends React.Component {
     }
 
     return (
-      <div className="card">
+      <div className="card order-card">
         <div className="card-body">
-          <p className="card-text">Payment Type: {this.props.order.paymentType}</p>
-          {listProducts()}
-          <p className="card-text">{dateFormatter(this.props.order.date)}</p>
-          {paymentSorter(this.props.order)}
-          <RefundInfo refunded={this.props.order.isRefunded} />
+          <div className="history-detail">
+            <p className="card-text">Payment Type: {this.props.order.paymentType}</p>
+            {listProducts()}
+            <p className="card-text">{dateFormatter(this.props.order.date)}</p>
+            {paymentSorter(this.props.order)}
+            <RefundInfo refunded={this.props.order.isRefunded} />
+          </div>
         </div>
       </div>
     );
