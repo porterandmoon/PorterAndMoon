@@ -18,6 +18,7 @@ class register extends React.Component {
     registerError: false
   }
 
+  //Sets the relevant state whenever an input field is edited
   updateField = (event) => {
     const val = event.target.value;
     switch(event.target.id) {
@@ -30,6 +31,7 @@ class register extends React.Component {
     }
   }
 
+  //Runs the form validator, then if it passes creates a user in firebase, then adds the user to the database along with the firebase uid.
   addUser = () => {
     this.setState({ registerError: false });
     this.validate();

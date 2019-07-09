@@ -18,6 +18,7 @@ namespace PorterAndMoon.Connections
             ConnectionString = dbConfig.Value.ConnectionString;
         }
 
+        //Gets a list of seats for the selected rocket.
         public IEnumerable<Seat> GetSeats(int productId)
         {
             using (var connection = new SqlConnection(ConnectionString))
@@ -32,6 +33,7 @@ namespace PorterAndMoon.Connections
             throw new Exception("Could not get seats");
         }
 
+        //Sets the selected seat to sold and attaches the current customers id to the seat.
         public Seat UpdateSold(Seat updatedSeat)
         {
             using (var connection = new SqlConnection(ConnectionString))
@@ -48,6 +50,7 @@ namespace PorterAndMoon.Connections
             throw new Exception("Could not update seat");
         }
 
+        //When a new passenger flight is created, adds the associated seats to the database.
         public int CreateSeats(NewFlightSeat newFlight)
         {
             using (var connection = new SqlConnection(ConnectionString))

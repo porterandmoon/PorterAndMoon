@@ -11,6 +11,7 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap
     this.setState({ dropdownOpen: !this.state.dropdownOpen });
   }
 
+  //Sets the selection state to the chosen location for the dropdown caret and sets the state of the parent element to the chosen selection.
   select = (event) => {
     const val = event.target.value;
     this.setState({ selection: val }, () => {

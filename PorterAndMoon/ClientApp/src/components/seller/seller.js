@@ -29,6 +29,7 @@ class seller extends React.Component {
       });
   }
 
+  //Gets the sellers rockets for sale based on their id.
   rocketsGetter = () => {
     sellerData.getSellerRockets(this.state.sellerInfo.id)
       .then((rocketInfo) => {
@@ -36,6 +37,7 @@ class seller extends React.Component {
       });
   }
 
+  //Renders the sellers info based on the data returned by the api.
   sellerInfoBuilder = () => {
     if (this.state.sellerInfo != null) {
       return <div className='sellerInfoDiv'>
@@ -46,6 +48,8 @@ class seller extends React.Component {
     }
   }
 
+  //Renders the list of routes for passenger/freight rockets and the number of flights available on each route.  
+  // Sets origin based on selected origin and organizes destinations based on selected destination. 
   rocketsAggregateBuilder = (type) => {
     if (this.state.rocketInfo != null) {
       const renderArray = [];
@@ -68,6 +72,7 @@ class seller extends React.Component {
     }
   }
 
+  //Totals the number of rockets for sale on a route
   rocketsTotalizer = (origin, destination, type) => {
     let total = 0;
     type = (type === 'P' ? 2 : 1);
@@ -79,6 +84,7 @@ class seller extends React.Component {
     return total;
   }
 
+  //Renders the list of rockets for sale on the selected route
   rocketListBuilder = () => {
     if (this.state.rocketInfo !== null) {
       const renderArray = [];
@@ -99,6 +105,7 @@ class seller extends React.Component {
     }
   }
 
+  //Builds the table rows for rendering in the rocketListBuilder
   rocketListSubBuilder = () => {
     const renderArray = [];
     this.state.rocketInfo.forEach((rocket) => {
@@ -130,6 +137,7 @@ class seller extends React.Component {
     this.setState({ selectedDestinationF : selection });
   }
 
+  //Sets the styling on a route div to be highlighted when hovered over
   routeHovered = (event) => {
     const tar = event.currentTarget;
     if (tar.className.includes('hovering') === false) {
@@ -137,6 +145,7 @@ class seller extends React.Component {
     }
   }
 
+  //Resets the styling on a route div when no longer hovered over
   routeHoveredOut = (event) => {
     const tar = event.currentTarget;
     if (tar.className.includes('hovering')) {
@@ -144,12 +153,14 @@ class seller extends React.Component {
     }
   }
 
+
+  //Sets the relevant states for building the selected route list based on the clicked on route.
   routeSelect = (event) => {
     const tar = event.currentTarget;
     this.setState({
       listOrigin : tar.getAttribute('Origin'),
       listDestination: tar.getAttribute('Destination'),
-      listType: tar.getAttribute('type')
+      listType: parseInt(tar.getAttribute('type'), 10) 
     });
   }
 
