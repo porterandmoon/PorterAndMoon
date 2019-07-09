@@ -7,7 +7,7 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
-import { NavLink as RRNavLink, Link } from 'react-router-dom';
+import { NavLink as RRNavLink } from 'react-router-dom';
 import firebase from 'firebase/app';
 import navbarData from '../../data/PortAndMoonFactory/navbarData';
 import 'firebase/auth';
@@ -199,7 +199,6 @@ class navbarC extends React.Component {
             <Nav className="ml-auto" navbar>
               <NavItem className='navLinks'>
               <SearchBar className="searchBar" searchData={searchData}/>
-                <NavLink onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut} onClick={this.linkClicked} id='homeLink'></NavLink>
                 <NavLink tag={RRNavLink} to='/homel' onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut}>
                   <i className="fas fa-home"></i> Home
                 </NavLink>

@@ -54,14 +54,14 @@ namespace PorterAndMoon.Connections
                 throw new Exception("Uhh uhh uhhh, didn't say the magic word.");
         }
 
-        public PaymentType AddPaymentType(PaymentType newPayment)
+        public PaymentType AddPaymentType(NewPayment newPayment)
         {
             using (var connection = new SqlConnection(ConnectionString)) {
                 var queryString = @"Insert into Payment (customerId, type, cardNumber, securityNumber,
-                                    bankAccountNumber, paypalAuth, name, isExpired, expirationDate)
+                                    bankAccountNumber, routingNumber, paypalAuth, name, isExpired, expirationDate)
                                     Output inserted.*
                                     Values (@customerId, @type, @cardNumber, @securityNumber,
-                                    @bankAccountNumber, @paypalAuth, @name, @isExpired, @expirationDate)";
+                                    @bankAccountNumber, @routingNumber, @paypalAuth, @name, @isExpired, @expirationDate)";
                 var payment = connection.QueryFirstOrDefault<PaymentType>(queryString, newPayment);
                 if (payment != null)
                 {

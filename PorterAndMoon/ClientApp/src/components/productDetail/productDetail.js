@@ -7,7 +7,7 @@ class ProductDetail extends React.Component {
         const product = this.props;
         if (product !== null) {
         return <div className="productDetails">
-            <div className="container">
+            <div className="container product-detail-container">
               <div className="col">
                 <h1>Details for Flight {product.product.title}</h1>
                 <p>{product.product.description}</p>

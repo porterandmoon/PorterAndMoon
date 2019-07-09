@@ -11,7 +11,14 @@ const getPaymentTypes = (userId) => new Promise((Resolve, Reject) => {
 
 const deletePaymentType = paymentId => axios.delete(`${baseUrl}/payment/${paymentId}`)
 
+const addPayment = (paymentInfo) => new Promise((Resolve, Reject) => {
+  axios.post(`${baseUrl}/payment`, paymentInfo)
+    .then((res) => Resolve(res))
+    .catch((err) => Reject(err));
+});
+
 export default { 
   getPaymentTypes, 
+  addPayment,
   deletePaymentType
 }

@@ -20,6 +20,7 @@ import SellerRockets from '../sellerRockets/sellerRockets';
 import NavbarC from '../navbar/navbarC';
 import Cart from '../Cart/Cart';
 import SearchResults from '../SearchResults/SearchResults';
+import Seat from '../seatSelector/seatSelector';
 import './app.scss';
 
 connection();
@@ -109,6 +110,7 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, searchDa
         <BrowserRouter>
           <NavbarC searchData={this.setSearchData}/>
           <React.Fragment>
+              <div className="switch-comp">
             <Switch>
               <PublicRoute path='/register' exact component={Register} loginStatus={this.state.loginStatus}/>
               <PrivateRoute path='/freightl' exact component={Freight} loginStatus={this.state.loginStatus}/>
@@ -119,7 +121,7 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, searchDa
               <PrivateRoute path='/homel' component={Home} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PublicRoute path='/home' exact component={Home} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/profile' exact component={Profile} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
-              <PrivateRoute path='/seller/*' component={Seller} loginStatus={this.state.loginStatus}/>
+              <PrivateRoute path='/seller/*' component={Seller} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/sellerhome' exact component={SellerHome} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/sellerhome/rockets+*' component={SellerRockets} loginStatus={this.state.loginStatus} currentUser={currentUser}/>  
               <PrivateRoute path='/detail/*' component={RocketDetail} loginStatus={this.state.loginStatus} currentUser={currentUser}/>  
@@ -127,7 +129,9 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, searchDa
               <PrivateRoute path='/payment-types' exact component={UserPayments} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/cart' exact component={Cart} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
               <PrivateRoute path='/search-results' exact component={SearchResults} loginStatus={this.state.loginStatus} searchData={this.state.searchData}/>
+              <PrivateRoute path='/seat/*' component={Seat} loginStatus={this.state.loginStatus} currentUser={currentUser}/>
             </Switch>
+              </div>
           </React.Fragment>
         </BrowserRouter>
     );

@@ -10,5 +10,6 @@ namespace PorterAndMoon.Models.Cart
         public int UserId { get; set; }
         public int ProductId { get; set; }
         public decimal OrderQuantity { get; set; }
+        public int SeatId { get; set; }
     }
 }

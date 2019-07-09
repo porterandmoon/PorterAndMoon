@@ -58,7 +58,7 @@ class UserPayments extends React.Component {
                             {this.buildPayment()}
                         </div>
                         <div className="cardForm">
-                            <Form>
+                            <Form className="user-payment-form">
                             <FormGroup>
                             <Label>Name</Label>
                             <Input type="text" id="cardName" placeholder="Name on card" />

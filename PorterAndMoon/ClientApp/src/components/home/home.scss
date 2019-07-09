@@ -1,0 +1,18 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.topFlightsTitle{
+  width: 800px;
+  background-color: black;
+  color: white;
+  border: 1.5px outset white;
+  border-radius: 2px;
+  text-align: center;
+  margin-bottom: 0;
+  margin-top: 1%;
+  margin-left: 3%;
+
+}

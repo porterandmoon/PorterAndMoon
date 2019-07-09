@@ -10,8 +10,7 @@ import './sellerHome.scss';
 
 class sellerHome extends React.Component {
   state = {
-    orderInfo: null,
-    modal: false
+    orderInfo: null
   }
   
   componentDidMount() {
@@ -21,8 +20,11 @@ class sellerHome extends React.Component {
       });
   }
 
-  toggle = () => {
-    this.setState({ modal: !this.state.modal });
+  updateAfterAddition() {
+    sellerHomeData.getSellerOrders(this.props.currentUser.id)
+      .then((orderInfo) => {
+        this.setState({ orderInfo });
+      });
   }
 
   rocketSpaceBuilder = () => {
@@ -51,7 +53,7 @@ class sellerHome extends React.Component {
           <div className='sellerBtnDiv'>
             <Button className='btn btn-sm btn-info sellerButton' tag={Link} to={`/sellerhome/rockets+${this.props.currentUser.id}`}>
             <i className="fas fa-calendar-alt"></i> Rocket Schedule</Button>
-            <AddFlight userId={this.props.currentUser.id}/>
+            <AddFlight userId={this.props.currentUser.id} updateAfterAddition={this.updateAfterAddition}/>
             <SalesHistory userId={this.props.currentUser.id}/>
           </div>
         </div>
