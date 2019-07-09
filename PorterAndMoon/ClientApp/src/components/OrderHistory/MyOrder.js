@@ -5,6 +5,11 @@ import './MyOrder.scss';
 
 class MyOrder extends React.Component {
 
+  revealCurrency = (moneyAmount) => {
+    return moneyAmount.toLocaleString('en-US', {style: 'currency', currency:'USD'})
+  }
+
+
   render() {
     const paymentSorter = (order) => {
       if(order.bankAccountNumber !== null){
@@ -21,6 +26,16 @@ class MyOrder extends React.Component {
       }
     }
 
+    const total = () => {
+      let sumTotal = 0;
+      const items = this.props.order.productDetail;
+
+      for(let i=0; i < items.length; i++){
+        sumTotal += (items[i].price * items[i].quantityOrdered);
+      }
+
+      return this.revealCurrency(sumTotal);
+    }
 
     const dateFormatter = (datetime) => {
       const date = new Date(datetime);
@@ -35,18 +50,29 @@ class MyOrder extends React.Component {
 
 
     const listProducts = () => {
-      return this.props.order.productDetail.map(product => <ProductDetail detail={product}/>);
+      return this.props.order.productDetail.map(product => <ProductDetail detail={product} revealCurrency={this.revealCurrency}/>);
+    }
+
+    const showMoreDetail = (e) => {
+      const clickedCard = e.currentTarget;
+      if(clickedCard.classList.contains("order-card")){
+        clickedCard.classList.replace("order-card", "order-card-expanded")
+      } else {
+        clickedCard.classList.replace("order-card-expanded", "order-card")
+      }
     }
 
     return (
-      <div className="card order-card">
+      <div className="card order-card" onClick={showMoreDetail}>
         <div className="card-body">
           <div className="history-detail">
-            <p className="card-text">Payment Type: {this.props.order.paymentType}</p>
-            {listProducts()}
             <p className="card-text">{dateFormatter(this.props.order.date)}</p>
+            <div className="list-products-container">
+              {listProducts()}
+            </div>
+            <p className="card-text">TOTAL: {total()}</p>
+            <p className="card-text">Payment Type: {this.props.order.paymentType}</p>
             {paymentSorter(this.props.order)}
-            <RefundInfo refunded={this.props.order.isRefunded} />
           </div>
         </div>
       </div>
