@@ -9,6 +9,9 @@ const getPaymentTypes = (userId) => new Promise((Resolve, Reject) => {
     .catch((err) => Reject(err));
 });
 
+const deletePaymentType = paymentId => axios.delete(`${baseUrl}/payment/${paymentId}`)
+
 export default { 
   getPaymentTypes, 
+  deletePaymentType
 }

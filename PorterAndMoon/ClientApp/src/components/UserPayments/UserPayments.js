@@ -9,6 +9,10 @@ class UserPayments extends React.Component {
         userPayments: {}
     }
 
+    deletePayment = (paymentId) => {
+        Payment.deletePaymentType(paymentId)
+    }
+
     componentDidMount() {
         Payment.getPaymentTypes(this.props.currentUser.id)
         .then((res) => {
@@ -18,23 +22,22 @@ class UserPayments extends React.Component {
         .catch((err) => console.error(err));
     }
 
-    addButtons = () => {
-        const buttons = <div>
-            <button className="btn btn-danger">X</button>
-            <button className="btn btn-warning"><i class="far fa-edit"></i></button>
-            </div>
-        return buttons;
-    }
+    // addButtons = () => {
+    //     const buttons = <div>
+    //         <button className="btn btn-danger" onClick={this.deleteEvent()}>X</button>
+    //         <button className="btn btn-warning"><i className="far fa-edit"></i></button>
+    //         </div>
+    //     return buttons;
+    // }
 
     buildPayment = () => {
             if (this.state.userPayments !== null) {
-                console.log(this.state.userPayments)
                 const paymentArray = []
-                Object.keys(this.state.userPayments).forEach((paymentId) => {
-                    const payment = this.state.userPayments[paymentId];
+                Object.keys(this.state.userPayments).forEach((userPayment) => {
+                    const payment = this.state.userPayments[userPayment];
                     paymentArray.push(
-                    <div key={paymentId} className="paymentDetails">
-                        {this.addButtons()}
+                    <div key={payment.id} className="paymentDetails">
+                        <button className="btn btn-danger" onClick={this.deletePayment(payment.id)}>X</button>
                         <h5>{payment.type}</h5>
                         <p>{payment.bankAccountNumber}</p>
                         <p>{payment.cardNumber}</p>
