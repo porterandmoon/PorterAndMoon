@@ -1,5 +1,4 @@
 import React from 'react';
-import RefundInfo from './RefundInfo';
 import ProductDetail from './ProductDetail'
 import './MyOrder.scss';
 
