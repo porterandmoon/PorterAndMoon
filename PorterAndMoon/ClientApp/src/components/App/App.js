@@ -49,7 +49,7 @@ const PrivateRoute = ({ component: Component, loginStatus, currentUser, searchDa
     lastName: undefined,
     userName: undefined,
     searchData: [],
-    currentPath: window.location.href.slice(window.location.href.search('/') + 16) 
+    currentPath: window.location.pathname 
   }
 
   setSearchData = (response) => {
