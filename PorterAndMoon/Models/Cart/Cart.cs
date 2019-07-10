@@ -9,6 +9,6 @@ namespace PorterAndMoon.Models.Cart
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
-        public List<ItemDetail> ItemsInCart { get; set; } = new List<ItemDetail>();
+        public Dictionary<int, List<ItemDetail>> ItemsInCart { get; set; } = new Dictionary<int, List<ItemDetail>>();
     }
 }

@@ -42,6 +42,7 @@ class Freight extends React.Component {
     }
   }
 
+  //Builds the table rows for the card builder if there are 3 or more rockets for sale on this destination. 
   cardBuilderPart2_3OrMore = (dest) => {
     const renderArray = [];
     for (let i = 0; i < this.state.rocketInfo[dest].length; i++) {
@@ -58,6 +59,7 @@ class Freight extends React.Component {
     return renderArray;   
    }
 
+   //Builds the table rows for the card builder if there are less than 3 rockets for sale on this destination. 
   cardBuilderPart2_LessThan3 = (dest) => {
     const renderArray = [];
     this.state.rocketInfo[dest].forEach((rocket) => {
@@ -74,6 +76,8 @@ class Freight extends React.Component {
     return renderArray;
   }
 
+  //Renders the list of rockets for each destination based on the data returned from the api.  
+  // Will render a maximum of 3 rockets per destination.
   rocketCardBuilder = () => {
     const renderArray = [];
     if (this.state.rocketInfo !== null) {

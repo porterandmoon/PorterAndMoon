@@ -10,6 +10,7 @@ class orderDetail extends React.Component {
   }
 
   detailsBuilder = () => {
+    //Renders the order payment details based on the type of payment (payPal, bank account, card, card is default)
     switch (this.props.payType) {
       case 'PayPal' : return <div className='orderDetailsDiv'>
         <div className='orderDetailUnit'>

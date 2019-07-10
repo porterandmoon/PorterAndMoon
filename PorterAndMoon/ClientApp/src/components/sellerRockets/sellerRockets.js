@@ -21,9 +21,12 @@ class sellerRockets extends React.Component {
       });
   }
 
+  //Matches up departing rockets with their position on the calendar based on departure date.
   departureMatcher = (date, view) => {
     let flightList = false; 
 
+    //Gets the date of the calendar tiles using the react calendars built in methods
+    // and converts them to match the date-time format from the api.
     const dateConverter = (startDate) => {
       let month = startDate.getMonth();
       let day = startDate.getDate();
@@ -37,6 +40,8 @@ class sellerRockets extends React.Component {
       return convertedDate;
     }
 
+    //Loops over the departing rockets list which are grouped by their departure dates,
+    // and if their departure date matches the calendar tile date then creates a link to that rocket.
     if (view === 'month' && this.state.departures !== null) {
       Object.keys(this.state.departures).forEach((day) => {
         const flightDate = day.replace('T00:00:00', '');
@@ -58,9 +63,12 @@ class sellerRockets extends React.Component {
     return flightList;
   }
 
+    //Matches up arriving rockets with their position on the calendar based on arrival date.
   arrivalMatcher = (date, view) => {
     let flightList = false; 
 
+    //Gets the date of the calendar tiles using the react calendars built in methods
+    // and converts them to match the date-time format from the api.
     const dateConverter = (startDate) => {
       let month = startDate.getMonth();
       let day = startDate.getDate();
@@ -74,6 +82,8 @@ class sellerRockets extends React.Component {
       return convertedDate;
     }
 
+    //Loops over the arriving rockets list which are grouped by their arrival dates,
+    // and if their arrival date matches the calendar tile date then creates a link to that rocket.
     if (view === 'month' && this.state.arrivals !== null) {
       Object.keys(this.state.arrivals).forEach((day) => {
         const flightDate = day.replace('T00:00:00', '');
@@ -95,6 +105,7 @@ class sellerRockets extends React.Component {
     return flightList;
   }
 
+  //Combines the flight icon, departures list, and arrivals list into a single component to render to the calendar tile
   flightCombiner = (date, view) => {
     const icon = [];
     icon.push(<i className="fas fa-rocket calendarIcon"></i>);

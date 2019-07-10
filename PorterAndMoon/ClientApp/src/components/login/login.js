@@ -20,6 +20,7 @@ class login extends React.Component {
     });
   }
 
+  //Updates the relevant state whenever a form field is edited.
   updateField = (event) => {
     const val = event.target.value;
     switch(event.target.id) {
@@ -29,6 +30,7 @@ class login extends React.Component {
     }
   }
 
+  //Runs the form validator and then if it passes logs the user in through firebase and reroutes them to the correct page.
   loginUser = () => {
     this.setState({ error: false });
     this.validate();
@@ -45,6 +47,7 @@ class login extends React.Component {
     }  
   }
 
+  //If user is on registration page routes them to the home page, otherwise routes them back to the logged in version of current page.
   historyPusher = () => {
     if (this.props.location === 'register') {
       this.props.history.push('/homel');

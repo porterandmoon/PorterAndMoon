@@ -8,12 +8,15 @@ import {
 
 class ItemInCart extends React.Component {
   seatsBuilder = () => {
-    if (this.props.cartItem.seatNumber !== null) {
-      return <div>
-        <p>Your Seat</p>
-        <p>{this.props.cartItem.seatType}</p>
-        <p>Seat number: {this.props.cartItem.seatNumber}</p>
-      </div>;
+    if (this.props.seats.length > 0) {
+      const renderArray = [<p>Your Seats</p>];
+      this.props.seats.forEach((seat) => {
+        renderArray.push(<div key={seat.seatNumber}>
+          <p>{seat.seatType}</p>
+          <p>Seat number: {seat.seatNumber}</p>
+        </div>);
+      });
+      return renderArray;
     }
   }
 

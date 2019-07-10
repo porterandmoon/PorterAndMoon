@@ -27,21 +27,32 @@ class Cart extends React.Component {
 
   // loops over each product and displays them separately
   ShowItems = () => {
-    if(this.state.cart !== null && this.state.cart.itemsInCart !== undefined && this.state.cart.itemsInCart.length > 0){
+    if(this.state.cart !== null && this.state.cart.itemsInCart !== undefined){
       return (
         <div>
           <Payment currentUser={this.props.currentUser} checkCart={this.CheckCart}/>
-          {this.state.cart.itemsInCart
-            .map(cartItem => <ItemInCart
-                cartItem={cartItem}
-                key={cartItem.ordProdId}
-                RemoveItem={this.RemoveItem}
-                CheckCart={this.CheckCart}
-            />)}
+          {this.itemBuilder()}
         </div>)
     } else {
       return <h2>Your cart it empty!</h2>
     }
+  }
+
+  itemBuilder = () => {
+    const renderArray = [];
+    Object.keys(this.state.cart.itemsInCart).forEach((productId) => {
+      const items = this.state.cart.itemsInCart[productId];
+
+      const seatsArray = [];
+      if (items[0].type === 2) {
+        items.forEach((purchase) => {
+          seatsArray.push({ seatType: purchase.seatType, seatNumber: purchase.seatNumber });
+        });
+      }
+      
+      renderArray.push(<ItemInCart seats={seatsArray} cartItem={items[0]} key={items[0].ordProdId} RemoveItem={this.RemoveItem} CheckCart={this.CheckCart}/>)
+    });
+    return renderArray;
   }
 
   // remove item from cart function

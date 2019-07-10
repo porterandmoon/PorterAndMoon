@@ -18,14 +18,7 @@ class home extends React.Component {
       });
   }
 
-  logOut = () => {
-    firebase.auth().signOut();
-  }
-
-  getToProfile = () => {
-    this.props.history.push("/profile")
-  }
-
+  //Builds the table rows for the rocket lists on the card builder.
   tableRowBuilder = (dest) => {
     const renderArray = [];
     this.state.rocketInfo[dest].forEach((rocket) => {
@@ -43,6 +36,7 @@ class home extends React.Component {
     return renderArray;
   }
 
+  //Renders the lists of rockets for sale based on the 20 most recently added products returned from the api.
   rocketCardBuilder = () => {
     const renderArray = [];
     if (this.state.rocketInfo !== null) {

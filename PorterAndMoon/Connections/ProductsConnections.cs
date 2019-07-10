@@ -111,6 +111,7 @@ namespace PorterAndMoon.Connections
             throw new Exception("Something went wrong searching the products");
         }
 
+        //Gets a list of rockets of the selected type (freight or passenger) and groups them based on their destination
         public Dictionary<string, List<Products>> GetRocketsOfType(int type)
         {
             using (var connection = new SqlConnection(ConnectionString))
@@ -128,6 +129,7 @@ namespace PorterAndMoon.Connections
             throw new Exception("Could not get products.");
         }
 
+        //Gets a list of freight rockets with the selected destination
         public IEnumerable<Products> GetFreightRocketsOfDestination(string destination)
         {
             using (var connection = new SqlConnection(ConnectionString))
@@ -143,6 +145,7 @@ namespace PorterAndMoon.Connections
             throw new Exception("Could not get rockets");
         }
 
+        //Gets a list of passenger rockets with the selected destination
         public IEnumerable<Products> GetPassengerRocketsOfDestination(string destination)
         {
             using (var connection = new SqlConnection(ConnectionString))
@@ -158,6 +161,7 @@ namespace PorterAndMoon.Connections
             throw new Exception("Could not get rockets");
         }
 
+        //Gets a list of the 20 most recently added rockets for sale and groups them by their destination
         public Dictionary<string, List<Products>> GetMostRecentRockets()
         {
             using (var connection = new SqlConnection(ConnectionString))
@@ -175,6 +179,7 @@ namespace PorterAndMoon.Connections
             throw new Exception("Could not get rockets");
         }
 
+        //Gets a list of all rockets being sold by the selected seller.
         public IEnumerable<Products> GetSellerRockets(int id)
         {
             using (var connection = new SqlConnection(ConnectionString))
@@ -188,6 +193,7 @@ namespace PorterAndMoon.Connections
             throw new Exception("Could not find rockets");
         }
 
+        //Adds a new rocket to the database for the current user
         public Products AddRocket(Products newRocket)
         {
             using (var connection = new SqlConnection(ConnectionString))
@@ -198,11 +204,15 @@ namespace PorterAndMoon.Connections
                 var rando = new Random();
                 var title = rando.Next(1000, 10000);
                 var currentTime = DateTime.Now;
+
+                //Gets a list of flight numbers for rockets being sold by the current user
                 var initQueryString = @"Select Title
                                         From Product
                                         Where SellerId = @SellerId AND Departure > @CurrentTime";
                 var flightStrings = connection.Query<string>(initQueryString, new { sellerId, currentTime });
                 var flightNums = flightStrings.Select(flightNum => Int32.Parse(flightNum)).ToList();
+
+                //Creates a random 4 digit flight number then checks to see if it is already in use, repeats itself until a nonmatching number is generated.
                 newRocket.Title = titleChecker(title, flightNums).ToString();
                 var queryString = @"Insert into Product(Type, Description, Quantity, SellerId, Price, RemainingQty,
                                         Title, TimePosted, Destination, Origin, Departure, Arrival)
