@@ -23,18 +23,6 @@ class UserPayments extends React.Component {
         .catch((err) => console.error(err));
     }
 
-    // paymentComponents = () => {
-    // const payments = this.state.userPayments;
-    // if(this.state.userPayments !== null) {
-    //    payments.map(payment => (
-    //         <SinglePayment
-    //         payment={payment}
-    //         key={payment.id}
-    //         />
-    //     ));
-    //     }
-    // }
-
     buildPayment = () => {
         if (this.state.userPayments !== null) {
             console.log(this.state.userPayments)

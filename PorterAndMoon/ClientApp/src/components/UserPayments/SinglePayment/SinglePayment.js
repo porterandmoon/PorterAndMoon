@@ -1,4 +1,5 @@
 import React from 'react';
+import './SinglePayment.scss';
 
 class SinglePayment extends React.Component {
     render(){
