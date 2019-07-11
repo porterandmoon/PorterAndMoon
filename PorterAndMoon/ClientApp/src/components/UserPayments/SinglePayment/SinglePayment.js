@@ -7,7 +7,7 @@ class SinglePayment extends React.Component {
         const addButtons = () => {
             const buttons = <div>
                 <button className="btn btn-danger">X</button>
-                <button className="btn btn-warning"><i class="far fa-edit"></i></button>
+                <button className="btn btn-warning"><i className="far fa-edit"></i></button>
                 </div>
             return buttons;
         }
@@ -17,7 +17,7 @@ class SinglePayment extends React.Component {
                 <p>{payment.name}</p>
                 <p>{payment.bankAccountNumber}</p>
                 <p>{payment.cardNumber}</p>
-                {addButtons}
+                {addButtons()}
             </div>
         )
     }
