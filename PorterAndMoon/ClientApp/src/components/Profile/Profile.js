@@ -27,9 +27,9 @@ class Profile extends React.Component {
         <h4>FirstName: {this.props.currentUser.firstName}</h4>
         <h4>LastName: {this.props.currentUser.lastName}</h4>
         <div className="profile-button-container">
-          <Button className="internal-profile-links" color="primary" onClick={this.getToOrderHistory}>OrderHistoryButton</Button>
-          <Button className="internal-profile-links" color="primary" onClick={this.getToSellerDashboard}>Productbuttonstings</Button>
-          <Button className="internal-profile-links" color="primary" onClick={this.getToUserPayments}>PaymentInfoButton</Button>
+          <Button className="internal-profile-links" color="primary" onClick={this.getToOrderHistory}>Order History </Button>
+          <Button className="internal-profile-links" color="primary" onClick={this.getToSellerDashboard}>My Dashboard</Button>
+          <Button className="internal-profile-links" color="primary" onClick={this.getToUserPayments}>Payment Info</Button>
         </div>
       </div>
     );

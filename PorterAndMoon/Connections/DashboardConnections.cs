@@ -19,6 +19,9 @@ namespace PorterAndMoon.Connections
             ConnectionString = dbConfig.Value.ConnectionString;
         }
 
+
+        /* Gets a list of orders for the current month for products sold by the current user. 
+        */
         public Dictionary<int, List<Sales>> GetMonthsSales(int id)
         {
             using (var connection = new SqlConnection(ConnectionString))
@@ -35,6 +38,8 @@ namespace PorterAndMoon.Connections
             throw new Exception("Could not get sales");
         }
 
+        /* Gets a list of orders for products sold by the current user for whole lifetime. 
+        */
         public Dictionary<int, List<Sales>> GetAllSales(int id)
         {
             using (var connection = new SqlConnection(ConnectionString))
@@ -51,6 +56,7 @@ namespace PorterAndMoon.Connections
             throw new Exception("Could not get sales");
         }
 
+        //Gets the total number of rockets being sold by the current user for analytic purposes.
         public int GetNumRockets(int id)
         {
             using (var connection = new SqlConnection(ConnectionString))
@@ -64,6 +70,7 @@ namespace PorterAndMoon.Connections
             throw new Exception("Could not get total");
         }
 
+        //Gets the total number of rockets being sold by the current user in the current month for analytic purposes.
         public int GetNumRocketsMonth(int id)
         {
             using (var connection = new SqlConnection(ConnectionString))
@@ -79,6 +86,7 @@ namespace PorterAndMoon.Connections
             throw new Exception("Could not get total");
         }
 
+        //Gets a list of rockets sold or being sold by the current user and groups them based on their departure date.
         public Dictionary<DateTime, List<Products>> GetDepartures(int id)
         {
             using (var connection = new SqlConnection(ConnectionString))
@@ -94,6 +102,7 @@ namespace PorterAndMoon.Connections
             throw new Exception("Could not get departures");
         }
 
+        //Gets a list of rockets sold or being sold by the current user and groups them based on their arrival date.
         public Dictionary<DateTime, List<Products>> GetArrivals(int id)
         {
             using (var connection = new SqlConnection(ConnectionString))

@@ -151,7 +151,7 @@ namespace PorterAndMoon.Connections
         /* this gets a list of products that are attached to an
          * Order that is not settled yet 
          */
-        public List<ItemDetail> GetPendingProducts(SqlConnection connection, int orderId)
+        public Dictionary<int, List<ItemDetail>> GetPendingProducts(SqlConnection connection, int orderId)
         {
             var queryString = @"SELECT op.id as OrdProdId, op.quantity, p.type, p.Id, p.remainingQty, p.arrival,
                                     p.departure, p.destination, p.origin, p.title, p.description, s.seatNumber, s.type as seatType, s.premium
@@ -170,7 +170,9 @@ namespace PorterAndMoon.Connections
                 {
                     product.IsAvailable = new CheckSystem().VerifyDate(product.Departure);
                 }
-                return pendingProducts.ToList();
+                var pendProd = pendingProducts.ToList();
+                var groupedProducts = pendProd.GroupBy(product => product.Id);
+                return groupedProducts.ToDictionary(x => x.Key, x => x.ToList());
             }
             throw new Exception("Trouble getting user's cart products");
         }

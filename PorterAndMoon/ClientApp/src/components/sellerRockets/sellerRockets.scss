@@ -26,6 +26,9 @@
   background-color: orange;
   border-radius: 20px;
   padding: 2px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
 }
 
 .calendarIcon {
@@ -38,6 +41,11 @@
   position: relative;
   left: 75px;
   top: -18px;
+}
+
+.calendarFlightD, .calendarFlightA {
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .calendarArrivalTitle, .calendarDepartureTitle {

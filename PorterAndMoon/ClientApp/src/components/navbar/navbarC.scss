@@ -56,12 +56,18 @@
 
 #dropdownMenuDiv {
   display: flex;
-  flex-flow: row-reverse;
   margin-top: 18px;
-  margin-right: -8px;
+  margin-left: -8px;
 }
 
 #rocketLink {
+  width: 135px;
+  position: absolute;
+  z-index: 150;
+}
+
+.find-rocket-link-container {
+  position: relative;
   width: 135px;
 }
 

@@ -28,6 +28,7 @@ class sellerHome extends React.Component {
   }
 
   rocketSpaceBuilder = () => {
+    //Renders the list of rockets the user currently has for sale based on the data returned from api.
     if (this.state.orderInfo != null) {
       const renderArray = [];
       Object.keys(this.state.orderInfo).forEach((productId) => {

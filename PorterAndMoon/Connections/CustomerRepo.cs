@@ -156,6 +156,7 @@ namespace PorterAndMoon.Connections
 
         }
 
+        //Gets a list of rockets and orders for rockets being currently sold by the current user and then groups the orders based on the associated rocket.
         public Dictionary<int, List<SellerOrder>> GetSellerOrders(int id)
         {
             using (var db = new SqlConnection(_connectionString))
@@ -176,6 +177,7 @@ namespace PorterAndMoon.Connections
             throw new Exception("Could not find orders");
         }
 
+        //Gets a list of rockets and orders for rockets previously sold by the current user and then groups the orders based on the associated rocket.
         public Dictionary<int, List<SellerOrder>> GetSellerHistory(int id)
         {
             using (var db = new SqlConnection(_connectionString))

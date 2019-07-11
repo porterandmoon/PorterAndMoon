@@ -13,6 +13,7 @@ class rocketSpace extends React.Component {
   }
 
   hovered = (event) => {
+    //Sets the styling of the elements when hovered over
     event.preventDefault();
     const link = event.currentTarget;
     if (link.className.includes(' hovered') === false) {
@@ -21,6 +22,7 @@ class rocketSpace extends React.Component {
   }
 
   hoveredOut = (event) => {
+    //Resets the styling on the elements when no longer hovering over
     event.preventDefault();
     const link = event.currentTarget;
     if (link.className.includes(' hovered')) {
@@ -34,6 +36,7 @@ class rocketSpace extends React.Component {
   }
 
   purchasesBuilder = () => {
+    //Renders the purchases table header and executes the table row builder
     return <table class="table purchasesTable">
     <thead>
       <tr>
@@ -51,6 +54,7 @@ class rocketSpace extends React.Component {
   }
 
   purchaseUnitBuilder = () => {
+    //renders the table rows based on the data returned from the api and creates an order detail modal for each purchase
     const renderArray = [];
     this.props.purchases.forEach((purchase) => {
       renderArray.push(<tr key={purchase.username} onMouseEnter={this.hovered} onMouseLeave={this.hoveredOut} onClick={this.toggle}>
