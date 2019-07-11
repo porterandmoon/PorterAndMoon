@@ -10,10 +10,25 @@ class UserPayments extends React.Component {
         userPayments: null
     }
 
-    // deletePayment = (paymentId) => {
-    //     Payment.deletePaymentType(paymentId)
-    // }
+    //called to update saved payments after one is deleted
+    refreshPayments = () => {
+        Payment.getPaymentTypes(this.props.currentUser.id)
+        .then((res) => {
+            const userPayments = res.data;
+            this.setState({ userPayments })
+        })
+        .catch((err) => console.error(err));
+    }
 
+    deletePayment = (paymentId) => {
+        Payment.deletePaymentType(paymentId)
+        .then(() => {
+            this.refreshPayments();
+        })
+        .catch(err => console.error('error getting updated payments', err));
+    }
+
+    //gets initial list of saved payments by userId
     componentDidMount() {
         Payment.getPaymentTypes(this.props.currentUser.id)
         .then((res) => {
@@ -25,7 +40,6 @@ class UserPayments extends React.Component {
 
     buildPayment = () => {
         if (this.state.userPayments !== null) {
-            console.log(this.state.userPayments)
             const paymentArray = []
             Object.keys(this.state.userPayments).forEach((paymentId) => {
                 const payment = this.state.userPayments[paymentId];
@@ -33,6 +47,7 @@ class UserPayments extends React.Component {
                     <SinglePayment
                     payment={payment}
                     key={payment.id}
+                    deletePayment={this.deletePayment}
                     />);
                 });
             return paymentArray
@@ -46,10 +61,11 @@ class UserPayments extends React.Component {
                     <div className="container">
                     <div className="row">
                             <div className="paymentsCard">
-                                <h3>Your Saved Payment Methods</h3>
+                                <h3 className="addPay">Your Saved Payment Methods</h3>
                                 {this.buildPayment()}
                             </div>
                             <div className="cardForm">
+                                <h3 className="addPay">Add a new payment method:</h3>
                                 <Form className="user-payment-form">
                                 <FormGroup>
                                 <Label>Name</Label>
