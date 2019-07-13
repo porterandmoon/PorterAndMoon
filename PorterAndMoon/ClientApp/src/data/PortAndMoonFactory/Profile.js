@@ -9,4 +9,8 @@ const currentUserInfo = uid => new Promise ((resolve, reject) => {
   .catch(err => reject(err));
 });
 
+const getUserId = uid => new Promise ((resolve, reject) => {
+  axios.get(`${baseUrl}/user/$`)
+})
+
 export default { currentUserInfo };
