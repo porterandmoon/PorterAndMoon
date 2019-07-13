@@ -5,12 +5,25 @@ import './UserPayments.scss';
 import Payment from '../../data/PortAndMoonFactory/Payment';
 import SinglePayment from './SinglePayment/SinglePayment';
 
-class UserPayments extends React.Component {
-    state = {
-        userPayments: null
+const emptyPayment = {
+        type: '',
+        customerId: '',
+        expirationDate: '',
+        cardNumber: '',
+        securityNumber: '',
+        routingNumber: '',
+        bankAccountNumber: '',
+        name: '',
+        payPalAuth: false
     }
 
-    //called to update saved payments after one is deleted
+class UserPayments extends React.Component {
+    state = {
+        userPayments: null,
+        newPayment: emptyPayment,
+    }
+
+    //called to update saved payments after one is deleted or added
     refreshPayments = () => {
         Payment.getPaymentTypes(this.props.currentUser.id)
         .then((res) => {
@@ -27,8 +40,27 @@ class UserPayments extends React.Component {
         })
         .catch(err => console.error('error getting updated payments', err));
     }
+    
 
     //gets initial list of saved payments by userId
+
+    formSubmit = (e) => {
+        e.preventDefault();
+        const { currentUser } = this.props
+        const myPayment = { ...this.state.newPayment };
+        myPayment.customerId = currentUser.id;
+        this.formSubmitEvent(myPayment);
+        this.setState({ newPayment: emptyPayment})
+    }
+
+    formSubmitEvent = (newPayment) => {
+        Payment.addPayment(newPayment)
+        .then(() => {
+            this.refreshPayments();
+        })
+        .catch(err => console.error('error getting updated payments', err));
+    }
+
     componentDidMount() {
         Payment.getPaymentTypes(this.props.currentUser.id)
         .then((res) => {
@@ -56,7 +88,29 @@ class UserPayments extends React.Component {
 
 
     render() {
-            return (
+        const { newPayment } = this.state; 
+
+        const getName = () => {
+            this.setState({ newPayment : document.getElementById("cardName").value });
+          }
+        
+        const getNum = () => {
+        this.setState({ paymentType: document.getElementById("cardNum").value });
+        }
+
+        const getCode = () => {
+            this.setState({ paymentType: document.getElementById("securityNumber").value });
+          }
+        
+        const getExp = () => {
+            this.setState({ paymentType: document.getElementById("cardDate").value });
+            }
+
+        const getType = () => {
+            this.setState({ paymentType: document.getElementById("exampleSelect").value });
+            }
+                
+          return (
                 <div className="payments">
                     <div className="container">
                     <div className="row">
@@ -66,26 +120,26 @@ class UserPayments extends React.Component {
                             </div>
                             <div className="cardForm">
                                 <h3 className="addPay">Add a new payment method:</h3>
-                                <Form className="user-payment-form">
+                                <Form className="user-payment-form" onSubmit={this.formSubmit}>
                                 <FormGroup>
                                 <Label>Name</Label>
-                                <Input type="text" id="cardName" placeholder="Name on card" />
+                                <Input type="text" id="cardName" placeholder="Name on card" value={newPayment.name} onChange={getName}/>
                                 </FormGroup>
                                 <FormGroup>
                                 <Label>Card Number</Label>
-                                <Input type="text"id="cardName" placeholder="#" />
+                                <Input type="text"id="cardNum" placeholder="#" value={newPayment.cardNumber} onChange={getNum}/>
                                 </FormGroup>
                                 <FormGroup>
                                 <Label>Security Number</Label>
-                                <Input type="text"id="securityNumber" placeholder="#" />
+                                <Input type="text"id="securityNumber" placeholder="#" value={newPayment.securityNumber} onChange={getCode}/>
                                 </FormGroup>
                                 <FormGroup>
                                 <Label>Month/Year Expiration</Label>
-                                <Input type="month"id="cardDate" placeholder="" />
+                                <Input type="month"id="cardDate" placeholder="" value={newPayment.expirationDate} onChange={getExp}/>
                                 </FormGroup>
                                 <FormGroup>
                                 <Label for="exampleSelect">Select Payment Type</Label>
-                                <Input type="select" name="select" id="exampleSelect">
+                                <Input type="select" name="select" id="exampleSelect" value={newPayment.type} onChange={getType}>
                                     <option>Visa</option>
                                     <option>MasterCard</option>
                                     <option>American Express</option>
